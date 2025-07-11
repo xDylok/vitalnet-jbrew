@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+
+    <ui:composition template="../WEB-INF/templates/base.xhtml">
+
+        <f:metadata>
+            <f:viewParam name="id" value="#{userHome.selectedUserId}" />
+            <f:event listener="#{userHome.loadUser()}" type="preRenderView" />
+        </f:metadata>
+
+        <ui:define name="title-view">
+            J-Brew 1.0 - #{userHome.user.id != null ? 'Editar' : 'Crear'} usuario
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="userForm">
+                <div class="col-12">
+                    <div class="card ui-fluid" >
+                        <h5>
+                            #{userHome.managed ? 'Editar' : 'Ćrear'} Usuario
+                        </h5>
+                        <p:messages skipDetailIfEqualsSummary="true" showDetail="true" >
+                            <p:autoUpdate/>
+                        </p:messages>
+                        <p:panel header="Cuenta de usuario">
+                            <h:panelGrid columns="2" cellpadding="7">
+                                <p:outputLabel for="username" value="Nombre de usuario:" />
+                                <p:inputText id="username" value="#{userHome.user.name}" required="true"
+                                             disabled="#{userHome.managed}"/>
+                                <p:outputLabel for="password" value="Contraseña:" />
+                                <p:password id="password" value="#{userHome.user.password}" required="true"
+                                            toggleMask="true" redisplay="true" >
+                                    <f:validateLength minimum="8" for="password"/>
+                                    <p:clientValidator/>
+                                </p:password>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:panel header="Información Personal">
+                            <h:panelGrid columns="2" cellpadding="7">
+                                <p:outputLabel for="firstName" value="Nombres:" />
+                                <p:inputText id="firstName" value="#{userHome.user.person.firstName}" required="true"/>
+                                <p:outputLabel for="lastName" value="Apellidos:" />
+                                <p:inputText id="lastName" value="#{userHome.user.person.lastName}" required="true"/>
+                                <p:outputLabel for="birthDate" value="Fecha nacimiento:" />
+                                <p:datePicker id="birthDate" value="#{userHome.user.person.birthDate}" required="true"
+                                              title="Fecha de nacimiento" pattern="yyyy-MM-dd"
+                                              showIcon="true" showOnFocus="false"
+                                              yearNavigator="yes" monthNavigator="yes"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:commandButton value="Crear" rendered="#{!userHome.managed}"
+                                         action="#{userHome.create()}"
+                                         icon="pi pi-user" validateClient="true" styleClass="mt-3"
+                                         update="@form" title="Guarda un usuario nuevo"/>
+                        <p:commandButton value="Guardar" rendered="#{userHome.managed}"
+                                         action="#{userHome.update()}"
+                                         icon="pi pi-user" validateClient="true" styleClass="mt-3"
+                                         update="@form" title="Guarda un usuario nuevo"/>
+
+                        <p:commandButton value="Cancelar" action="userList.xhtml?faces-redirect=true"
+                                         immediate="true"
+                                         icon="pi pi-times" styleClass="mt-3 ui-button-secondary"/>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

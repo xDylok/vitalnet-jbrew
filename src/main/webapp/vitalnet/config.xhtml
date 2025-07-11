@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <title>Configuración del Sistema</title>
+   <style>
+      .config-container {
+         max-width: 600px;
+         margin: 20px auto;
+         padding: 20px;
+         border: 1px solid #ddd;
+         border-radius: 5px;
+         background-color: #f9f9f9;
+      }
+      .config-title {
+         color: #2c3e50;
+         border-bottom: 1px solid #eee;
+         padding-bottom: 10px;
+         margin-bottom: 20px;
+      }
+      .form-field {
+         margin-bottom: 15px;
+      }
+      .btn-save {
+         background-color: #3498db;
+         color: white;
+         padding: 8px 16px;
+         border: none;
+         border-radius: 4px;
+      }
+      .btn-save:hover {
+         background-color: #2980b9;
+      }
+   </style>
+</h:head>
+<h:body>
+   <div class="config-container">
+      <h2 class="config-title">Configuración de Parámetros Médicos</h2>
+
+      <h:form>
+         <h:panelGrid columns="3" styleClass="form-grid">
+            <!-- Temperatura -->
+            <div class="form-field">
+               <h:outputLabel value="Temperatura Máxima (°C):" for="tempMax" />
+               <h:inputText id="tempMax"
+                            value="#{configBean.config.temperaturaMax}"
+                            required="true"
+                            requiredMessage="Campo obligatorio"
+                            validatorMessage="Debe ser un valor numérico">
+                  <f:validateDoubleRange minimum="30" maximum="45"/>
+               </h:inputText>
+               <h:message for="tempMax" style="color: red;"/>
+            </div>
+
+            <!-- Frecuencia Cardíaca -->
+            <div class="form-field">
+               <h:outputLabel value="Frecuencia Cardíaca Mínima (bpm):" for="fcMin" />
+               <h:inputText id="fcMin"
+                            value="#{configBean.config.frecuenciaCardiacaMin}"
+                            required="true"
+                            requiredMessage="Campo obligatorio">
+                  <f:validateLongRange minimum="30" maximum="200"/>
+               </h:inputText>
+               <h:message for="fcMin" style="color: red;"/>
+            </div>
+
+            <div class="form-field">
+               <h:outputLabel value="Frecuencia Cardíaca Máxima (bpm):" for="fcMax" />
+               <h:inputText id="fcMax"
+                            value="#{configBean.config.frecuenciaCardiacaMax}"
+                            required="true"
+                            requiredMessage="Campo obligatorio">
+                  <f:validateLongRange minimum="50" maximum="250"/>
+               </h:inputText>
+               <h:message for="fcMax" style="color: red;"/>
+            </div>
+
+            <!-- Presión Arterial -->
+            <div class="form-field">
+               <h:outputLabel value="Presión Arterial Máxima (mmHg):" for="paMax" />
+               <h:inputText id="paMax"
+                            value="#{configBean.config.presionArterialMax}"
+                            required="true"
+                            requiredMessage="Campo obligatorio">
+                  <f:validateLongRange minimum="80" maximum="200"/>
+               </h:inputText>
+               <h:message for="paMax" style="color: red;"/>
+            </div>
+
+            <!-- Botón de Guardar -->
+            <div class="form-field" style="grid-column: span 3; text-align: center;">
+               <h:commandButton value="Guardar Configuración"
+                                action="#{configBean.guardar}"
+                                styleClass="btn-save"/>
+            </div>
+         </h:panelGrid>
+
+         <!-- Mensajes globales -->
+         <h:messages globalOnly="true" styleClass="messages" infoStyle="color: green;" errorStyle="color: red;"/>
+      </h:form>
+   </div>
+</h:body>
+</html>

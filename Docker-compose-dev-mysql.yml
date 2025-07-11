@@ -1,0 +1,58 @@
+services:
+
+  # Base de datos MySQL
+  jbrew-mysql-db:
+    image: mysql:${MYSQL_VERSION}
+    restart: unless-stopped
+    container_name: jbrew-mysql-db-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: jbrewdb
+      MYSQL_USER: jbrewuser
+      MYSQL_PASSWORD: jbrew2525
+    ports:
+      - ${DB_MYSQL_PORT_PUBLIC}:3306
+    volumes:
+      - jbrew-mysql-data:/var/lib/mysql
+      #- ./init_db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      jbrew-network:
+        ipv4_address: 173.21.0.250
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5  # Número de intentos antes de marcar como no saludable
+      start_period: 30s #Espera inicial antes de comenzar a comprobar(Dar tiempo a MySQL inicie)
+
+  mysql-adminer-bd:
+    image: adminer
+    container_name: mysql-adminer-bd-container
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    depends_on:
+      - jbrew-mysql-db
+    networks:
+      jbrew-network:
+        ipv4_address: 173.21.0.253
+
+
+networks:
+  jbrew-network:
+    driver: bridge
+    #driver_opts:
+    #    parent: eth0
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.21.0.0/24
+
+volumes:
+  jbrew-mysql-data:
+    name: jbrew-mysql-data-local
+    driver: local
+    driver_opts:
+      type: none
+      device: ${LOCAL_MYSQL_DATA_DIR_BD}
+      o: bind

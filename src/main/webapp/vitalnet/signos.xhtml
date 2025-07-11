@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Registro de Signos Vitales</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h2>Nuevo Registro</h2>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Paciente:" />
+            <h:selectOneMenu value="#{signosVitalesBean.signos.paciente}">
+                <f:selectItems value="#{signosVitalesBean.pacientes}" var="p" itemLabel="#{p.nombre}" itemValue="#{p}" />
+            </h:selectOneMenu>
+
+            <h:outputLabel value="Temperatura:" />
+            <h:inputText value="#{signosVitalesBean.signos.temperatura}" />
+
+            <h:outputLabel value="Frecuencia Cardíaca:" />
+            <h:inputText value="#{signosVitalesBean.signos.frecuenciaCardiaca}" />
+
+            <h:commandButton value="Guardar" action="#{signosVitalesBean.save}" />
+        </h:panelGrid>
+        <h:messages />
+
+        <h2>Historial</h2>
+        <h:dataTable value="#{signosVitalesBean.registros}" var="registro">
+            <h:column>
+                <f:facet name="header">Paciente</f:facet>
+                #{registro.paciente.nombre}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Temperatura</f:facet>
+                <h:outputText value="#{registro.temperatura}" style="#{alertaBean.getEstilo(registro)}" />
+            </h:column>
+            <h:column>
+                <h:commandButton value="Eliminar" action="#{signosVitalesBean.delete(registro)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>

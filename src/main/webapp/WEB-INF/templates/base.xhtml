@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: wduck
+  Date: 30/6/25
+  Time: 07:56
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+
+    <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+        <h:head>
+            <title>
+                <ui:insert name="title-view">J-Brew 1.0</ui:insert>
+            </title>
+            <ui:insert name="head"/>
+            <style>
+                button.ui-button {
+                    margin-right: .5rem;
+                }
+                .app-container {
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 100vh;
+                }
+                .header-container {
+                    background-color: #f8f9fa;
+                    border-bottom: 1px solid #dee2e6;
+                    padding: 0.5rem 1rem;
+                }
+                .header-content {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .app-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+                .user-info {
+                    text-align: right;
+                }
+                .content-container {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 2rem;
+                }
+                .centered-card {
+                    width: 95%;
+                    max-width: 1200px;
+                }
+                .footer-container {
+                    background-color: #f8f9fa;
+                    border-top: 1px solid #dee2e6;
+                    padding: 1rem;
+                    text-align: center;
+                }
+                .footer-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            </style>
+        </h:head>
+        <h:body>
+            <div class="app-container">
+            <header id="header">
+                <!-- Header Section -->
+                <div class="header-container">
+                    <div class="header-content">
+                        <div class="app-title">
+                            <div class="flex align-items-center gap-3">
+                                <svg width="16" height="16" viewBox="0 0 48 48" fill="currentColor">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z"/>
+                                </svg>
+                                <h:outputText value="JBrews" style="color: #1b120e; font-weight: bold; font-size: 1.125rem"/>
+                            </div>
+                        </div>
+                    </div>
+                    <ui:insert name="menu">
+                        <ui:include src="fragments/topbar.xhtml" />
+                    </ui:insert>
+                </div>
+            </header>
+
+            <!-- Contenido dinámico -->
+            <main id="content">
+                <div class="content-container">
+                    <div class="centered-card">
+                        <ui:insert name="content">
+                            <!-- Contenido será insertado aquí -->
+                            <ui:debug hotkey="d"/>
+                        </ui:insert>
+                    </div>
+                </div>
+            </main>
+
+            <footer id="footer">
+                <ui:insert name="footer">
+                    <ui:include src="fragments/footer.xhtml"/>
+                </ui:insert>
+            </footer>
+
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                <f:facet name="start">
+                    <i class="pi pi-spin pi-spinner layout-ajax-loader-icon" aria-hidden="true"/>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+            </div>
+        </h:body>
+    </f:view>
+</html>

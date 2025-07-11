@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+
+    <ui:composition template="../WEB-INF/templates/base.xhtml">
+        <ui:define name="title-view">
+            J-Brew 1.0 - Búsqueda de usuario
+        </ui:define>
+        <ui:define name="content">
+            <h:form id="searchUserForm">
+                <p:defaultCommand target="userList:search"/>
+                <div class="col-12">
+                    <div class="card">
+                        <H5>Administraación de usuarios</H5>
+                        <p:growl id="messages" showDetail="true"/>
+                        <p:toolbar styleClass="mb-4">
+                            <p:toolbarGroup>
+                                <p:commandButton id="create" action="/security/userEdit.xhtml"
+                                                 icon="pi pi-user-plus"
+                                                 styleClass="ui-button-success" style="margin-right: .5rem"
+                                                 value="Crear"/>
+                            </p:toolbarGroup>
+                        </p:toolbar><div class="¨card">
+                </div>
+
+                        <p:dataTable id="userList"
+                                     value="#{userList.users}" var="_user"
+                                     emptyMessage="No existen usuarios"
+                                     paginator="true" rows="15"
+                                     paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">
+                                        Gestión de Usuarios  (#{userList.users.size()} encontrados)
+                                    </span>
+                                    <span class="filter-container ui-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <p:inputText id="name" value="#{userList.criteria}"
+                                                     placeholder="Buscar usuario.."/>
+                                        <p:spacer width="5"/>
+                                        <p:commandButton id="search"
+                                                         icon="pi pi-search"
+                                                         styleClass="rounded-button ui-button-success"
+                                                         update="searchUserForm"
+                                                         action="#{userList.search()}"
+                                                         title="Buscar"/>
+                                        <p:spacer width="10"/>
+                                        <p:commandButton id="reset" process="@this"
+                                                         action="#{userList.reset()}"
+                                                         update="searchUserForm"
+                                                         icon="pi pi-refresh" styleClass="rounded-button ui-button-danger"
+                                                         title="Limpiar"/>
+                                    </span>
+                                </div>
+                            </f:facet>
+                            <p:column headerText="id">
+                                <h:outputText value="#{_user.id}"/>
+                            </p:column>
+                            <p:column headerText="nombre de usuario">
+                                <h:outputText value="#{_user.name}"/>
+                            </p:column>
+                            <p:column headerText="entidad propietaria">
+                                <h:outputText value="#{_user.person.fullName}"/>
+                            </p:column>
+                            <p:column styleClass="action" class="md:col-2" headerText="Acción">
+                                <p:commandButton icon="pi pi-pencil"
+                                                 styleClass="edit-button rounded-button ui-button-success" ajax="false"
+                                                 id="_edit"
+                                                 action="#{userList.edit(_user)}"
+                                                 process="@this"
+                                                 title="Editar usuario"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

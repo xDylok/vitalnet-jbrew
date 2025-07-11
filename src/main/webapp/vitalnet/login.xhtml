@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>VitalNet - Login</title>
+    <style>
+        .login-box { margin: 100px auto; width: 300px; padding: 20px; border: 1px solid #ccc; }
+        .error { color: red; }
+    </style>
+</h:head>
+<h:body>
+    <div class="login-box">
+        <h2>Iniciar Sesión</h2>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Usuario:" />
+                <h:inputText value="#{loginBean.username}" required="true" />
+
+                <h:outputLabel value="Contraseña:" />
+                <h:inputSecret value="#{loginBean.password}" required="true" />
+
+                <h:commandButton value="Login" action="#{loginBean.login}" styleClass="btn" />
+            </h:panelGrid>
+            <h:messages globalOnly="true" styleClass="error" />
+        </h:form>
+    </div>
+</h:body>
+</html>

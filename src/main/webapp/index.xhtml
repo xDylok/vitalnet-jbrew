@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+
+    <ui:composition template="WEB-INF/templates/base.xhtml">
+        <ui:define name="title-view">
+            J-Brew 1.0 - Inicio
+        </ui:define>
+        <ui:define name="content">
+            <h:form>
+                <div class="card">
+                    <p:messages skipDetailIfEqualsSummary="true" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+                    <!-- Contenido Principal -->
+                    <p:panel>
+                        <p:graphicImage title="logo" url="images/jbrew_logo.png"/>
+                        <h4>Bienvenido a la aplicación que permite la gestión de:</h4>
+                        <ul class="bullets">
+                            <li><h5>Pedidos de cafetería</h5></li>
+                            <li><h5>Reportes de venta</h5></li>
+                            <li><h5>Gestión de productos</h5></li>
+                        </ul>
+                    </p:panel>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

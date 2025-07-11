@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+   <title>Reportes</title>
+</h:head>
+<h:body>
+   <h:form>
+      <h2>Generar Reporte</h2>
+      <h:panelGrid columns="2">
+         <h:outputLabel value="Paciente:" />
+         <h:selectOneMenu value="#{reporteBean.pacienteId}">
+            <f:selectItems value="#{reporteBean.pacientes}" var="p" itemLabel="#{p.nombre}" itemValue="#{p.id}" />
+         </h:selectOneMenu>
+
+         <h:outputLabel value="Fecha Inicio:" />
+         <h:inputText value="#{reporteBean.fechaInicio}">
+            <f:convertDateTime pattern="yyyy-MM-dd" />
+         </h:inputText>
+
+         <h:outputLabel value="Fecha Fin:" />
+         <h:inputText value="#{reporteBean.fechaFin}">
+            <f:convertDateTime pattern="yyyy-MM-dd" />
+         </h:inputText>
+
+         <h:commandButton value="Generar" action="#{reporteBean.generarReporte}" />
+      </h:panelGrid>
+
+      <h2>Resultados</h2>
+      <h:dataTable value="#{reporteBean.resultados}" var="item">
+         <h:column>
+            <f:facet name="header">Fecha</f:facet>
+            <h:outputText value="#{item.fechaHora}">
+               <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+            </h:outputText>
+         </h:column>
+         <h:column>
+            <f:facet name="header">Temperatura</f:facet>
+            #{item.temperatura}
+         </h:column>
+      </h:dataTable>
+   </h:form>
+</h:body>
+</html>

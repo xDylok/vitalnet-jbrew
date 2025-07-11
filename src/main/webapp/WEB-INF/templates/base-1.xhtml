@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: wduck
+  Date: 30/6/25
+  Time: 07:56
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <title>
+            <ui:insert name="Menú">J-Brew 1.0</ui:insert>
+        </title>
+        <ui:insert name="head"/>
+        <style>
+            button.ui-button {
+                margin-right: .5rem;
+            }
+            .app-container {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .header-container {
+                background-color: #f8f9fa;
+                border-bottom: 1px solid #dee2e6;
+                padding: 0.5rem 1rem;
+            }
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .app-title {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            .user-info {
+                text-align: right;
+            }
+            .content-container {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+            }
+            .centered-card {
+                width: 95%;
+                max-width: 1200px;
+            }
+            .footer-container {
+                background-color: #f8f9fa;
+                border-top: 1px solid #dee2e6;
+                padding: 1rem;
+                text-align: center;
+            }
+            .footer-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        </style>
+    </h:head>
+    <h:body>
+
+    </h:body>
+</f:view>
+</html>

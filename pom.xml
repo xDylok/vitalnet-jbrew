@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.unl.cc.jbrew</groupId>
+    <artifactId>jbrew-web</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>JBrews-web Coffe bar</name>
+    <description>
+        The project demonstrates how you can develop applications with the
+        Jakarta EE platform using widely adopted architectural best
+        practices like Domain-Driven Design (DDD).
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+        <jakartaee-api.version>10.0.0</jakartaee-api.version>
+        <compiler-plugin.version>3.13.0</compiler-plugin.version>
+        <war-plugin.version>3.4.0</war-plugin.version>
+        <liberty-plugin.version>3.10.3</liberty-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>${jakartaee-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>15.0.0</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>jbrew-web</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${war-plugin.version}</version>
+            </plugin>
+
+            <!-- Execute 'mvn clean package liberty:run' to run the application.  -->
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>${liberty-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Gestión de Pacientes</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h2>Registrar Paciente</h2>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nombre:" />
+            <h:inputText value="#{pacienteBean.paciente.nombre}" required="true" />
+
+            <h:outputLabel value="Apellido:" />
+            <h:inputText value="#{pacienteBean.paciente.apellido}" required="true" />
+
+            <h:outputLabel value="Cédula:" />
+            <h:inputText value="#{pacienteBean.paciente.cedula}" required="true" />
+
+            <h:commandButton value="Guardar" action="#{pacienteBean.save}" />
+        </h:panelGrid>
+        <h:messages />
+
+        <h2>Lista de Pacientes</h2>
+        <h:dataTable value="#{pacienteBean.pacientes}" var="paciente" styleClass="table">
+            <h:column>
+                <f:facet name="header">Nombre</f:facet>
+                #{paciente.nombre} #{paciente.apellido}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cédula</f:facet>
+                #{paciente.cedula}
+            </h:column>
+            <h:column>
+                <h:commandButton value="Eliminar" action="#{pacienteBean.delete(paciente)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>
