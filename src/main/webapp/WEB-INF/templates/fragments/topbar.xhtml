@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces">
+<style>
+    .ui-sticky {
+        top: 70px !important;
+    }
+
+    @media (max-width: 960px) {
+        .ui-sticky {
+            top: 110px !important;
+        }
+    }
+</style>
+
+    <ui:composition>
+
+        <h:form>
+            <div id="panel-header" class="card">
+            <p:toolbar id="menu-tab">
+                x`x`<p:toolbarGroup align="left"
+                                    rendered="#{userSession.user ne null and userSession.hasRole('ADMIN')}">
+                    <h:panelGroup>
+                        <p:commandButton value="Pacientes registrados"
+                                         icon="pi pi-user" styleClass="mr-2"
+                                         action="/security/userList.xhtml?faces-redirect=true"/>
+                        <p:commandButton type="button" value="Reportes" icon="pi pi-folder-open" styleClass="ui-button-success"  />
+                    </h:panelGroup>
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Login" style="margin-right:20px;"
+                                     rendered="#{!facesContext.externalContext.getSessionMap().containsKey('user')}"
+                                     action="/login.xhtml?faces-redirect=true"/>
+                    <p:menuButton value="#{userSession.user.name}" icon="pi pi-user" iconPos="right"
+                                  rendered="#{authenticationBean.verifyUserSession()}">
+                        <p:menuitem value="Editar perfil" icon="pi pi-save"/>
+                        <p:menuitem value="Inicio" url="/indexLogin.xhtml?faces-redirect=true" icon="pi pi-home"/>
+                        <p:menuitem value="Logout" action="#{authenticationBean.logout}" ajax="false" icon="pi pi-times"/>
+                    </p:menuButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:sticky target="menu-tab"/>
+
+        </div>
+        </h:form>
+    </ui:composition>
+
+</html>
