@@ -30,50 +30,42 @@ public class UserSession implements java.io.Serializable{
 
     private User user;
 
+
     public void postLogin(@NotNull User user) throws EntityNotFoundException {
         logger.info("User logged in: " + user.getName());
-
         this.user = user;
 
         Set<Role> roles = securityFacade.findRolesWithPermission(this.user.getId());
-
-        if (roles == null) {
-            roles = Collections.emptySet();
-        } else {
-            roles.removeIf(role -> role == null || role.getName() == null);
+        if (!roles.isEmpty()) {
+            this.user.setRole(roles.iterator().next());
         }
-
-        this.user.setRoles(roles);
-
 
         logger.info("Roles asignados al usuario: " + roles.size());
     }
-
-
     public boolean hasPermissionForPage(String pagePath) {
-        return this.hasPermission(pagePath, ActionType.READ);
+        return hasPermission(pagePath, ActionType.READ);
     }
 
     public boolean hasPermission(String resource, ActionType action) {
-        return user.getRoles().stream()
-                .flatMap(role -> role.getPermissions().stream())
+        if (user == null || user.getRole() == null || user.getRole().getPermissions() == null) {
+            return false;
+        }
+
+        return user.getRole().getPermissions().stream()
                 .anyMatch(permission -> permission.matchWith(resource, action));
     }
 
     public boolean hasRole(@NotNull String roleName) {
-        if (user == null || user.getRoles() == null) {
+        if (user == null || user.getRole() == null || user.getRole().getName() == null) {
             return false;
         }
 
-        return user.getRoles().stream()
-                .filter(Objects::nonNull)
-                .filter(role -> role.getName() != null)
-                .anyMatch(role -> role.getName().equals(roleName));
+        return roleName.equals(user.getRole().getName());
     }
-
-
 
     public User getUser() {
         return user;
     }
+
+
 }

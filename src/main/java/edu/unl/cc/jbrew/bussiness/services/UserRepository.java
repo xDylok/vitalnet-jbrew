@@ -62,7 +62,7 @@ public class UserRepository {
 
     public User findUserWithRoles(Long userId) throws EntityNotFoundException {
         List<User> users = entityManager.createQuery(
-                        "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id = :id", User.class)
+                        "SELECT u FROM User u LEFT JOIN FETCH u.role r LEFT JOIN FETCH r.permissions WHERE u.id = :id", User.class)
                 .setParameter("id", userId)
                 .getResultList();
 

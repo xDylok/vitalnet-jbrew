@@ -20,10 +20,7 @@ public class Role implements Serializable {
     @NotEmpty
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
-
+    // Relación con permisos
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -57,14 +54,6 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Set<Permission> getPermissions() {

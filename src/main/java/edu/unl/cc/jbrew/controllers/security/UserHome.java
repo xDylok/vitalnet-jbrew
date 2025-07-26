@@ -1,15 +1,19 @@
 package edu.unl.cc.jbrew.controllers.security;
 
 import edu.unl.cc.jbrew.bussiness.SecurityFacade;
+import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
 import edu.unl.cc.jbrew.faces.FacesUtil;
 import edu.unl.cc.jbrew.util.EncryptorManager;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Named
@@ -28,6 +32,13 @@ public class UserHome implements java.io.Serializable{
     @Inject
     SecurityFacade securityFacade;
 
+    private Long selectedRoleId;
+    private List<Role> availableRoles;
+
+    @PostConstruct
+    public void init() {
+        availableRoles = new ArrayList<>(securityFacade.findAllRolesWithPermission());
+    }
 
     public UserHome() {
     }
@@ -67,6 +78,8 @@ public class UserHome implements java.io.Serializable{
 
     public String create() {
         try {
+            Role selectedRole = securityFacade.getRoleById(selectedRoleId);
+            user.setRole(selectedRole);
             user = securityFacade.create(user);
             //decryptPassword(user);
             FacesUtil.addSuccessMessageAndKeep("Usuario creado correctamente");
@@ -79,6 +92,8 @@ public class UserHome implements java.io.Serializable{
 
     public String update() {
         try {
+            Role selectedRole = securityFacade.getRoleById(selectedRoleId);
+            user.setRole(selectedRole);
             securityFacade.update(user);
             //decryptPassword(user);
             FacesUtil.addSuccessMessageAndKeep("Usuario actuaalizado correctamente");
@@ -88,7 +103,17 @@ public class UserHome implements java.io.Serializable{
             return null;
         }
     }
+    public Long getSelectedRoleId() {
+        return selectedRoleId;
+    }
 
+    public void setSelectedRoleId(Long selectedRoleId) {
+        this.selectedRoleId = selectedRoleId;
+    }
+
+    public List<Role> getAvailableRoles() {
+        return availableRoles;
+    }
     public boolean isManaged(){
         return this.user.getId() != null;
     }

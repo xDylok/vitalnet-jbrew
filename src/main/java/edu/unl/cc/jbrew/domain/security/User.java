@@ -2,17 +2,21 @@ package edu.unl.cc.jbrew.domain.security;
 
 import edu.unl.cc.jbrew.domain.common.Person;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.persistence.Id;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+
+    @NotNull
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,32 +30,23 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    // Relations
+    // Relación con persona
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
 
+    // Relación con un único rol
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-
-
+    // Constructor por defecto
     public User() {
-        person = new Person();
+        this.person = new Person();
     }
 
-    /**
-     *
-     * @param id
-     * @param name
-     * @param password
-     * @throws IllegalArgumentException
-     */
-    public User(Long id, String name, String password) throws IllegalArgumentException{
+    // Constructor con validación
+    public User(Long id, String name, String password) {
         this();
         this.id = id;
         validateNameRestriction(name);
@@ -59,35 +54,23 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    /**
-     *
-     * @param id
-     * @param name
-     * @param password
-     * @param person
-     * @throws IllegalArgumentException
-     */
-    public User(Long id, String name, String password, Person person)
-            throws IllegalArgumentException{
+    public User(Long id, String name, String password, Person person) {
         this(id, name, password);
         this.person = person;
     }
 
-    /**
-     *
-     * @param text
-     * @throws IllegalArgumentException
-     */
-    private void validateNameRestriction(String text) throws IllegalArgumentException{
-        if (text == null || text.isEmpty()){
-            throw new IllegalArgumentException("Valor reequerido para name");
+    // Validación de nombre
+    private void validateNameRestriction(String text) {
+        if (text == null || text.isEmpty()) {
+            throw new IllegalArgumentException("Valor requerido para name");
         }
-
-        if (text.trim().length() < 5){
-            throw new IllegalArgumentException("Valor para name debe supera los 5 caracteres");
+        if (text.trim().length() < 5) {
+            throw new IllegalArgumentException("El nombre debe tener al menos 5 caracteres");
         }
     }
 
+
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -95,6 +78,13 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -121,43 +111,31 @@ public class User implements Serializable {
         this.person = person;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
+
+    // equals, hashCode y toString
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.name);
-        return hash;
+        return Objects.hash(id, name);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User other = (User) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return Objects.equals(this.id, other.id);
+        if (this == obj) return true;
+        if (!(obj instanceof User other)) return false;
+        return Objects.equals(this.id, other.id) &&
+                Objects.equals(this.name, other.name);
     }
 
     @Override
     public String toString() {
-        return "User{" + "id:" + id + ", name:" + name + ", password:" + password
-                + ", person{" + person + '}' + '}';
+        return "User{id=" + id + ", name='" + name + "', role=" + (role != null ? role.getName() : "N/A") + '}';
     }
 }

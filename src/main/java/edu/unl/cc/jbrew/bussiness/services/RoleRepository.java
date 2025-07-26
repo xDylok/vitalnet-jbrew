@@ -21,10 +21,20 @@ public class RoleRepository {
         query.setParameter("name", name);
         List<Role> result = query.getResultList();
         if(result.isEmpty()){
-            return null; // o lanzar excepción si prefieres
+            return null;
         }
         return result.get(0);
     }
+
+    public Role findById(Long id) {
+        return entityManager.find(Role.class, id);
+    }
+
+    public List<Role> findAll() {
+        return entityManager.createQuery("SELECT r FROM Role r", Role.class)
+                .getResultList();
+    }
+
 
     public Set<Role> findAllWithPermissions() {
         List<Role> roles = entityManager.createQuery("SELECT DISTINCT r FROM Role r LEFT JOIN FETCH r.permissions", Role.class)

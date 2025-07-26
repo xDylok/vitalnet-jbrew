@@ -20,8 +20,11 @@ public class UserPrincipal implements Principal, Serializable {
     }
 
     public boolean hasPermission(String resource, ActionType action) {
-        return user.getRoles().stream()
-                .flatMap(role -> role.getPermissions().stream())
+        if (user.getRole() == null || user.getRole().getPermissions() == null) {
+            return false;
+        }
+
+        return user.getRole().getPermissions().stream()
                 .anyMatch(permission -> permission.matchWith(resource, action));
     }
 

@@ -37,7 +37,9 @@ public class SecurityFacade implements java.io.Serializable{
         }
         throw new Exception("Ya existe un usuario con ese nombre");
     }
-
+    public Role getRoleById(Long id) {
+        return roleRepository.findById(id);
+    }
     public User update(User user) throws Exception {
         if (user.getId() == null){
             return create(user);
