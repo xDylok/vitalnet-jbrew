@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,15 +17,21 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
+
     @NotNull
     @NotEmpty
     @Column(nullable = false, unique = true)
     private String name;
     // Relación con permisos
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "role_permission",
+    @OneToMany(fetch = FetchType.LAZY)
+    @OrderBy("resource ASC") // si quieres ordenarlos por atributo
+    @JoinTable(
+            name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
     private Set<Permission> permissions = new HashSet<>();
 
     public Role() {}
@@ -75,4 +82,5 @@ public class Role implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

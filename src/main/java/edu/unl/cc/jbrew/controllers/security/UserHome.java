@@ -1,6 +1,7 @@
 package edu.unl.cc.jbrew.controllers.security;
 
 import edu.unl.cc.jbrew.bussiness.SecurityFacade;
+import edu.unl.cc.jbrew.domain.common.Person;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
@@ -33,14 +34,21 @@ public class UserHome implements java.io.Serializable{
     SecurityFacade securityFacade;
 
     private Long selectedRoleId;
-    private List<Role> availableRoles;
+
 
     @PostConstruct
     public void init() {
         availableRoles = new ArrayList<>(securityFacade.findAllRolesWithPermission());
     }
 
-    public UserHome() {
+    private List<Role> availableRoles;
+
+    public List<Role> getAvailableRoles() {
+        return availableRoles;
+    }
+
+    public void setAvailableRoles(List<Role> availableRoles) {
+        this.availableRoles = availableRoles;
     }
 
     public void loadUser() {
@@ -49,39 +57,48 @@ public class UserHome implements java.io.Serializable{
             try {
                 user = securityFacade.find(selectedUserId);
                 if (user.getPerson() == null) {
-                   user.setPerson(new edu.unl.cc.jbrew.domain.common.Person());
+                    user.setPerson(new Person());
                 }
             } catch (EntityNotFoundException e) {
                 FacesUtil.addErrorMessage("No se pudo encontrar el usuario con id: " + selectedUserId);
             }
         } else {
             user = new User();
+            user.setPerson(new Person()); // Asegura que nunca sea null
         }
+
+        if (user.getRole() != null) {
+            selectedRoleId = user.getRole().getId();
+        }
+
         decryptPassword(user);
     }
 
-    private void decryptPassword(User user){
-        String pwdDecrypted = null;
+    public UserHome() {
+    }
+
+
+    private void decryptPassword(User user) {
         try {
-            if (user.getPassword() != null && !user.getPassword().isEmpty()){
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
                 logger.info("Password no nulo y no vacio: " + user.getPassword());
-                pwdDecrypted = EncryptorManager.decrypt(user.getPassword());
+                String pwdDecrypted = EncryptorManager.decrypt(user.getPassword());
                 user.setPassword(pwdDecrypted);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            FacesUtil.addErrorMessage(e.getMessage(), "Invconveniente al decifrar la clave: " + e.getMessage());
+            FacesUtil.addErrorMessage(e.getMessage(), "Inconveniente al descifrar la clave: " + e.getMessage());
         }
-
     }
 
     public String create() {
         try {
-            Role selectedRole = securityFacade.getRoleById(selectedRoleId);
-            user.setRole(selectedRole);
+            if (selectedRoleId != null) {
+                Role selectedRole = securityFacade.getRoleById(selectedRoleId);
+                user.setRole(selectedRole);
+            }
+
             user = securityFacade.create(user);
-            //decryptPassword(user);
             FacesUtil.addSuccessMessageAndKeep("Usuario creado correctamente");
             return "userList?faces-redirect=true";
         } catch (Exception e) {
@@ -92,30 +109,22 @@ public class UserHome implements java.io.Serializable{
 
     public String update() {
         try {
-            Role selectedRole = securityFacade.getRoleById(selectedRoleId);
-            user.setRole(selectedRole);
+            if (selectedRoleId != null) {
+                Role selectedRole = securityFacade.getRoleById(selectedRoleId);
+                user.setRole(selectedRole);
+            }
+
             securityFacade.update(user);
-            //decryptPassword(user);
-            FacesUtil.addSuccessMessageAndKeep("Usuario actuaalizado correctamente");
+            FacesUtil.addSuccessMessageAndKeep("Usuario actualizado correctamente");
             return "userList?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Inconveniente al actualizar usuario: " + e.getMessage());
             return null;
         }
     }
-    public Long getSelectedRoleId() {
-        return selectedRoleId;
-    }
 
-    public void setSelectedRoleId(Long selectedRoleId) {
-        this.selectedRoleId = selectedRoleId;
-    }
-
-    public List<Role> getAvailableRoles() {
-        return availableRoles;
-    }
-    public boolean isManaged(){
-        return this.user.getId() != null;
+    public boolean isManaged() {
+        return this.user != null && this.user.getId() != null;
     }
 
     public Long getSelectedUserId() {
@@ -132,5 +141,12 @@ public class UserHome implements java.io.Serializable{
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public Long getSelectedRoleId() {
+        return selectedRoleId;
+    }
+
+    public void setSelectedRoleId(Long selectedRoleId) {
+        this.selectedRoleId = selectedRoleId;
     }
 }

@@ -2,6 +2,7 @@ package edu.unl.cc.jbrew.bussiness;
 
 import edu.unl.cc.jbrew.bussiness.services.RoleRepository;
 import edu.unl.cc.jbrew.bussiness.services.UserRepository;
+import edu.unl.cc.jbrew.domain.security.Permission;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.CredentialInvalidException;
@@ -11,6 +12,7 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +27,20 @@ public class SecurityFacade implements java.io.Serializable{
 
     @Inject
     private RoleRepository roleRepository;
+
+    public User findUserWithRoleAndPermissions(Long userId) {
+        return userRepository.findUserWithRoleAndPermissions(userId);
+    }
+
+    public Set<Permission> getPermissionsByUserId(Long userId) throws EntityNotFoundException {
+        User user = userRepository.findUserWithRoleAndPermissions(userId);
+
+        if (user == null || user.getRole() == null) {
+            throw new EntityNotFoundException("Rol no encontrado para usuario con ID: " + userId);
+        }
+
+        return user.getRole().getPermissions();
+    }
 
     public User create(User user) throws Exception {
         String pwdEncrypted = EncryptorManager.encrypt(user.getPassword());
@@ -80,18 +96,6 @@ public class SecurityFacade implements java.io.Serializable{
     public Set<Role> findAllRolesWithPermission()  {
         return roleRepository.findAllWithPermissions();
     }
-
-    public Set<Role> findRolesWithPermission(Long userId) throws EntityNotFoundException {
-        Set<Role> roles = roleRepository.findRolesByUserId(userId);
-        if (roles == null) {
-            return new LinkedHashSet<>();
-        }
-        // Evitar roles nulos o con nombre nulo por seguridad
-        roles.removeIf(role -> role == null || role.getName() == null);
-        return roles;
-    }
-
-
 
 
 }

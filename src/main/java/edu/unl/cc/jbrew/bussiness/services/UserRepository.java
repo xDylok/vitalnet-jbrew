@@ -1,10 +1,11 @@
 package edu.unl.cc.jbrew.bussiness.services;
 
+import edu.unl.cc.jbrew.domain.security.Permission;
+import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.*;
 
 import jakarta.transaction.Transactional;
 
@@ -19,7 +20,9 @@ public class UserRepository {
 
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
     @Transactional
     public User save(User user){
         if (user.getId() == null){
@@ -60,16 +63,16 @@ public class UserRepository {
         return results;
     }
 
-    public User findUserWithRoles(Long userId) throws EntityNotFoundException {
-        List<User> users = entityManager.createQuery(
-                        "SELECT u FROM User u LEFT JOIN FETCH u.role r LEFT JOIN FETCH r.permissions WHERE u.id = :id", User.class)
-                .setParameter("id", userId)
-                .getResultList();
+    public User findUserWithRoleAndPermissions(Long userId) {
+        String jpql = "SELECT u FROM User u, Role r " +
+               "WHERE u.role.id = r.id AND u.id = :userId";
 
-        if(users.isEmpty()){
-            throw new EntityNotFoundException("User no encontrado con ID: " + userId);
+        try {
+            return entityManager.createQuery(jpql, User.class)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
-        return users.get(0);
     }
-
 }

@@ -87,4 +87,10 @@ public class EncryptorManager {
         // Convertimos los bytes a texto normal
         return new String(bytesOriginals, StandardCharsets.UTF_8);
     }
+
+    public static void main(String[] args) throws Exception {
+        String text = "admin1234";
+        String encryptedText = EncryptorManager.encrypt(text);
+        System.out.println("Texto encriptado: " + encryptedText);
+    }
 }

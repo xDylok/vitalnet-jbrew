@@ -14,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
@@ -37,6 +38,13 @@ public class Person implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private GenderType gender;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "cedula")
+    private String cedula;
+
 
 
     public Person() {
@@ -96,7 +104,29 @@ public class Person implements Serializable {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+    public String getPhone() {
+        return phone;
+    }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
     public String getEmail() {
         return email;
     }

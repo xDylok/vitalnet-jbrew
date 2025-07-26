@@ -47,35 +47,41 @@
                                 <p:outputLabel for="lastName" value="Apellidos:" />
                                 <p:inputText id="lastName" value="#{userHome.user.person.lastName}" required="true"/>
 
-                                <p:outputLabel for="birthDate" value="Fecha nacimiento:" />
-                                <p:datePicker id="birthDate" value="#{userHome.user.person.birthDate}" required="true"
-                                              title="Fecha de nacimiento" pattern="yyyy-MM-dd"
-                                              showIcon="true" showOnFocus="false"
-                                              yearNavigator="yes" monthNavigator="yes"/>
-
                                 <p:outputLabel for="email" value="Correo electrónico:" />
-                                <p:inputText id="email" value="#{userHome.user.email}" required="true" />
+                                <p:inputText id="email" value="#{userHome.user.person.email}" required="true"/>
 
-                                <p:outputLabel for="phone" value="Teléfono:" />
-                                <p:inputText id="phone" value="#{userHome.user.person.phone}" />
+                                <p:outputLabel for="cedula" value="Cedula:" />
+                                <p:inputText id="cedula" value="#{userHome.user.person.cedula}" required="true"/>
 
-                                <p:outputLabel for="gender" value="Género:" />
-                                <p:selectOneMenu id="gender" value="#{userHome.user.person.gender}">
+                                <p:outputLabel for="phone" value="Telefono:" />
+                                <p:inputText id="phone" value="#{userHome.user.person.phone}" required="true"/>
+
+                                <p:outputLabel for="role" value="Rol:" />
+                                <p:selectOneMenu id="role" value="#{userHome.selectedRoleId}" required="true">
+                                    <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}" />
+                                    <f:selectItems value="#{userHome.availableRoles}" var="rol"
+                                                   itemValue="#{rol.id}" itemLabel="#{rol.name}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="gender" value="Genero:" />
+                                <p:selectOneMenu id="gender" value="#{userHome.user.person.gender}" required="true">
                                     <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}" />
                                     <f:selectItem itemLabel="Masculino" itemValue="MASCULINO" />
                                     <f:selectItem itemLabel="Femenino" itemValue="FEMENINO" />
                                     <f:selectItem itemLabel="Otro" itemValue="OTRO" />
                                 </p:selectOneMenu>
 
-                                <p:outputLabel for="role" value="Rol:" />
-                                <p:selectOneMenu id="role" value="#{userHome.selectedRoleId}">
-                                    <f:selectItems value="#{userHome.availableRoles}" var="r"
-                                                   itemValue="#{r.id}" itemLabel="#{r.name}" />
-                                </p:selectOneMenu>
-                            </h:panelGrid>
+                                <p:outputLabel for="birthDate" value="Fecha de nacimiento:" />
+                                <p:datePicker id="birthDate" value="#{userHome.user.person.birthDate}"
+                                pattern="yyyy-MM-dd"
+                                showIcon="true" showOnFocus="false"
+                                yearNavigator="true" monthNavigator="true"
+                                required="true" />
 
+                            </h:panelGrid>
                         </p:panel>
-                        <p:dataTable id="roles" value="#{[userHome.user.role]}" var="_role">
+
+                        <p:dataTable id="roles" value="#{userHome.user.role}" var="_role">
                             <p:column headerText="Nombre del rol">
                                 #{_role.name}
                             </p:column>

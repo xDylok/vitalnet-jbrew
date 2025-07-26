@@ -7,22 +7,21 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
-    @NotNull
-    @Email
-    @Column(nullable = false, unique = true)
-    private String email;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -39,6 +38,14 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @OneToMany(fetch = FetchType.LAZY)
+    @OrderBy("resource ASC")
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions = new HashSet<>();
 
     // Constructor por defecto
     public User() {
@@ -79,13 +86,7 @@ public class User implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getName() {
         return name;

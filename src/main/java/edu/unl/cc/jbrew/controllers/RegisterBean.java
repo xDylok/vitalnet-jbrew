@@ -1,5 +1,6 @@
 package edu.unl.cc.jbrew.controllers;
 
+import edu.unl.cc.jbrew.domain.common.Person;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import jakarta.annotation.PostConstruct;
@@ -56,7 +57,9 @@ public class RegisterBean implements Serializable {
 
         User user = new User();
         user.setName(usuario);
-        user.setEmail(email);
+        Person person = new Person();
+        person.setEmail(email);
+        user.setPerson(person);
         user.setPassword(password); // ¡Recuerda cifrarla!
         user.setRole(selectedRole);
 
@@ -103,6 +106,12 @@ public class RegisterBean implements Serializable {
     public void setConfirmpassword(String confirmpassword) {
         this.confirmpassword = confirmpassword;
     }
+    public Long getSelectedRoleId() {
+        return selectedRoleId;
+    }
 
+    public void setSelectedRoleId(Long selectedRoleId) {
+        this.selectedRoleId = selectedRoleId;
+    }
 
 }

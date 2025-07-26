@@ -2,12 +2,14 @@ package edu.unl.cc.jbrew.controllers.security;
 
 import edu.unl.cc.jbrew.bussiness.SecurityFacade;
 import edu.unl.cc.jbrew.domain.security.ActionType;
+import edu.unl.cc.jbrew.domain.security.Permission;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.NoResultException;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
@@ -33,15 +35,17 @@ public class UserSession implements java.io.Serializable{
 
     public void postLogin(@NotNull User user) throws EntityNotFoundException {
         logger.info("User logged in: " + user.getName());
-        this.user = user;
 
-        Set<Role> roles = securityFacade.findRolesWithPermission(this.user.getId());
-        if (!roles.isEmpty()) {
-            this.user.setRole(roles.iterator().next());
-        }
+        // Cargar usuario con su rol y permisos
+        this.user = securityFacade.findUserWithRoleAndPermissions(user.getId());
 
-        logger.info("Roles asignados al usuario: " + roles.size());
+        Set<Permission> permisos = (user.getRole() != null)
+                ? user.getRole().getPermissions()
+                : Collections.emptySet();
+
+        logger.info("Permisos cargados para el usuario: " + permisos.size());
     }
+
     public boolean hasPermissionForPage(String pagePath) {
         return hasPermission(pagePath, ActionType.READ);
     }
@@ -59,13 +63,13 @@ public class UserSession implements java.io.Serializable{
         if (user == null || user.getRole() == null || user.getRole().getName() == null) {
             return false;
         }
-
         return roleName.equals(user.getRole().getName());
     }
 
     public User getUser() {
         return user;
     }
+
 
 
 }
