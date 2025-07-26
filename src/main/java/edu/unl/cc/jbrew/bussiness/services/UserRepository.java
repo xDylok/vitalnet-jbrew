@@ -18,8 +18,10 @@ import java.util.*;
 @ApplicationScoped
 public class UserRepository {
 
+    //Define la conexion de la aplicacion a la base da datos
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
@@ -32,6 +34,7 @@ public class UserRepository {
             return entityManager.merge(user);
         }
     }
+
 
     public User find(Long id) throws EntityNotFoundException {
         User user = entityManager.find(User.class, id);
