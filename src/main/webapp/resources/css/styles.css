@@ -5,20 +5,23 @@ body {
 
 /* Contenedor principal */
 .card {
-    max-width: 90%;
+    border: 10px solid #2541B2;
+    max-width: 60rem;
     width: 900px;
-    margin: 60px auto;
+    margin: auto;
+    height: 650px;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
+    border-radius: 2px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* Animación de entrada */
 .fade-in {
     animation: fadeIn 1s ease-in-out;
+    position: relative;
 }
+/* Animación de entrada */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -80,7 +83,7 @@ ul.bullets li h5 {
 .index-page .centered-card {
     max-width: 600px;
     width: 100%;
-    margin: 0 auto;
+    margin: 325px;
     padding: 1.5rem;
 }
 .indexLogin-page .centered-card {
@@ -88,4 +91,8 @@ ul.bullets li h5 {
     width: 100%;
     margin: 0 auto;
     padding: 1.5rem;
+}
+.background-image {
+    background: url('../../images/fondohospital.jpg') no-repeat center center fixed;
+    background-size: cover;
 }

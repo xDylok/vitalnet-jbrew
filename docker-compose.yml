@@ -6,7 +6,10 @@ services:
       - "9000:8081"
     volumes:
       - ./src/main/liberty/config/server.xml:/config/server.xml:ro
+      - .:/dev
     #restart: unless-stopped
+    environment:
+      WLP_DEV_MODE: "true"
     depends_on:
       - db
 
