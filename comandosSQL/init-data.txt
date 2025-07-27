@@ -1,9 +1,0 @@
-INSERT INTO Role (id, name) VALUES (1, 'ADMIN');
-INSERT INTO Role (id, name) VALUES (2, 'DOCTOR');
-INSERT INTO Role (id, name) VALUES (3, 'ENFERMERO');
-INSERT INTO Role (id, name) VALUES (4, 'PACIENTE');
-INSERT INTO Role (id, name) VALUES (5, 'USUARIO');
-
-INSERT INTO Users (id, name, password, role_id)
-VALUES (1, 'admin', 'qwMrWvaYim58QzJxxLJvbg==', 1);
-SELECT setval('public.users_id_seq', COALESCE((SELECT MAX(id) FROM users), 1), false);
