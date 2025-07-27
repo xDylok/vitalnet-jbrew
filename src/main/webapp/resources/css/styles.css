@@ -80,17 +80,25 @@ ul.bullets li h5 {
 .default-page {
     background: #f8f9fa;
 }
-.index-page .centered-card {
-    max-width: 600px;
-    width: 100%;
-    margin: 325px;
+.index-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;      /* ocupa todo el alto de la pantalla */
     padding: 1.5rem;
+    flex-direction: column; /* asegura que los elementos se apilen verticalmente */
+    margin: 0;
+}
+.index-page .centered-card {
+    max-width: 80000px;
+    width: 50%;
+    padding: 1rem;
 }
 .indexLogin-page .centered-card {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 .background-image {
     background: url('../../images/fondohospital.jpg') no-repeat center center fixed;
