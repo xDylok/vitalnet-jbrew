@@ -1,198 +1,205 @@
+:root {
+  --color-primario: #2541B2;
+  --color-secundario: #007bff;
+  --color-acento: #0056b3;
+  --fondo-claro: #e3f2fd;
+  --fondo-blanco: #ffffff;
+  --fondo-panel: #1768AC;
+  --sombra-tarjeta: 0 4px 16px rgba(37, 65, 178, 0.10);
+  --sombra-tarjeta-hover: 0 8px 32px rgba(37, 65, 178, 0.16);
+  --radio-borde: 15px;
+  --transicion-general: 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+/* Reset y base */
+* {
+  box-sizing: border-box;
+  transition: background var(--transicion-general), box-shadow var(--transicion-general), border-color var(--transicion-general), color var(--transicion-general);
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
 body {
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
-    font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--fondo-claro) 100%);
+  margin: 0;
+  padding: 0;
+  color: #222;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
 /* Contenedor principal */
-.card {
-    border: 10px solid #2541B2;
-    max-width: 60rem;
-    width: 900px;
-    margin: auto;
-    height: 650px;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
-    text-align: center;
-    background-color: rgba(255, 255, 255, 1);
+.container {
+  max-width: 480px;
+  width: 95%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.cardLogin {
-    border: 10px solid #2541B2;
-    max-width: 60rem;
-    width: 15cm;
-    margin: auto;
-    height: 650px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.95);
+/* Cartas y paneles */
+.card, .cardLogin {
+  background: rgba(255,255,255,0.97);
+  border: 2.5px solid var(--color-primario);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-tarjeta);
+  padding: 2rem 1.5rem;
+  width: 100%;
+  margin: 28px 0;
+  transition: box-shadow var(--transicion-general), border-color var(--transicion-general), background var(--transicion-general);
+}
+.card:hover, .cardLogin:hover {
+  box-shadow: var(--sombra-tarjeta-hover);
+  border-color: var(--color-secundario);
+  background: #fcfdff;
 }
 
-.fade-in {
-    animation: fadeIn 1s ease-in-out;
-    position: relative;
-}
-/* Animación de entrada */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.panel {
+  background: var(--fondo-panel);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(37, 65, 178, 0.08);
+  padding: 1rem;
+  color: #fff;
 }
 
-/* Imagen del logo */
+/* Títulos */
+h1, h2, h3, h4, h5, h6, .title {
+  color: var(--color-primario);
+  text-align: center;
+  margin: 18px 0 10px 0;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  user-select: text;
+}
+
+/* Imagen logo */
 .logo-img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    margin: 0 auto 50px;
-    object-fit: contain;
+  display: block;
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 32px auto;
 }
 
-/* Título */
-h4 {
-    font-size: 30px;
-    color: #007bff;
-    margin-bottom: 20px;
-    cursor: default;
-}
-h5 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-    cursor: default;
-}
-p, h1, h2, h3, h4, h5, h6 {
-    user-select:none;
-    cursor:default;
-    margin:0;
-}
-
-/* Lista */
+/* Listas */
 ul.bullets {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 25px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 ul.bullets li {
-    margin: 15px 0;
-    font-size: 20px;
-    color: #333;
+  position: relative;
+  padding-left: 26px;
+  font-size: 19px;
+  color: #222;
+  margin: 12px 0;
 }
-ul.bullets li h5 {
-    margin: 0;
-    font-weight: normal;
+ul.bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-primario);
+  font-size: 1.4em;
 }
 ul.bullets li p {
-    margin: 5px 0 0;
-    font-size: 16px;
-    color: #666;
+  font-size: 15px;
+  color: #555;
+  margin: 0;
 }
-
-
 
 /* Botones */
-.ui-button-primary, .ui-button-secondary {
-    padding: 12px 25px;
-    font-size: 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+button, .ui-button-primary, .ui-button-secondary {
+  background: var(--color-secundario);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(37, 65, 178, 0.09);
+  outline: none;
+  transition: background var(--transicion-general), box-shadow var(--transicion-general), border var(--transicion-general);
 }
-.ui-button-primary:hover, .ui-button-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+button:hover, .ui-button-primary:hover, .ui-button-secondary:hover {
+  background: var(--color-acento);
+  box-shadow: 0 4px 16px rgba(37, 65, 178, 0.13);
 }
-.login-page {
-    background: url('../../images/fondohospital.jpg') no-repeat center center fixed;
-    background-size: cover;
-    user-select: none !important;
-    cursor: default !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
+button:focus, .ui-button-primary:focus, .ui-button-secondary:focus {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
 }
 
-.default-page {
-    background: #f8f9fa;
+/* Inputs */
+input, textarea, select {
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1.5px solid #cccccc;
+  padding: 8px;
+  transition: border var(--transicion-general);
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 10px;
 }
+input:focus, textarea:focus, select:focus {
+  border: 1.5px solid var(--color-primario);
+  outline: none;
+}
+
+/* Animación fade-in */
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fondos especiales */
+.login-page, .background-image {
+  background: url('../img/hospital.jpg') center center/cover no-repeat;
+  min-height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Página de inicio */
 .index-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;      /* ocupa todo el alto de la pantalla */
-    padding: 1.5rem;
-    flex-direction: column; /* asegura que los elementos se apilen verticalmente */
-    margin: 0;
-    user-select: none !important;
-    cursor: default !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-}
-.index-page .centered-card {
-    max-width: 80000px;
-    width: 50%;
-    padding: 1rem;
-    user-select: none !important;
-    cursor: default !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-}
-.indexLogin-page .centered-card {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 1rem;
-    user-select: none !important;
-    cursor: default !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-}
-.panel {
-    background-color: #1768AC;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
-    margin-bottom: 20px;
-}
-.background-image {
-    background: url('../../images/fondohospital.jpg') no-repeat center center fixed;
-    background-size: cover;
-}body.background-image {
-     background-color: #f4f6f9;
-     font-family: 'Segoe UI', sans-serif;
-     margin: 0;
-     padding: 0;
- }
-
-.container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.page-title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 2rem;
+/* No selección */
+.noselect, .login-page, .background-image {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.form-grid {
-    width: 100%;
-}
+/* Placeholders */
+::-webkit-input-placeholder { color: #aaa; }
+::-moz-placeholder { color: #aaa; }
+:-ms-input-placeholder { color: #aaa; }
+::placeholder { color: #aaa; }
 
-.ui-panelgrid .ui-outputlabel {
-    font-weight: bold;
-}
-
-.ui-panel {
-    margin-bottom: 1rem;
+/* Responsive */
+@media (max-width: 700px) {
+  .container, .card, .cardLogin {
+    width: 98% !important;
+    min-width: unset !important;
+    padding: 1rem !important;
+    height: auto !important;
+  }
+  .logo-img {
+    max-width: 90px;
+  }
+  h4, h5, .title {
+    font-size: 1.12rem;
+  }
 }
