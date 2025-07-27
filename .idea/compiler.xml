@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="docker-entrypoint-initdb.d" />
+        <module name="jbrew-web" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="docker-entrypoint-initdb.d" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
