@@ -5,28 +5,29 @@
       xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="title-view">
-        Login
-    </ui:define>
-
-    <ui:define name="content">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>VitalNet - Login</title>
+</h:head><h:body class="login-page background-image">
+    <div class="login-panel">
         <h:form>
-            <div class="card">
+            <div class="cardLogin fade-in">
                 <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
                     <p:autoUpdate/>
                 </p:messages>
 
-                <p:panel header="Inicio de Sesión del Personal">
-                    <h:panelGrid columns="3" cellpadding="7">
+                <p:panel header="Inicio de Sesión">
+                    <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">
                         <p:outputLabel for="username" value="Usuario:" />
                         <p:inputText id="username" value="#{authenticationBean.username}" required="true"/>
                         <p:message for="username" display="icon" showDetail="true"/>
 
                         <p:outputLabel for="password" value="Contraseña:" />
-                        <p:password id="password" value="#{authenticationBean.password}" required="true" toggleMask="true" redisplay="true">
-                            <f:validateLength minimum="8" for="password"/>
+                        <p:inputText id="password" value="#{authenticationBean.password}" required="true"
+                                     type="password" autocomplete="current-password" toggleMask="true" redisplay="true">
+                            <f:validateLength minimum="8" />
                             <p:clientValidator/>
-                        </p:password>
+                        </p:inputText>
                         <p:message for="password" display="icon" showDetail="true"/>
                     </h:panelGrid>
 
@@ -34,7 +35,7 @@
                         <p:commandButton value="Ingresar" action="#{authenticationBean.login}"
                                          icon="pi pi-user" validateClient="true"
                                          update="@form" title="Acción de ingreso a la app" />
-                        <p:commandButton value="Cancelar" action="index.xhtml?faces-redirect=true"
+                        <p:commandButton value="Cancelar" action="start.xhtml?faces-redirect=true"
                                          immediate="true" icon="pi pi-times"
                                          styleClass="ui-button-secondary"
                                          style="background-color: red;" />
@@ -46,6 +47,6 @@
                 </p:panel>
             </div>
         </h:form>
-    </ui:define>
-
+    </div>
+</h:body>
 </html>

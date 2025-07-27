@@ -3,42 +3,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets">
 
-<ui:composition template="WEB-INF/templates/base.xhtml">
-    <ui:define name="title-view">
-        VitalNet - Inicio
-    </ui:define>
+<h:head>
+    <title>VitalNet - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
 
-    <ui:define name="content">
-        <h:form>
-            <div class="card fade-in">
-                <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
-                    <p:autoUpdate/>
-                </p:messages>
+<h:body class="index-Login-page background-image">
 
-                <!-- Logo -->
-                <p:graphicImage title="Logo" url="images/Vitalnet.png" styleClass="logo-img"/>
+    <h:form>
 
-                <!-- Título principal -->
-                <h4>Bienvenidos a la aplicación <strong>VitalNet</strong></h4>
+        <!-- ✅ Topbar sencilla -->
+        <p:toolbar styleClass="mb-4 shadow-2 border-round">
+            <p:toolbarGroup align="left" >
+                <h:outputText value="VitalNet" styleClass="text-xl font-bold text-primary"/>
+            </p:toolbarGroup>
+            <p:toolbarGroup align="right">
+                <p:commandButton value="Login"
+                                 icon="pi pi-sign-in"
+                                 styleClass="ui-button-outlined ui-button-secondary"
+                                 action="/login.xhtml?faces-redirect=true"/>
+            </p:toolbarGroup>
+        </p:toolbar>
 
-                <!-- Descripción -->
-                <p style="font-size: 18px; color: #555;">
-                    Plataforma para el monitoreo clínico inteligente de pacientes. Controla alertas, reportes y signos vitales en tiempo real.
-                </p>
+        <p:panel styleClass="panel fade-in text-center p-4 shadow-3 border-round-lg"
+                 style="max-width: 700px; margin: 0 auto;">
 
-                <!-- Lista de funcionalidades -->
-                <ul class="bullets">
-                    <li><h5>🔔 Alertas de Pacientes</h5></li>
-                    <li><h5>📋 Reportes de Pacientes</h5></li>
-                    <li><h5>❤️ Signos Vitales</h5></li>
-                </ul>
-                <!-- Línea separadora -->
-                <hr style="border: none; border-top: 1px solid #ccc; margin: 30px 0;" />
+            <!-- Mensajes -->
+            <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <!-- Logo -->
+            <p:graphicImage title="Logo" url="images/Vitalnet.png"
+                            styleClass="logo-img mb-3" style="width: 180px;"/>
+
+            <!-- Título -->
+            <h2 class="text-2xl text-primary mb-2">Bienvenido a <strong>VitalNet</strong></h2>
+
+            <!-- Descripción -->
+            <p class="text-lg text-gray-700 mb-4">
+                Plataforma para el monitoreo clínico inteligente de pacientes.
+                Controla alertas, reportes y signos vitales en tiempo real.
+            </p>
+
+            <!-- Lista de funcionalidades -->
+            <ul class="bullets mb-4" style="text-align: left; display: inline-block;">
+                <li><h5>🔔 Alertas de Pacientes</h5></li>
+                <li><h5>📋 Reportes de Pacientes</h5></li>
+                <li><h5>❤️ Signos Vitales</h5></li>
+            </ul>
+
+            <!-- Botones -->
+            <div class="mt-3">
+                <p:commandButton value="Pacientes registrados"
+                                 icon="pi pi-user" styleClass="mr-2"
+                                 action="/security/userList.xhtml?faces-redirect=true"/>
+
+                <p:commandButton value="Ver Reportes"
+                                 icon="pi pi-folder-open"
+                                 styleClass="ui-button-success"/>
             </div>
-        </h:form>
-    </ui:define>
-</ui:composition>
+
+        </p:panel>
+
+    </h:form>
+
+</h:body>
 </html>

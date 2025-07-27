@@ -4,11 +4,11 @@
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
       xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="primefaces">
+      xmlns:p="http://primefaces.org/ui">
 
-<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
     <h:head>
-        <title>J- Brews 1.0</title>
+        <title>VitalNet - Registro</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
         <style>
             button.ui-button {
                 margin-right: .5rem;
@@ -22,54 +22,48 @@
                background-position: center;
                height: 100vh;">
         <h:form>
-            <div class="card" style="width: auto;
-                               place-items: center;
-                               margin: 50px">
+            <div class="card fade-in" style="margin: auto; margin-top: 40px;">
                 <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
                     <p:autoUpdate/>
                 </p:messages>
 
-                <p:panel header="Registro">
+                <p:panel header="Registro de Usuario">
                     <h:panelGrid columns="3" cellpadding="7">
                         <p:outputLabel for="usuario" value="Nombre de Usuario:" />
-                        <p:inputText id="usuario" value="#{registerBean.usuario}"
-                                     required="true"/>
+                        <p:inputText id="usuario" value="#{registerBean.usuario}" required="true"/>
                         <p:message for="usuario" display="icon" showDetail="true"/>
 
                         <p:outputLabel for="email" value="E-mail:" />
-                        <p:inputText id="email" value="#{registerBean.email}"
-                                     required="true"
-                                     label="E-mail"
-                                     validatorMessage="Email Invalido">
-                        </p:inputText>
-                        <p:message for="email"/>
+                        <p:inputText id="email" value="#{registerBean.email}" required="true"
+                                     label="E-mail" validatorMessage="Email inválido"/>
+                        <p:message for="email" display="icon" showDetail="true"/>
 
-                        <p:outputLabel for="password" value="Contraseña" />
-                        <p:password id="password" value="#{registerBean.password}" required="true" label="password"/>
-                        <p:message for="password"/>
+                        <p:outputLabel for="password" value="Contraseña:" />
+                        <p:password id="password" value="#{registerBean.password}" required="true"/>
+                        <p:message for="password" display="icon" showDetail="true"/>
 
-                        <p:outputLabel for="confirmpassword" value="Confirmar contraseña" />
-                        <p:password id="confirmpassword" value="#{registerBean.confirmpassword}" required="true" label="confirmpassword"/>
-
+                        <p:outputLabel for="confirmpassword" value="Confirmar contraseña:" />
+                        <p:password id="confirmpassword" value="#{registerBean.confirmpassword}" required="true"/>
+                        <p:message for="confirmpassword" display="icon" showDetail="true"/>
                     </h:panelGrid>
-                    <div style="display: flex; justify-content: center; gap: 25px; margin: 20px">
+
+                    <div style="display: flex; justify-content: center; gap: 25px; margin: 20px;">
                         <p:commandButton value="Siguiente"
                                          icon="pi pi-arrow-right"
                                          action="#{registerBean.registrar}"
                                          update="@form"
                                          process="@form"
-                                         styleClass="ui-button-sucess"/>
+                                         styleClass="ui-button-success"/>
 
-                        <p:commandButton value="Cancelar" action="login.xhtml?faces-redirect=true"
+                        <p:commandButton value="Cancelar"
+                                         action="login.xhtml?faces-redirect=true"
                                          immediate="true"
-                                         icon="pi pi-times" styleClass="mt-3 ui-button-secondary"
+                                         icon="pi pi-times"
+                                         styleClass="ui-button-secondary"
                                          style="background-color: red;"/>
-
                     </div>
                 </p:panel>
             </div>
         </h:form>
     </h:body>
-</f:view>
 </html>
-

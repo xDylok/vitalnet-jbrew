@@ -22,6 +22,7 @@ services:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
+
   adminer:
     image: adminer
     restart: unless-stopped
