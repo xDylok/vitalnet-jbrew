@@ -1,0 +1,38 @@
+<server description="defaultServer">
+    <featureManager>
+        <feature>webProfile-10.0</feature>
+        <feature>jdbc-4.2</feature> <!-- necesario para datasource JDBC -->
+        <feature>jndi-1.0</feature>
+    </featureManager>
+
+
+    <basicRegistry id="defaultBasicRegistry" realm="BasicRealm">
+        <user name="username" password="password" />
+    </basicRegistry>
+
+    <keyStore id="defaultKeyStore" password="password" />
+
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8081"/>
+
+    <webApplication location="jbrew-web.war" contextRoot="/" />
+
+    <!-- Configuración del driver JDBC -->
+    <library id="PostgresLib">
+        <fileset dir="/opt/ol/wlp/usr/shared/resources" includes="postgresql-42.7.6.jar"/>
+    </library>
+
+
+    <!-- Datasource para PostgreSQL -->
+    <dataSource id="PostgresDS" jndiName="jdbc/postgres" type="javax.sql.DataSource">
+        <jdbcDriver libraryRef="PostgresLib"/>
+        <properties.postgresql
+                serverName="db"
+                portNumber="5432"
+                databaseName="mydb"
+                user="admin"
+                password="admin1234" />
+    </dataSource>
+
+    <logging consoleFormat="SIMPLE" consoleLogLevel="INFO" />
+    <logging messageFormat="TBASIC" messageLogLevel="INFO" />
+</server>

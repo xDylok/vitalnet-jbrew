@@ -1,0 +1,35 @@
+services:
+  jsf-app:
+    build: .
+    container_name: jsf_open_liberty
+    ports:
+      - "9000:8081"
+    volumes:
+      - ./src/main/liberty/config/server.xml:/config/server.xml:ro
+    #restart: unless-stopped
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin1234
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "9081:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Registro Exitoso</title>
+</h:head>
+<h:body>
+
+    <h:form style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <p:panel header="¡Registro Exitoso!"
+                 style="width: 300px; padding: 20px; text-align: center; border-radius: 10px;">
+
+            <h:outputText value="Usuario registrado con éxito." style="display: block; margin-bottom: 20px;" />
+
+            <p:commandButton value="Iniciar sesión"
+                             icon="pi pi-sign-in"
+                             action="login.xhtml?faces-redirect=true"
+                             styleClass="ui-button-success"
+                             style="width: 100%;" />
+        </p:panel>
+    </h:form>
+
+</h:body>
+</html>

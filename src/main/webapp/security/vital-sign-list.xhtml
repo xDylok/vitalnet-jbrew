@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="patientId" value="#{vitalSignRangeBean.patientId}"/>
+    <f:event listener="#{vitalSignRangeBean.loadVitalSigns()}" type="preRenderView"/>
+</f:metadata>
+
+<h:head>
+    <title>VitalNet - Historial de Signos Vitales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+    <h:form id="vitalForm" styleClass="container fade-in">
+
+        <div class="card">
+            <h5>Historial de Signos Vitales del Paciente</h5>
+
+            <p:messages>
+                <p:autoUpdate/>
+            </p:messages>
+
+            <p:dataTable value="#{vitalSignRangeBean.signs}" var="sign" stripedRows="true" responsiveLayout="scroll">
+
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{sign.fechaRegistro}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Temperatura (°C)">
+                    <h:outputText value="#{sign.temperatura}"/>
+                </p:column>
+
+                <p:column headerText="Frecuencia Cardíaca">
+                    <h:outputText value="#{sign.frecuenciaCardiaca}"/>
+                </p:column>
+
+                <p:column headerText="Presión Arterial">
+                    <h:outputText value="#{sign.presionArterial}"/>
+                </p:column>
+
+                <p:column headerText="Peso (kg)">
+                    <h:outputText value="#{sign.peso}"/>
+                </p:column>
+
+                <p:column headerText="Altura (m)">
+                    <h:outputText value="#{sign.altura}"/>
+                </p:column>
+
+                <p:column headerText="Registrado por">
+                    <h:outputText value="#{sign.responsable.name}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:commandButton value="Volver"
+                             action="patientList.xhtml?faces-redirect=true"
+                             icon="pi pi-arrow-left"
+                             styleClass="mt-3 ui-button-secondary"/>
+        </div>
+    </h:form>
+</h:body>
+</html>

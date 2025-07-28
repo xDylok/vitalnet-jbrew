@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+   <f:viewParam name="id" value="#{patientBean.selectedPatientId}"/>
+   <f:event listener="#{patientBean.loadPatient()}" type="preRenderView"/>
+</f:metadata>
+
+<h:head>
+   <title>VitalNet - #{patientBean.managed ? 'Editar' : 'Crear'} Paciente</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+   <h:form id="patientForm" styleClass="container fade-in">
+
+      <div class="card">
+         <h5>#{patientBean.managed ? 'Editar' : 'Crear'} Paciente</h5>
+
+         <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+            <p:autoUpdate/>
+         </p:messages>
+
+         <p:panel header="Datos del Paciente" styleClass="panel">
+            <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
+               <p:outputLabel for="firstName" value="Nombres:"/>
+               <p:inputText id="firstName" value="#{patientBean.patient.firstName}" required="true"/>
+
+               <p:outputLabel for="lastName" value="Apellidos:"/>
+               <p:inputText id="lastName" value="#{patientBean.patient.lastName}" required="true"/>
+
+               <p:outputLabel for="cedula" value="Cédula:"/>
+               <p:inputText id="cedula" value="#{patientBean.patient.cedula}" required="true"/>
+
+               <p:outputLabel for="email" value="Correo Electrónico:"/>
+               <p:inputText id="email" value="#{patientBean.patient.email}"/>
+
+               <p:outputLabel for="phone" value="Teléfono:"/>
+               <p:inputText id="phone" value="#{patientBean.patient.phone}"/>
+
+               <p:outputLabel for="birthDate" value="Fecha de Nacimiento:"/>
+               <p:datePicker id="birthDate" value="#{patientBean.patient.birthDate}"
+                             pattern="yyyy-MM-dd" showIcon="true" showOnFocus="false"
+                             yearNavigator="true" monthNavigator="true" required="true"/>
+
+               <p:outputLabel for="gender" value="Género:"/>
+               <p:selectOneMenu id="gender" value="#{patientBean.patient.gender}" required="true">
+                  <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}"/>
+                  <f:selectItem itemLabel="Masculino" itemValue="MASCULINO"/>
+                  <f:selectItem itemLabel="Femenino" itemValue="FEMENINO"/>
+                  <f:selectItem itemLabel="Otro" itemValue="OTRO"/>
+               </p:selectOneMenu>
+            </h:panelGrid>
+         </p:panel>
+
+         <p:commandButton value="Crear" rendered="#{!patientBean.managed}"
+                          action="#{patientBean.create()}"
+                          icon="pi pi-user-plus" styleClass="mt-3 ui-button-primary"
+                          update="@form" title="Guardar paciente nuevo"/>
+
+         <p:commandButton value="Guardar" rendered="#{patientBean.managed}"
+                          action="#{patientBean.update()}"
+                          icon="pi pi-save" styleClass="mt-3 ui-button-primary"
+                          update="@form" title="Guardar cambios"/>
+
+         <p:commandButton value="Cancelar"
+                          action="patientList.xhtml?faces-redirect=true"
+                          immediate="true"
+                          icon="pi pi-times"
+                          styleClass="mt-3 ui-button-secondary"/>
+
+      </div>
+   </h:form>
+</h:body>
+</html>

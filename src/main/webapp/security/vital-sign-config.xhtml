@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>VitalNet - Configurar Rangos de Signos Vitales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+    <h:form id="rangeForm" styleClass="container fade-in">
+
+        <div class="card">
+            <h5>Configuración de Rangos de Signos Vitales</h5>
+
+            <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <p:panel header="Valores Permitidos" styleClass="panel">
+                <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
+
+                    <p:outputLabel for="tempMin" value="Temperatura Mínima (°C):"/>
+                    <p:inputNumber id="tempMin" value="#{vitalSignRangeBean.range.tempMin}" decimalPlaces="1" required="true"/>
+
+                    <p:outputLabel for="tempMax" value="Temperatura Máxima (°C):"/>
+                    <p:inputNumber id="tempMax" value="#{vitalSignRangeBean.range.tempMax}" decimalPlaces="1" required="true"/>
+
+                    <p:outputLabel for="frecuenciaMin" value="Frecuencia Cardíaca Mínima:"/>
+                    <p:inputNumber id="frecuenciaMin" value="#{vitalSignRangeBean.range.frecuenciaMin}" required="true"/>
+
+                    <p:outputLabel for="frecuenciaMax" value="Frecuencia Cardíaca Máxima:"/>
+                    <p:inputNumber id="frecuenciaMax" value="#{vitalSignRangeBean.range.frecuenciaMax}" required="true"/>
+
+                    <p:outputLabel for="presionNormal" value="Presión Arterial Normal (Ej. 120/80):"/>
+                    <p:inputText id="presionNormal" value="#{vitalSignRangeBean.range.presionNormal}" required="true"/>
+
+                    <p:outputLabel for="pesoMin" value="Peso Mínimo (kg):"/>
+                    <p:inputNumber id="pesoMin" value="#{vitalSignRangeBean.range.pesoMin}" decimalPlaces="1" required="true"/>
+
+                    <p:outputLabel for="pesoMax" value="Peso Máximo (kg):"/>
+                    <p:inputNumber id="pesoMax" value="#{vitalSignRangeBean.range.pesoMax}" decimalPlaces="1" required="true"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:commandButton value="Guardar Cambios"
+                             action="#{vitalSignRangeBean.save}"
+                             icon="pi pi-save"
+                             styleClass="mt-3 ui-button-primary"
+                             update="@form"/>
+
+            <p:commandButton value="Cancelar"
+                             action="index.xhtml?faces-redirect=true"
+                             immediate="true"
+                             icon="pi pi-times"
+                             styleClass="mt-3 ui-button-secondary"/>
+
+        </div>
+    </h:form>
+</h:body>
+</html>

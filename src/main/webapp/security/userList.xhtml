@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>VitalNet - Gestión de Pacientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+
+    <h:form id="searchUserForm" styleClass="container">
+
+        <!-- Mensajes -->
+        <p:growl id="messages" showDetail="true"/>
+
+        <!-- Título -->
+        <h2 class="page-title">Administración de Usuarios</h2>
+
+        <!-- Toolbar superior -->
+        <p:toolbar styleClass="mb-3 shadow-2 border-round">
+            <p:toolbarGroup>
+                <p:commandButton id="Agregar"
+                                 value="Agregar Usuario"
+                                 icon="pi pi-user-plus"
+                                 styleClass="ui-button-success"
+                                 action="/security/userEdit.xhtml?faces-redirect=true"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+        <!-- Tabla de pacientes -->
+        <p:dataTable id="userList"
+                     value="#{userList.users}"
+                     var="_user"
+                     emptyMessage="No existen pacientes registrados."
+                     paginator="true" rows="10"
+                     paginatorPosition="bottom"
+                     styleClass="patients-table"
+                     style="margin-top: 1rem;">
+
+            <!-- Cabecera -->
+            <f:facet name="header">
+                <div class="table-header flex align-items-center justify-content-between">
+                    <span class="font-bold">Pacientes (#{userList.users.size()} encontrados)</span>
+                    <div class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="name" value="#{userList.criteria}"
+                                     placeholder="Buscar por nombre..." styleClass="mr-2"/>
+                        <p:commandButton id="search"
+                                         icon="pi pi-search"
+                                         styleClass="rounded-button ui-button-success mr-2"
+                                         update="searchUserForm"
+                                         action="#{userList.search()}"
+                                         title="Buscar"/>
+                        <p:commandButton id="reset"
+                                         icon="pi pi-refresh"
+                                         styleClass="rounded-button ui-button-danger"
+                                         update="searchUserForm"
+                                         process="@this"
+                                         action="#{userList.reset()}"
+                                         title="Limpiar"/>
+                    </div>
+                </div>
+            </f:facet>
+
+            <!-- Columnas -->
+            <p:column headerText="ID" style="width: 8%">
+                <h:outputText value="#{_user.id}"/>
+            </p:column>
+
+            <p:column headerText="Nombre del Paciente">
+                <h:outputText value="#{_user.name}"/>
+            </p:column>
+
+            <p:column headerText="Nombre Completo">
+                <h:outputText value="#{_user.person.fullName}"/>
+            </p:column>
+
+            <p:column headerText="Acción" style="width: 12%">
+                <p:commandButton icon="pi pi-pencil"
+                                 styleClass="rounded-button ui-button-success"
+                                 ajax="false"
+                                 title="Editar paciente"
+                                 action="#{userList.edit(_user)}">
+                    <f:viewParam name="id" value="#{_user.id}"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+
+</h:body>
+</html>

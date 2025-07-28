@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>VitalNet - Start</title>
+
+</h:head>
+
+<h:body class="index-page background-image" >
+    <h:form id="startForm">
+        <div class="centered-card fade-in">
+            <p:card styleClass="card">
+
+                <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <p:graphicImage title="Logo" url="images/Vitalnet.png" styleClass="logo-img" />
+
+                <h4>
+                    Bienvenidos a la aplicación <strong>VitalNet</strong>
+                </h4>
+
+                <p style="font-size: 18px; margin-bottom: 20px;">
+                    Plataforma para el monitoreo clínico inteligente de pacientes.
+                </p>
+                <p style="font-size: 18px; margin-bottom: 20px;">
+                    Controla alertas, reportes y signos vitales en tiempo real.
+                </p>
+
+                <ul class="bullets">
+                    <li><h5>🔔 Alertas de Pacientes</h5></li>
+                    <li><h5>📋 Reportes de Pacientes</h5></li>
+                    <li><h5>❤️ Signos Vitales</h5></li>
+                </ul>
+
+                <hr style="border: none; border-top: 1px solid #ccc; margin: 30px 0;" />
+
+                <p:commandButton
+                        value="Acceder"
+                        action="/login.xhtml?faces-redirect=true"
+                        icon="pi pi-sign-in"
+                        styleClass="ui-button-primary"
+                        style="width: 240px; font-weight: bold; letter-spacing: 0.5px;"
+                        ajax="true"
+                        process="@form"
+                        update="startForm"
+                        loadingIcon="pi pi-spin pi-spinner" />
+            </p:card>
+        </div>
+    </h:form>
+</h:body>
+</html>
