@@ -1,0 +1,147 @@
+package edu.unl.cc.jbrew.controllers;
+
+import edu.unl.cc.jbrew.bussiness.services.PatientRepository;
+import edu.unl.cc.jbrew.controllers.security.UserSession;
+import edu.unl.cc.jbrew.domain.security.Patient;
+import edu.unl.cc.jbrew.faces.FacesUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Named
+@ViewScoped
+public class PatientBean implements Serializable {
+
+    @PersistenceContext(unitName = "mydb")
+    private EntityManager entityManager;
+
+    private List<Patient> patients;
+    private List<Patient> filteredPatients;
+
+    private Patient patient;
+    private Long selectedPatientId;
+
+    private boolean managed;
+
+    private String searchCriteria;
+
+    @PostConstruct
+    public void init() {
+        list();
+    }
+
+    public void list() {
+        patients = entityManager.createQuery("SELECT p FROM Patient p", Patient.class).getResultList();
+        filteredPatients = new ArrayList<>(patients);
+    }
+
+    public void loadPatient() {
+        if (selectedPatientId != null) {
+            patient = entityManager.find(Patient.class, selectedPatientId);
+            managed = true;
+        } else {
+            patient = new Patient();
+            managed = false;
+        }
+    }
+
+    public int getFilteredPatientsSize() {
+        return filteredPatients != null ? filteredPatients.size() : 0;
+    }
+
+    @Transactional
+    public void create() {
+        entityManager.persist(patient);
+        list();
+    }
+
+    @Transactional
+    public void update() {
+        entityManager.merge(patient);
+        list();
+    }
+
+    @Transactional
+    public void delete(Long patientId) {
+        Patient p = entityManager.find(Patient.class, patientId);
+        if (p != null) {
+            entityManager.remove(p);
+            list();
+        }
+    }
+
+    public void search() {
+        if (searchCriteria == null || searchCriteria.isEmpty()) {
+            filteredPatients = new ArrayList<>(patients);
+        } else {
+            String lower = searchCriteria.toLowerCase();
+            filteredPatients = patients.stream().filter(p ->
+                    (p.getFirstName() != null && p.getFirstName().toLowerCase().contains(lower)) ||
+                            (p.getLastName() != null && p.getLastName().toLowerCase().contains(lower)) ||
+                            (p.getCedula() != null && p.getCedula().toLowerCase().contains(lower)) ||
+                            (p.getBirthDate() != null && p.getBirthDate().toString().contains(lower))
+            ).toList();
+        }
+    }
+
+    // Getters y Setters
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public List<Patient> getFilteredPatients() {
+        return filteredPatients;
+    }
+
+    public void setFilteredPatients(List<Patient> filteredPatients) {
+        this.filteredPatients = filteredPatients;
+    }
+
+    public Patient getPatient() {
+        if (patient == null) {
+            patient = new Patient();
+        }
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Long getSelectedPatientId() {
+        return selectedPatientId;
+    }
+
+    public void setSelectedPatientId(Long selectedPatientId) {
+        this.selectedPatientId = selectedPatientId;
+    }
+
+    public boolean isManaged() {
+        return managed;
+    }
+
+    public void setManaged(boolean managed) {
+        this.managed = managed;
+    }
+
+    public String getSearchCriteria() {
+        return searchCriteria;
+    }
+
+    public void setSearchCriteria(String searchCriteria) {
+        this.searchCriteria = searchCriteria;
+    }
+}

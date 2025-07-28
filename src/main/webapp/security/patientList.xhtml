@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>VitalNet - Gestión de Pacientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+
+    <h:form id="searchPatientForm" styleClass="container">
+
+        <p:growl id="messages" showDetail="true"/>
+
+        <h2 class="page-title">Administración de Pacientes</h2>
+
+        <p:toolbar styleClass="mb-3 shadow-2 border-round">
+            <p:toolbarGroup>
+                <p:commandButton value="Agregar Paciente"
+                                 icon="pi pi-user-plus"
+                                 action="patientEdit.xhtml?faces-redirect=true"
+                                 styleClass="ui-button-success"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+        <p:dataTable id="patientTable"
+                     value="#{patientBean.filteredPatients}"
+                     var="p"
+                     paginator="true" rows="10"
+                     paginatorPosition="bottom"
+                     emptyMessage="No existen pacientes registrados."
+                     styleClass="patients-table">
+
+            <f:facet name="header">
+                <div class="table-header flex align-items-center justify-content-between">
+                    <span class="font-bold">Pacientes (#{patientBean.getFilteredPatients().size()} encontrados)</span>
+                    <div class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText value="#{patientBean.searchCriteria}" placeholder="Buscar por nombre, cédula o fecha..."/>
+                        <p:commandButton icon="pi pi-search" update="@form" action="#{patientBean.search}" styleClass="rounded-button ui-button-success ml-2" title="Buscar"/>
+                    </div>
+                </div>
+            </f:facet>
+
+            <p:column headerText="ID" style="width: 8%">
+                <h:outputText value="#{p.id}"/>
+            </p:column>
+
+            <p:column headerText="Nombres">
+                <h:outputText value="#{p.firstName}"/>
+            </p:column>
+
+            <p:column headerText="Apellidos">
+                <h:outputText value="#{p.lastName}"/>
+            </p:column>
+
+            <p:column headerText="Cédula">
+                <h:outputText value="#{p.cedula}"/>
+            </p:column>
+
+            <p:column headerText="Acciones" style="width: 15%">
+                <p:commandButton icon="pi pi-pencil"
+                                 title="Editar"
+                                 action="patientEdit.xhtml?faces-redirect=true">
+                    <f:setPropertyActionListener target="#{patientBean.selectedPatientId}" value="#{p.id}"/>
+                </p:commandButton>
+                <p:commandButton icon="pi pi-trash"
+                                 title="Eliminar"
+                                 styleClass="ui-button-danger ml-2"
+                                 actionListener="#{patientBean.delete(p.id)}"
+                                 update="@form">
+                    <p:confirm header="Confirmar" message="¿Eliminar este paciente?" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+        </p:confirmDialog>
+
+    </h:form>
+
+</h:body>
+</html>
