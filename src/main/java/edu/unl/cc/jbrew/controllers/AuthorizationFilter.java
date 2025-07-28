@@ -12,9 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-//@WebFilter("*.xhtml")
 public class AuthorizationFilter implements Filter {
-
+//Filtro para controlar acceso basado en permisos.
     @Inject
     UserSession userSession;
 

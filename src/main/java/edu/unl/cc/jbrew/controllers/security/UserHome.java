@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
+//Bean para vista principal de usuario.
 @Named
 @ViewScoped
 public class UserHome implements java.io.Serializable{

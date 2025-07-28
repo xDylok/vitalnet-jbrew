@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "vital_sign")
 public class VitalSign implements Serializable {
-
+//Clase de gestión de signos vitales.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

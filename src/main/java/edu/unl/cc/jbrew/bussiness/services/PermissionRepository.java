@@ -9,7 +9,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class PermissionRepository {
-
+//Gestión de permisos.
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 

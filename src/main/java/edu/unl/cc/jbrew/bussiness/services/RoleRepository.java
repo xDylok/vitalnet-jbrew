@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class RoleRepository {
-
+//Acceso a datos de roles.
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 

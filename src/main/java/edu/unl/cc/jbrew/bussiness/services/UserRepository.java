@@ -17,7 +17,7 @@ import java.util.*;
  */
 @ApplicationScoped
 public class UserRepository {
-
+//Acceso a datos de usuarios.
     //Define la conexion de la aplicacion a la base da datos
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;

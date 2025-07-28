@@ -10,7 +10,7 @@ import java.util.List;
 
 @Stateless
 public class PatientRepository implements Serializable {
-
+//Acceso a datos para pacientes.
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 
@@ -18,9 +18,6 @@ public class PatientRepository implements Serializable {
         return entityManager.find(Patient.class, id);
     }
 
-    public List<Patient> findAll() {
-        return entityManager.createQuery("SELECT p FROM Patient p", Patient.class).getResultList();
-    }
 
     public List<Patient> search(String criteria) {
         if (criteria == null || criteria.trim().isEmpty()) {
@@ -31,7 +28,7 @@ public class PatientRepository implements Serializable {
                         "SELECT p FROM Patient p WHERE LOWER(p.firstName) LIKE :criteria OR LOWER(p.cedula) LIKE :criteria",
                         Patient.class
                 )
-                .setParameter("criteria", "%" + criteria.toLowerCase().trim() + "%")
+                .setParameter("criteria", criteria.toLowerCase().trim())
                 .getResultList();
     }
 

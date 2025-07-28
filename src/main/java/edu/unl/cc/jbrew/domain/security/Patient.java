@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "patient")
 public class Patient implements Serializable {
-
+// Entidad paciente.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -22,7 +22,7 @@
 
     <h:form id="userForm" styleClass="container fade-in">
 
-        <div class="card">
+        <div class="card-user-edit">
             <h5>#{userHome.managed ? 'Editar' : 'Crear'} Usuario</h5>
 
             <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
@@ -103,6 +103,11 @@
             <p:commandButton value="Cancelar" action="userList.xhtml?faces-redirect=true"
                              immediate="true"
                              icon="pi pi-times" styleClass="mt-3 ui-button-secondary"/>
+
+            <p:commandButton value="Regresar"
+                             icon="pi pi-user"
+                             action="/userList.xhtml?faces-redirect=true"
+                             styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
 
         </div>
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Stateless
 public class VitalSignRepository implements Serializable {
-
+//Lecturas o registros de signos vitales.
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 
@@ -34,10 +34,4 @@ public class VitalSignRepository implements Serializable {
         }
     }
 
-    public void delete(Long id) {
-        VitalSign sign = find(id);
-        if (sign != null) {
-            entityManager.remove(sign);
-        }
-    }
 }

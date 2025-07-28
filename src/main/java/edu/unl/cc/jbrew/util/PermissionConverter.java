@@ -10,7 +10,7 @@ import jakarta.inject.Inject;
 
 @FacesConverter(value = "permissionConverter", forClass = Permission.class)
 public class PermissionConverter implements Converter<Permission> {
-
+// Conversor JSF para permisos.
     @Inject
     private PermissionRepository permissionRepository;
 

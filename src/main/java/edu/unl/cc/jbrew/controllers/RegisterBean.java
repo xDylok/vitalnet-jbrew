@@ -20,7 +20,7 @@ import java.util.List;
 @Named("registerBean")
 @SessionScoped
 public class RegisterBean implements Serializable {
-
+//Registro de usuarios.
     private String usuario;
     private String password;
     private String confirmpassword;

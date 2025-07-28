@@ -18,6 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
+    //Clase base con datos personales.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,7 +45,6 @@ public class Person implements Serializable {
 
     @Column(name = "cedula")
     private String cedula;
-
 
 
     public Person() {

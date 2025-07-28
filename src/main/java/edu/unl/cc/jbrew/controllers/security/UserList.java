@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 @Named
 @ViewScoped
 public class UserList implements java.io.Serializable{
-
+//Bean para listar usuarios.
     private static Logger logger = Logger.getLogger(UserList.class.getName());
 
     @Serial

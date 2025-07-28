@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Named
 @ViewScoped
 public class RolePermissionsBean implements Serializable {
-
+// Bean JSF para asignar permisos a roles.
 
 private static final long serialVersionUID = 1L;
     @Inject

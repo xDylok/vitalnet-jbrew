@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.security.Principal;
 
 public class UserPrincipal implements Principal, Serializable {
-
+//Representación del usuario autenticado.
     private final User user;
 
     public UserPrincipal(@NotNull User user) {

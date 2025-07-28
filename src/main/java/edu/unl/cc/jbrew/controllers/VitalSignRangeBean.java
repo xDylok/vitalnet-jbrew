@@ -14,7 +14,7 @@ import java.util.List;
 @Named("vitalSignRangeBean")
 @ViewScoped
 public class VitalSignRangeBean implements Serializable {
-
+//Posiblemente un DTO o clase auxiliar para mostrar info de signos vitales.
     private VitalSignRange range;
     private List<VitalSign> signs = new ArrayList<>();
 

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 @Named
 @ViewScoped
 public class AuthenticationBean implements java.io.Serializable{
-
+// Bean para inicio de sesión.
     private static Logger logger = Logger.getLogger(AuthenticationBean.class.getName());
 
     //@Inject

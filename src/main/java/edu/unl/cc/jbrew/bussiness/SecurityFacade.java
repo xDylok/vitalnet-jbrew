@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 @Stateless
 public class SecurityFacade implements java.io.Serializable{
     Logger logger = Logger.getLogger(SecurityFacade.class.getName());
-
+//agrupa lógica relacionada con seguridad, autenticación/autorización.
     @Inject
     private UserRepository userRepository;
 
@@ -30,16 +30,6 @@ public class SecurityFacade implements java.io.Serializable{
 
     public User findUserWithRoleAndPermissions(Long userId) {
         return userRepository.findUserWithRoleAndPermissions(userId);
-    }
-
-    public Set<Permission> getPermissionsByUserId(Long userId) throws EntityNotFoundException {
-        User user = userRepository.findUserWithRoleAndPermissions(userId);
-
-        if (user == null || user.getRole() == null) {
-            throw new EntityNotFoundException("Rol no encontrado para usuario con ID: " + userId);
-        }
-
-        return user.getRole().getPermissions();
     }
 
     public User create(User user) throws Exception {

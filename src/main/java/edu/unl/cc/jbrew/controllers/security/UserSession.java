@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 @Named
 @SessionScoped
 public class UserSession implements java.io.Serializable{
-
+//Manejo de sesión del usuario.
     @Serial
     private static final long serialVersionUID = 1L;
 

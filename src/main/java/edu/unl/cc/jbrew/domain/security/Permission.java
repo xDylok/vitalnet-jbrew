@@ -5,7 +5,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "permission")
 public class Permission implements java.io.Serializable {
-
+//Entidad permiso.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
