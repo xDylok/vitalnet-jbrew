@@ -36,11 +36,10 @@
             </p:toolbarGroup>
         </p:toolbar>
 
-        <!-- Tabla de pacientes -->
         <p:dataTable id="userList"
                      value="#{userList.users}"
                      var="_user"
-                     emptyMessage="No existen pacientes registrados."
+                     emptyMessage="No existen usuarios registrados."
                      paginator="true" rows="10"
                      paginatorPosition="bottom"
                      styleClass="patients-table"
@@ -49,7 +48,7 @@
             <!-- Cabecera -->
             <f:facet name="header">
                 <div class="table-header flex align-items-center justify-content-between">
-                    <span class="font-bold">Pacientes (#{userList.users.size()} encontrados)</span>
+                    <span class="font-bold">Usuarios (#{userList.users.size()} encontrados)</span>
                     <div class="filter-container ui-input-icon-left">
                         <i class="pi pi-search"/>
                         <p:inputText id="name" value="#{userList.criteria}"
