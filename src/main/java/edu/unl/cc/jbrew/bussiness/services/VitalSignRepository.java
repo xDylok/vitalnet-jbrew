@@ -16,6 +16,24 @@ public class VitalSignRepository implements Serializable {
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 
+    public List<VitalSign> findAll() {
+        return entityManager.createQuery("SELECT v FROM VitalSign v ORDER BY v.fechaRegistro DESC", VitalSign.class)
+                .getResultList();
+    }
+
+    public List<VitalSign> findByCriteria(String criteria) {
+        // Aquí haces búsqueda básica por presión arterial o fecha (como ejemplo)
+        return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.presionArterial LIKE :crit OR FUNCTION('TO_CHAR', v.fechaRegistro, 'YYYY-MM-DD') LIKE :crit ORDER BY v.fechaRegistro DESC", VitalSign.class)
+                .setParameter("crit", "%" + criteria + "%")
+                .getResultList();
+    }
+    public void delete(VitalSign sign) {
+        VitalSign managed = entityManager.find(VitalSign.class, sign.getId());
+        if (managed != null) {
+            entityManager.remove(managed);
+        }
+    }
+
     public VitalSignRange getConfig() {
         return entityManager.createQuery("SELECT r FROM VitalSignRange r", VitalSignRange.class)
                 .setMaxResults(1)
@@ -28,6 +46,11 @@ public class VitalSignRepository implements Serializable {
     public List<VitalSign> findByPatient(Patient patient) {
         return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.patient = :patient ORDER BY v.fechaRegistro DESC", VitalSign.class)
                 .setParameter("patient", patient)
+                .getResultList();
+    }
+    public List<VitalSign> findVitalSignsByPatientId(Long patientId) {
+        return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.patient.id = :id ORDER BY v.fechaRegistro DESC", VitalSign.class)
+                .setParameter("id", patientId)
                 .getResultList();
     }
 

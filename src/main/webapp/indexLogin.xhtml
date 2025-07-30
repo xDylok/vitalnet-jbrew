@@ -67,7 +67,9 @@
                                      icon="pi pi-heart"
                                      action="/security/vital-sign-list.xhtml?faces-redirect=true"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px;"
-                                     styleClass="ui-button-primary mb-2"/>
+                                     styleClass="ui-button-primary mb-2">
+                        <f:param name="patientId" value="#{patient.id}" />
+                    </p:commandButton>
 
                     <p:commandButton value="Cerrar Sesión"
                                      icon="pi pi-sign-out"

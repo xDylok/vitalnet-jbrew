@@ -4,6 +4,7 @@ import edu.unl.cc.jbrew.bussiness.services.VitalSignRepository;
 import edu.unl.cc.jbrew.controllers.security.VitalSign;
 import edu.unl.cc.jbrew.domain.security.Patient;
 import edu.unl.cc.jbrew.domain.security.User;
+import edu.unl.cc.jbrew.util.SignosVitalesUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -47,28 +48,26 @@ public class VitalSignBean implements Serializable {
             if (responsable != null) {
                 vitalSign.setResponsable(responsable);
 
-                // Obtener configuración de rangos normales
-                VitalSignRange config = vitalSignRepository.getConfig(); // O por paciente, si aplica
+                VitalSignRange config = vitalSignRepository.getConfig();
 
                 if (config != null && config.getPresionNormal() != null) {
-                    String presionIngresada = vitalSign.getPresionArterial();
-                    String presionNormal = config.getPresionNormal();
-
-                    if (vitalSignRangeBean.isPresionOutOfRange(presionIngresada, presionNormal)) {
+                    if (SignosVitalesUtil.isPresionOutOfRange(vitalSign.getPresionArterial(), config.getPresionNormal())) {
                         FacesContext.getCurrentInstance().addMessage(null,
                                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Presión fuera del rango normal."));
                     }
                 }
 
                 vitalSignRepository.save(vitalSign);
-                this.vitalSign = new VitalSign(); // reiniciar
-                this.nombreResponsable = "";
+                vitalSign = new VitalSign();  // resetear para nuevo registro
+                nombreResponsable = "";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Responsable no encontrado."));
             }
         }
     }
+
+
 
 
 

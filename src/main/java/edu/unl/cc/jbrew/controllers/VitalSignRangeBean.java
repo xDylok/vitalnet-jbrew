@@ -3,6 +3,7 @@ package edu.unl.cc.jbrew.controllers;
 import edu.unl.cc.jbrew.bussiness.services.VitalSignRangeRepository;
 import edu.unl.cc.jbrew.controllers.security.VitalSign;
 import edu.unl.cc.jbrew.faces.FacesUtil;
+import edu.unl.cc.jbrew.util.SignosVitalesUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -15,7 +16,7 @@ import java.util.List;
 @Named("vitalSignRangeBean")
 @ViewScoped
 public class VitalSignRangeBean implements Serializable {
-//Posiblemente un DTO o clase auxiliar para mostrar info de signos vitales.
+
     private VitalSignRange range;
     private List<VitalSign> signs = new ArrayList<>();
 
@@ -40,6 +41,13 @@ public class VitalSignRangeBean implements Serializable {
         }
     }
 
+    public String getRowStyleClass(VitalSign sign) {
+        if (range != null && SignosVitalesUtil.isPresionOutOfRange(sign.getPresionArterial(), range.getPresionNormal())) {
+            return "warningRow";  // nombre de clase CSS para amarillo
+        }
+        return null;
+    }
+
     public String save() {
         try {
             repository.save(range);
@@ -52,32 +60,11 @@ public class VitalSignRangeBean implements Serializable {
     }
 
     public boolean isPresionOutOfRange(String presionSign, String presionNormal) {
-        try {
-            String[] normalParts = presionNormal.split("/");
-            String[] signParts = presionSign.split("/");
-
-            if (normalParts.length != 2 || signParts.length != 2) {
-                return false; // formato inválido, no marcar
-            }
-
-            int normalSistolica = Integer.parseInt(normalParts[0].trim());
-            int normalDiastolica = Integer.parseInt(normalParts[1].trim());
-
-            int signSistolica = Integer.parseInt(signParts[0].trim());
-            int signDiastolica = Integer.parseInt(signParts[1].trim());
-
-            int tolerancia = 10; // margen +/- 10
-
-            boolean sistolicaFuera = signSistolica < (normalSistolica - tolerancia) || signSistolica > (normalSistolica + tolerancia);
-            boolean diastolicaFuera = signDiastolica < (normalDiastolica - tolerancia) || signDiastolica > (normalDiastolica + tolerancia);
-
-            return sistolicaFuera || diastolicaFuera;
-
-        } catch (NumberFormatException e) {
-            // Si no puede parsear, no marcar como fuera de rango para no falsear el resultado
-            return false;
-        }
+        return SignosVitalesUtil.isPresionOutOfRange(presionSign, presionNormal);
     }
+
+
+
 
     public VitalSignRange getRange() {
         return range;

@@ -3,70 +3,122 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
-      xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<f:metadata>
-    <f:viewParam name="patientId" value="#{vitalSignRangeBean.patientId}"/>
-    <f:event listener="#{vitalSignRangeBean.loadVitalSigns()}" type="preRenderView"/>
-</f:metadata>
-
 <h:head>
-    <title>VitalNet - Historial de Signos Vitales</title>
+    <title>VitalNet - Gestión de Signos Vitales</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 
 <h:body class="background-image">
-    <h:form id="vitalForm" styleClass="container fade-in">
 
-        <div class="card">
-            <h5>Historial de Signos Vitales del Paciente</h5>
+    <h:form id="searchVitalForm" styleClass="container">
 
-            <p:messages>
-                <p:autoUpdate/>
-            </p:messages>
+        <p:growl id="messages" showDetail="true"/>
 
-            <p:dataTable value="#{vitalSignRangeBean.signs}" var="sign" stripedRows="true" responsiveLayout="scroll"
-                         rowStyleClass="#{vitalSignRangeBean.isPresionOutOfRange(sign.presionArterial, vitalSignRangeBean.range.presionArterial) ? 'outOfRange' : null}">
+        <h2 class="page-title">Administración de Signos Vitales</h2>
 
+        <p:toolbar styleClass="mb-4 shadow-2 border-round" style="justify-content: space-between;">
+            <p:toolbarGroup>
+                <p:commandButton id="Agregar"
+                                 value="Agregar Signo"
+                                 icon="pi pi-plus"
+                                 action="/vitalSignEdit.xhtml?faces-redirect=true"
+                                 styleClass="ui-button-success mr-2"
+                                 style="min-width: 180px;"/>
+            </p:toolbarGroup>
 
-            <p:column headerText="Fecha">
-                    <h:outputText value="#{sign.fechaRegistro}">
-                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
-                    </h:outputText>
-                </p:column>
+            <p:toolbarGroup align="right">
+                <p:commandButton value="Regresar"
+                                 icon="pi pi-arrow-left"
+                                 action="/indexLogin.xhtml?faces-redirect=true"
+                                 styleClass="ui-button-primary"
+                                 style="min-width: 180px;"/>
+            </p:toolbarGroup>
+        </p:toolbar>
 
-                <p:column headerText="Temperatura (°C)">
-                    <h:outputText value="#{sign.temperatura}"/>
-                </p:column>
+        <p:dataTable id="vitalSignList"
+                     value="#{vitalSignList.signs}"
+                     var="sign"
+                     filteredValue="#{vitalSignList.filteredSigns}"
+                     emptyMessage="No existen signos vitales registrados."
+                     paginator="true" rows="10"
+                     paginatorPosition="bottom"
+                     styleClass="patients-table"
+                     style="margin-top: 1rem;">
 
-                <p:column headerText="Frecuencia Cardíaca">
-                    <h:outputText value="#{sign.frecuenciaCardiaca}"/>
-                </p:column>
+            <f:facet name="header">
+                <div class="table-header flex align-items-center justify-content-between">
+                    <span class="font-bold">Signos Vitales (#{vitalSignList.signs.size()} encontrados)</span>
+                    <div class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="criteria" value="#{vitalSignList.criteria}"
+                                     placeholder="Buscar por presión o fecha..." styleClass="mr-2"/>
+                        <p:commandButton id="search"
+                                         icon="pi pi-search"
+                                         styleClass="rounded-button ui-button-success mr-2"
+                                         update="searchVitalForm"
+                                         action="#{vitalSignList.search()}"
+                                         title="Buscar"/>
+                        <p:commandButton id="reset"
+                                         icon="pi pi-refresh"
+                                         styleClass="rounded-button ui-button-danger"
+                                         update="searchVitalForm"
+                                         process="@this"
+                                         action="#{vitalSignList.reset()}"
+                                         title="Limpiar"/>
+                    </div>
+                </div>
+            </f:facet>
 
-                <p:column headerText="Presión Arterial">
-                    <h:outputText value="#{sign.presionArterial}"/>
-                </p:column>
+            <p:column headerText="Fecha Registro" style="width: 15%">
+                <h:outputText value="#{sign.fechaRegistro}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                </h:outputText>
+            </p:column>
 
-                <p:column headerText="Peso (kg)">
-                    <h:outputText value="#{sign.peso}"/>
-                </p:column>
+            <p:column headerText="Temperatura (°C)" style="width: 12%">
+                <h:outputText value="#{sign.temperatura}"/>
+            </p:column>
 
-                <p:column headerText="Altura (m)">
-                    <h:outputText value="#{sign.altura}"/>
-                </p:column>
+            <p:column headerText="Frecuencia Cardíaca" style="width: 12%">
+                <h:outputText value="#{sign.frecuenciaCardiaca}"/>
+            </p:column>
 
-                <p:column headerText="Registrado por">
-                    <h:outputText value="#{sign.responsable.name}"/>
-                </p:column>
-            </p:dataTable>
+            <p:column headerText="Presión Arterial" style="width: 15%">
+                <h:outputText value="#{sign.presionArterial}"/>
+            </p:column>
 
-            <p:commandButton value="Volver"
-                             action="/indexLogin.xhtml?faces-redirect=true"
-                             icon="pi pi-arrow-left"
-                             styleClass="mt-3 ui-button-secondary"/>
-        </div>
+            <p:column headerText="Peso (kg)" style="width: 12%">
+                <h:outputText value="#{sign.peso}"/>
+            </p:column>
+
+            <p:column headerText="Altura (m)" style="width: 12%">
+                <h:outputText value="#{sign.altura}"/>
+            </p:column>
+
+            <p:column headerText="Registrado por" style="width: 15%">
+                <h:outputText value="#{sign.responsable.name}"/>
+            </p:column>
+
+            <p:column headerText="Acción" style="width: 10%">
+                <p:commandButton icon="pi pi-pencil"
+                                 styleClass="rounded-button ui-button-success"
+                                 ajax="false"
+                                 title="Editar"
+                                 action="#{vitalSignList.edit(sign)}"/>
+                <p:commandButton icon="pi pi-trash"
+                                 styleClass="rounded-button ui-button-danger ml-2"
+                                 ajax="false"
+                                 title="Eliminar"
+                                 action="#{vitalSignList.delete(sign)}"
+                                 oncomplete="PF('deleteDialog').show()"/>
+            </p:column>
+
+        </p:dataTable>
+
     </h:form>
+
 </h:body>
 </html>
