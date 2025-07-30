@@ -2,7 +2,6 @@ package edu.unl.cc.jbrew.bussiness.services;
 
 import edu.unl.cc.jbrew.controllers.VitalSignRange;
 import edu.unl.cc.jbrew.controllers.security.VitalSign;
-import edu.unl.cc.jbrew.domain.security.Patient;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,7 +20,7 @@ public class VitalSignRepository implements Serializable {
                 .getResultList();
     }
 
-    public List<VitalSign> findByCriteria(String criteria) {
+    public List<VitalSign> findCriteria(String criteria) {
         // Aquí haces búsqueda básica por presión arterial o fecha (como ejemplo)
         return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.presionArterial LIKE :crit OR FUNCTION('TO_CHAR', v.fechaRegistro, 'YYYY-MM-DD') LIKE :crit ORDER BY v.fechaRegistro DESC", VitalSign.class)
                 .setParameter("crit", "%" + criteria + "%")

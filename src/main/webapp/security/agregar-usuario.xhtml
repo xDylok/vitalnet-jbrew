@@ -23,7 +23,7 @@
     <h:form id="userForm" styleClass="container fade-in">
 
         <div class="card-user-edit">
-            <h5>#{userHome.managed ? 'Editar' : 'Crear'} Usuario</h5>
+            <h5>#{userHome.esGestionado ? 'Editar' : 'Crear'} Usuario</h5>
 
             <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
                 <p:autoUpdate/>
@@ -33,7 +33,7 @@
                 <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
                     <p:outputLabel for="username" value="Nombre de usuario:" />
                     <p:inputText id="username" value="#{userHome.user.name}" required="true"
-                                 disabled="#{userHome.managed}"/>
+                                 disabled="#{userHome.esGestionado}"/>
 
                     <p:outputLabel for="password" value="Contraseña:" />
                     <p:password id="password" value="#{userHome.user.password}" required="true"
@@ -65,7 +65,7 @@
                     <p:outputLabel for="role" value="Rol:" />
                     <p:selectOneMenu id="role" value="#{userHome.selectedRoleId}" required="true" label="Rol">
                         <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}" noSelectionOption="true" />
-                        <f:selectItems value="#{userHome.availableRoles}" var="rol" itemValue="#{rol.id}" itemLabel="#{rol.name}" />
+                        <f:selectItems value="#{userHome.obtenerRolesDisponibles}" var="rol" itemValue="#{rol.id}" itemLabel="#{rol.name}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="gender" value="Género:" />
@@ -92,14 +92,14 @@
                 </p:column>
             </p:dataTable>
 
-            <p:commandButton value="Crear" rendered="#{!userHome.managed}"
+            <p:commandButton value="Crear" rendered="#{!userHome.esGestionado}"
                              action="#{userHome.create()}"
                              icon="pi pi-user" validateClient="true"
                              styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;"
                              update="@form"
                              title="Guardar un usuario nuevo"/>
 
-            <p:commandButton value="Guardar" rendered="#{userHome.managed}"
+            <p:commandButton value="Guardar" rendered="#{userHome.esGestionado}"
                              action="#{userHome.update()}"
                              icon="pi pi-user" validateClient="true"
                              styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;" update="@form"

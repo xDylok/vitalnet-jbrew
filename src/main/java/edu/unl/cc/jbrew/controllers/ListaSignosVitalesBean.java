@@ -41,7 +41,7 @@ public class ListaSignosVitalesBean implements Serializable {
         if (criteria == null || criteria.trim().isEmpty()) {
             signs = vitalSignRepository.findAll();
         } else {
-            signs = vitalSignRepository.findByCriteria(criteria);
+            signs = vitalSignRepository.findCriteria(criteria);
         }
     }
 

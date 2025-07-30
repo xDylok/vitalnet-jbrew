@@ -1,6 +1,5 @@
 package edu.unl.cc.jbrew.bussiness.services;
 
-import edu.unl.cc.jbrew.domain.security.Permission;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
@@ -56,7 +55,7 @@ public class UserRepository {
     }
 
 
-    public List<User> findWithLike(String criteria) throws EntityNotFoundException {
+    public List<User> buscarPorCriterio(String criteria) throws EntityNotFoundException {
         List<User> results = entityManager.createQuery(
                         "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:criteria)", User.class)
                 .setParameter("criteria", "%" + criteria + "%")
@@ -68,7 +67,7 @@ public class UserRepository {
         return results;
     }
 
-    public User findUserWithRoleAndPermissions(Long userId) {
+    public User buscarRolUsuarioConPermisos(Long userId) {
         String jpql = "SELECT u FROM User u, Role r " +
                 "WHERE u.role.id = r.id AND u.id = :userId";
 
@@ -82,7 +81,7 @@ public class UserRepository {
 
     }
 
-    public User findByName(String name) {
+    public User buscarPorNombre(String name) {
         try {
             return entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
                     .setParameter("name", name)
@@ -93,7 +92,7 @@ public class UserRepository {
     }
 
 
-    public List<User> findAll() {
+    public List<User> buscarTodos() {
         return entityManager.createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
     }

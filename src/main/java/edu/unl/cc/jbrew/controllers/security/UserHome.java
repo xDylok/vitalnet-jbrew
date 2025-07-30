@@ -45,13 +45,13 @@ public class UserHome implements java.io.Serializable{
 
     private List<Role> availableRoles;
 
-    public List<Role> getAvailableRoles() {
+    public List<Role> obtenerRolesDisponibles() {
         return availableRoles.stream()
                 .filter(r -> !r.getName().equalsIgnoreCase("paciente"))
                 .collect(Collectors.toList());
     }
 
-    public void setAvailableRoles(List<Role> availableRoles) {
+    public void setearRolesDisponibles(List<Role> availableRoles) {
         this.availableRoles = availableRoles;
     }
 
@@ -127,7 +127,7 @@ public class UserHome implements java.io.Serializable{
         }
     }
 
-    public boolean isManaged() {
+    public boolean esGestionado() {
         return this.user != null && this.user.getId() != null;
     }
 

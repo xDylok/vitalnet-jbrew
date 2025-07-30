@@ -37,9 +37,9 @@ public class UsuarioAdmin {
         }
 
         try {
-            User existing = userRepository.findByName("admin");
+            User existing = userRepository.buscarPorNombre("admin");
             if (existing == null) {
-                Role adminRole = roleRepository.findByName("ADMIN");
+                Role adminRole = roleRepository.buscarPorNombre("ADMIN");
                 if (adminRole == null) {
                     adminRole = new Role();
                     adminRole.setName("ADMIN");

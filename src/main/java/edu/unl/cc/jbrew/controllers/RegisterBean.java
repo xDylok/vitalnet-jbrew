@@ -42,7 +42,7 @@ public class RegisterBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        availableRoles = roleRepository.findAll();
+        availableRoles = roleRepository.buscarTodos();
     }
 
     public String register() {
@@ -53,7 +53,7 @@ public class RegisterBean implements Serializable {
             return null;
         }
 
-        Role selectedRole = roleRepository.findById(selectedRoleId);
+        Role selectedRole = roleRepository.buscarPorId(selectedRoleId);
 
         User user = new User();
         user.setName(usuario);

@@ -37,14 +37,14 @@ public class VitalSignBean implements Serializable {
     @PostConstruct
     public void init() {
         this.vitalSign = new VitalSign();
-        this.users = userRepository.findAll();
+        this.users = userRepository.buscarTodos();
     }
 
     public void save(Patient patient) {
         if (patient != null) {
             vitalSign.setPatient(patient);
 
-            User responsable = userRepository.findByName(nombreResponsable);
+            User responsable = userRepository.buscarPorNombre(nombreResponsable);
             if (responsable != null) {
                 vitalSign.setResponsable(responsable);
 
