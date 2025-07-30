@@ -24,15 +24,15 @@ public class Person implements Serializable {
     private Long id;
 
     @NotNull @NotEmpty
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "nombres", nullable = false)
+    private String nombres;
 
     @NotNull @NotEmpty
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @Column(name = "apelidos", nullable = false)
+    private String apellidos;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
 
     @Column(name = "email")
     private String email;
@@ -40,20 +40,20 @@ public class Person implements Serializable {
     @Enumerated(EnumType.STRING)
     private GenderType gender;
 
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "cedula")
     private String cedula;
 
 
     public Person() {
-        birthDate = LocalDate.now();
+        fechaNacimiento = LocalDate.now();
     }
 
 
-    public String getFullName(){
-        return lastName + " " + firstName;
+    public String getNombreCompleto(){
+        return apellidos + " " + nombres;
     }
 
     public Long getId() {
@@ -64,35 +64,36 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNombres() {
+        return nombres;
     }
 
-    public final void setFirstName(String firstName) {
-        this.firstName = firstName.toUpperCase();
+    public final void setNombres(String nombres) {
+        this.nombres = nombres.toUpperCase();
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public final void setLastName(String lastName) {
-        this.lastName = lastName.toUpperCase();
+    public final void setApellidos(String apellidos) {
+        this.apellidos = apellidos.toUpperCase();
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-    public String getPhone() {
-        return phone;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getCedula() {
@@ -122,9 +123,9 @@ public class Person implements Serializable {
     public int hashCode() {
         int hash = 5;
         hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.firstName);
-        hash = 53 * hash + Objects.hashCode(this.lastName);
-        hash = 53 * hash + Objects.hashCode(this.birthDate);
+        hash = 53 * hash + Objects.hashCode(this.nombres);
+        hash = 53 * hash + Objects.hashCode(this.apellidos);
+        hash = 53 * hash + Objects.hashCode(this.fechaNacimiento);
         hash = 53 * hash + Objects.hashCode(this.email);
         return hash;
     }
@@ -141,10 +142,10 @@ public class Person implements Serializable {
             return false;
         }
         final Person other = (Person) obj;
-        if (!Objects.equals(this.firstName, other.firstName)) {
+        if (!Objects.equals(this.nombres, other.nombres)) {
             return false;
         }
-        if (!Objects.equals(this.lastName, other.lastName)) {
+        if (!Objects.equals(this.apellidos, other.apellidos)) {
             return false;
         }
         if (!Objects.equals(this.email, other.email)) {
@@ -153,11 +154,11 @@ public class Person implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return Objects.equals(this.birthDate, other.birthDate);
+        return Objects.equals(this.fechaNacimiento, other.fechaNacimiento);
     }
 
     @Override
     public String toString() {
-        return "Person{" + "id:" + id + ", firstName:" + firstName + ", lastName:" + lastName + ", birthDate:" + birthDate + ", email:" + email + '}';
+        return "Person{" + "id:" + id + ", nombres:" + nombres + ", apellidos:" + apellidos + ", fechaNacimiento:" + fechaNacimiento + ", email:" + email + '}';
     }
 }

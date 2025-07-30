@@ -51,38 +51,48 @@ public class ListaSignosVitalesBean implements Serializable {
     }
 
     public String getRowStyleClass(VitalSign sign) {
-        if (isPresionOutOfRange(sign.getPresionArterial(), range.getPresionNormal())) {
-            return "warning-row";
+        boolean fueraDeRango = false;
+
+        if (presionFueraRango(sign.getPresionArterial(), range.getPresionNormal())) {
+            fueraDeRango = true;
         }
-        return "";
+
+        if (sign.getTemperatura() != null && (sign.getTemperatura() < range.getTempMin() || sign.getTemperatura() > range.getTempMax())) {
+            fueraDeRango = true;
+        }
+
+        if (sign.getFrecuenciaCardiaca() != null && (sign.getFrecuenciaCardiaca() < range.getFrecuenciaMin() || sign.getFrecuenciaCardiaca() > range.getFrecuenciaMax())) {
+            fueraDeRango = true;
+        }
+
+        if (esPesoInadecuado(sign.getPeso(), sign.getAltura())) {
+            fueraDeRango = true;
+        }
+
+        return fueraDeRango ? "warning-row" : "";
     }
 
-    private boolean isPresionOutOfRange(String presionSign, String presionNormal) {
+    private boolean esPesoInadecuado(Float peso, Float altura) {
+        if (peso == null || altura == null || altura <= 0) return false;
+
+        float imc = peso / (altura * altura);
+        return imc < 18.5 || imc > 24.9;
+    }
+
+    private boolean presionFueraRango(String presionSign, String presionNormal) {
         try {
-            String[] normalParts = presionNormal.split("/");
-            String[] signParts = presionSign.split("/");
-
-            if (normalParts.length != 2 || signParts.length != 2) {
-                return false;
-            }
-
-            int normalSistolica = Integer.parseInt(normalParts[0].trim());
-            int normalDiastolica = Integer.parseInt(normalParts[1].trim());
-
-            int signSistolica = Integer.parseInt(signParts[0].trim());
-            int signDiastolica = Integer.parseInt(signParts[1].trim());
+            int presionSignInt = Integer.parseInt(presionSign.trim());
+            int presionNormalInt = Integer.parseInt(presionNormal.trim());
 
             int tolerancia = 10;
 
-            boolean sistolicaFuera = signSistolica < (normalSistolica - tolerancia) || signSistolica > (normalSistolica + tolerancia);
-            boolean diastolicaFuera = signDiastolica < (normalDiastolica - tolerancia) || signDiastolica > (normalDiastolica + tolerancia);
-
-            return sistolicaFuera || diastolicaFuera;
+            return presionSignInt < (presionNormalInt - tolerancia) || presionSignInt > (presionNormalInt + tolerancia);
 
         } catch (Exception e) {
             return false;
         }
     }
+
     public List<VitalSign> getSigns() {
         return signs;
     }

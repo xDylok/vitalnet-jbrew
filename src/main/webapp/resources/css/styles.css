@@ -84,8 +84,10 @@ body {
     background-color: rgba(255, 255, 255, 0.95);
 }
 .warning-row {
-    background-color: #fff3cd !important; /* Amarillo suave tipo advertencia */
+    background-color: #fff3cd !important; /* amarillo claro */
+    color: #856404; /* opcional: texto marrón para advertencia */
 }
+
 
 
 .panel-menu {
