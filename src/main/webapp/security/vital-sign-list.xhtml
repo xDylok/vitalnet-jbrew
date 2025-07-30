@@ -20,15 +20,6 @@
         <h2 class="page-title">Administración de Signos Vitales</h2>
 
         <p:toolbar styleClass="mb-4 shadow-2 border-round" style="justify-content: space-between;">
-            <p:toolbarGroup>
-                <p:commandButton id="Agregar"
-                                 value="Agregar Signo"
-                                 icon="pi pi-plus"
-                                 action="/vitalSignEdit.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-success mr-2"
-                                 style="min-width: 180px;"/>
-            </p:toolbarGroup>
-
             <p:toolbarGroup align="right">
                 <p:commandButton value="Regresar"
                                  icon="pi pi-arrow-left"
@@ -39,9 +30,9 @@
         </p:toolbar>
 
         <p:dataTable id="vitalSignList"
-                     value="#{vitalSignList.signs}"
+                     value="#{listaSignosVitalesBean.signs}"
                      var="sign"
-                     filteredValue="#{vitalSignList.filteredSigns}"
+                     filteredValue="#{listaSignosVitalesBean.filteredSigns}"
                      emptyMessage="No existen signos vitales registrados."
                      paginator="true" rows="10"
                      paginatorPosition="bottom"
@@ -50,23 +41,23 @@
 
             <f:facet name="header">
                 <div class="table-header flex align-items-center justify-content-between">
-                    <span class="font-bold">Signos Vitales (#{vitalSignList.signs.size()} encontrados)</span>
+                    <span class="font-bold">Signos Vitales (#{listaSignosVitalesBean.signs.size()} encontrados)</span>
                     <div class="filter-container ui-input-icon-left">
                         <i class="pi pi-search"/>
-                        <p:inputText id="criteria" value="#{vitalSignList.criteria}"
+                        <p:inputText id="criteria" value="#{listaSignosVitalesBean.criteria}"
                                      placeholder="Buscar por presión o fecha..." styleClass="mr-2"/>
                         <p:commandButton id="search"
                                          icon="pi pi-search"
                                          styleClass="rounded-button ui-button-success mr-2"
                                          update="searchVitalForm"
-                                         action="#{vitalSignList.search()}"
+                                         action="#{listaSignosVitalesBean.search()}"
                                          title="Buscar"/>
                         <p:commandButton id="reset"
                                          icon="pi pi-refresh"
                                          styleClass="rounded-button ui-button-danger"
                                          update="searchVitalForm"
                                          process="@this"
-                                         action="#{vitalSignList.reset()}"
+                                         action="#{listaSignosVitalesBean.reset()}"
                                          title="Limpiar"/>
                     </div>
                 </div>
@@ -102,19 +93,6 @@
                 <h:outputText value="#{sign.responsable.name}"/>
             </p:column>
 
-            <p:column headerText="Acción" style="width: 10%">
-                <p:commandButton icon="pi pi-pencil"
-                                 styleClass="rounded-button ui-button-success"
-                                 ajax="false"
-                                 title="Editar"
-                                 action="#{vitalSignList.edit(sign)}"/>
-                <p:commandButton icon="pi pi-trash"
-                                 styleClass="rounded-button ui-button-danger ml-2"
-                                 ajax="false"
-                                 title="Eliminar"
-                                 action="#{vitalSignList.delete(sign)}"
-                                 oncomplete="PF('deleteDialog').show()"/>
-            </p:column>
 
         </p:dataTable>
 

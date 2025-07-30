@@ -12,7 +12,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@Named("ListaSignosVitalesBean")
+@Named("listaSignosVitalesBean")
     @ViewScoped
     public class ListaSignosVitalesBean implements Serializable {
 
