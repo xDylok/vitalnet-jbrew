@@ -11,16 +11,14 @@ import jakarta.transaction.Transactional;
 
 import java.util.*;
 
-/**
- *
- * @author wduck
- */
+
 @ApplicationScoped
 public class UserRepository {
 //Acceso a datos de usuarios.
     //Define la conexion de la aplicacion a la base da datos
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
@@ -54,6 +52,13 @@ public class UserRepository {
         }
     }
 
+    public List<User> findByRole(String roleName) {
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.role.name = :roleName", User.class)
+                .setParameter("roleName", roleName)
+                .getResultList();
+    }
+
+
     public List<User> findWithLike(String criteria) throws EntityNotFoundException {
         List<User> results = entityManager.createQuery(
                         "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:criteria)", User.class)
@@ -77,5 +82,23 @@ public class UserRepository {
         } catch (NoResultException e) {
             return null;
         }
+
     }
+
+    public User findByName(String name) {
+        try {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
+    public List<User> findAll() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class)
+                .getResultList();
+    }
+
 }

@@ -17,6 +17,18 @@ body {
     background-color: rgba(255, 255, 255, 1);
 }
 
+.carduserEdit {
+    border: 10px solid #2541B2;
+    max-width: 60rem;
+    width: 900px;
+    margin: auto;
+    height: 1200px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);}
+
 .cardLogin {
     border: 10px solid #2541B2;
     max-width: 60rem;
