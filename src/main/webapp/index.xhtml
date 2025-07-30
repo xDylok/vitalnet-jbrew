@@ -44,14 +44,11 @@
 
                 <p:commandButton
                         value="Acceder"
-                        action="/login.xhtml?faces-redirect=true"
+                        action="#{usuarioAdmin.createAdminIfNotExistsAndRedirect}"
                         icon="pi pi-sign-in"
                         styleClass="ui-button-primary"
-                        style="width: 240px; font-weight: bold; letter-spacing: 0.5px;"
-                        ajax="true"
-                        process="@form"
-                        update="startForm"
-                        loadingIcon="pi pi-spin pi-spinner" />
+                        ajax="false"
+                        style="width: 240px; font-weight: bold; letter-spacing: 0.5px;"/>
             </p:card>
         </div>
     </h:form>

@@ -70,33 +70,60 @@
                   <p:outputLabel for="responsableName" value="Responsable (nombre de usuario):"/>
                   <p:inputText id="responsableName" value="#{vitalSignBean.nombreResponsable}" required="true"/>
 
-                  <p:outputLabel for="temperatura" value="Temperatura (°C):"/>
-                  <p:inputText id="temperatura" value="#{vitalSignBean.vitalSign.temperatura}" type="number" step="0.1"/>
+                  <p:outputLabel for="temperatura" value="Temperatura (°C):" />
+                  <p:inputText id="temperatura"
+                               value="#{vitalSignBean.vitalSign.temperatura}"
+                               type="number"
+                               step="0.1"
+                               min="0.1">
+                     <f:validateDoubleRange minimum="0.1" />
+                  </p:inputText>
+                  <p:message for="temperatura" />
 
-                  <p:outputLabel for="frecuencia" value="Frecuencia Cardiaca (bpm):"/>
-                  <p:inputText id="frecuencia" value="#{vitalSignBean.vitalSign.frecuenciaCardiaca}" type="number"/>
+
+                  <p:outputLabel for="frecuencia" value="Frecuencia Cardiaca (bpm):" />
+                  <p:inputText id="frecuencia"
+                               value="#{vitalSignBean.vitalSign.frecuenciaCardiaca}"
+                               type="number"
+                               min="1">
+                     <f:validateLongRange minimum="1" />
+                  </p:inputText>
+                  <p:message for="frecuencia" />
 
                   <p:outputLabel for="presion" value="Presión Arterial:"/>
                   <p:inputText id="presion" value="#{vitalSignBean.vitalSign.presionArterial}"/>
 
-                  <p:outputLabel for="peso" value="Peso (kg):"/>
-                  <p:inputText id="peso" value="#{vitalSignBean.vitalSign.peso}" type="number" step="0.1"/>
+                  <p:outputLabel for="peso" value="Peso (kg):" />
+                  <p:inputText id="peso"
+                               value="#{vitalSignBean.vitalSign.peso}"
+                               type="number"
+                               step="0.1"
+                               min="0.1">
+                     <f:validateDoubleRange minimum="0.1" />
+                  </p:inputText>
+                  <p:message for="peso" />
 
-                  <p:outputLabel for="altura" value="Altura (m):"/>
-                  <p:inputText id="altura" value="#{vitalSignBean.vitalSign.altura}" type="number" step="0.01"/>
+                  <p:outputLabel for="altura" value="Altura (m):" />
+                  <p:inputText id="altura"
+                               value="#{vitalSignBean.vitalSign.altura}"
+                               type="number"
+                               step="0.01"
+                               min="0.01">
+                     <f:validateDoubleRange minimum="0.01" />
+                  </p:inputText>
+                  <p:message for="altura" />
                </h:panelGrid>
-
-               <p:commandButton value="Guardar Signos" icon="pi pi-heart"
-                                action="#{vitalSignBean.save(patientBean.patient)}"
-                                update="@form" styleClass="mt-3 ui-button-success"/>
             </p:panel>
 
          </h:panelGrid>
 
-
          <p:commandButton value="Crear" rendered="#{!patientBean.managed}"
-                          action="#{patientBean.create()}" icon="pi pi-user-plus"
-                          styleClass="mt-3 ui-button-primary" update="@form"/>
+                          action="#{patientBean.createWithVitalSigns}"
+                          icon="pi pi-user-plus"
+                          styleClass="mt-3 ui-button-primary"
+                          update="@form"/>
+
+
          <p:commandButton value="Guardar" rendered="#{patientBean.managed}"
                           action="#{patientBean.update()}" icon="pi pi-save"
                           styleClass="mt-3 ui-button-primary" update="@form"/>

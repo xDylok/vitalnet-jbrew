@@ -44,6 +44,16 @@ public class RoleRepository {
         }
     }
 
+    public Role findByName(String name) {
+        try {
+            return entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :name", Role.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     @Transactional
     public void removePermissionFromRole(Long roleId, String permissionId) {
         Role role = entityManager.find(Role.class, roleId);

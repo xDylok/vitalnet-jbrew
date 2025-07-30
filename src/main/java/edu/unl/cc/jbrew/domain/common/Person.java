@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "person")
+@Table(name = "persona")
 public class Person implements Serializable {
     //Clase base con datos personales.
     @Id

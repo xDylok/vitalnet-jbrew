@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "vital_sign")
+@Table(name = "signosVitales")
 public class VitalSign implements Serializable {
 //Clase de gestión de signos vitales.
     @Id

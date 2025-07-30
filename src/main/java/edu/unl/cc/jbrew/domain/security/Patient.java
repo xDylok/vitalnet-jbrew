@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "patient")
+@Table(name = "paciente")
 public class Patient implements Serializable {
 // Entidad paciente.
     @Id

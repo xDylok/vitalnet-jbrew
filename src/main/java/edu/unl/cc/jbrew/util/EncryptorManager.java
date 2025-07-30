@@ -9,10 +9,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-/**
- *
- * @author wduck
- */
 public class EncryptorManager {
 
     private static final String ALGORITHM = "AES";

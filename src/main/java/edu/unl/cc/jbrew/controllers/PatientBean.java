@@ -23,6 +23,8 @@ public class PatientBean implements Serializable {
 //Lógica de interfaz para manejar pacientes.
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
+    @Inject
+    private VitalSignBean vitalSignBean;
 
     private List<Patient> patients;
     private List<Patient> filteredPatients;
@@ -38,6 +40,24 @@ public class PatientBean implements Serializable {
     public void init() {
         list();
     }
+
+    @Transactional
+    public String createWithVitalSigns() {
+        try {
+            entityManager.persist(patient);
+            entityManager.flush(); // ✅ Asegura que el ID del paciente se genere
+
+            vitalSignBean.save(patient); // ahora el paciente ya tiene ID
+            list();
+
+            FacesUtil.addSuccessMessageAndKeep("Aviso", "Paciente y signos vitales guardados correctamente");
+            return "patientList?faces-redirect=true";
+        } catch (Exception e) {
+            FacesUtil.addErrorMessage("Error al crear paciente con signos vitales: " + e.getMessage());
+            return null;
+        }
+    }
+
 
     public void list() {
         patients = entityManager.createQuery("SELECT p FROM Patient p", Patient.class).getResultList();

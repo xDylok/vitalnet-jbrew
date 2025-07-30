@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "permission")
+@Table(name = "permisos")
 public class Permission implements java.io.Serializable {
 //Entidad permiso.
     @Id
