@@ -15,59 +15,58 @@
 <h:body class="index-page background-image" >
 
     <h:form>
+        <div class="menu fade-in">
+            <p:card styleClass="panel-menu">
+                <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+                    <p:autoUpdate/>
+                </p:messages>
 
-        <p:panel styleClass="cardLogin fade-in text-center p-4 shadow-3 border-round-lg"
-                 style="max-width: 700px; margin: 0 auto;">
+                <p:graphicImage title="Logo"
+                                url="images/Vitalnet.png"
+                                styleClass="logo-img mb-4"
+                                style="width: 350px; margin-top: 2rem;" />
 
-            <!-- Mensajes -->
-            <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
-                <p:autoUpdate/>
-            </p:messages>
+                <h2 class="text-2xl text-primary mb-3">
+                    Bienvenido a <strong style="color: #1768AC;">VitalNet</strong>
+                </h2>
 
-            <!-- Logo -->
-            <p:graphicImage title="Logo" url="images/Vitalnet.png"
-                            styleClass="logo-img mb-3" style="width: 180px;"/>
+                <p class="text-gray-800 mb-4" style="font-size: 20px; line-height: 1.7;">
+                    Plataforma para el <strong>monitoreo clínico inteligente</strong> de pacientes.<br/>
+                    Controla alertas, reportes y signos vitales en <strong>tiempo real</strong>.
+                </p>
 
-            <!-- Título -->
-            <h2 class="text-2xl text-primary mb-2">Bienvenido a <strong>VitalNet</strong></h2>
+                <ul class="bullets mb-4" style="text-align: left; display: inline-block; font-size: 15px; line-height: 1.6;">
+                    <li>🔔 <strong>Alertas de Pacientes</strong></li>
+                    <li>📋 <strong>Reportes de Pacientes</strong></li>
+                    <li>❤️ <strong>Signos Vitales</strong></li>
+                </ul>
+                <div class="flex flex-col gap-6">
+                    <p:commandButton value="Usuarios Registrados"
+                                     icon="pi pi-user"
+                                     style="margin-bottom: 1rem; width: 100%; max-width: 300px; margin-right: 1rem;"
+                                     action="/security/userList.xhtml?faces-redirect=true"
+                                     styleClass="ui-button-primary mb-2"/>
 
-            <!-- Descripción -->
-            <p class="text-lg text-gray-700 mb-4">
-                Plataforma para el monitoreo clínico inteligente de pacientes.
-                Controla alertas, reportes y signos vitales en tiempo real.
-            </p>
+                    <p:commandButton value="Pacientes Registrados"
+                                     icon="pi pi-users"
+                                     action="/security/patientList.xhtml?faces-redirect=true"
+                                     style="margin-bottom: 1rem; width: 100%; max-width: 300px;"
+                                     styleClass="ui-button-primary mb-2"/>
 
-            <!-- Lista de funcionalidades -->
-            <ul class="bullets mb-4" style="text-align: left; display: inline-block;">
-                <li><h5>🔔 Alertas de Pacientes</h5></li>
-                <li><h5>📋 Reportes de Pacientes</h5></li>
-                <li><h5>❤️ Signos Vitales</h5></li>
-            </ul>
+                    <p:commandButton value="Configuracion"
+                                     icon="pi pi-bell"
+                                     action="/security/vital-sign-config.xhtml?faces-redirect=true"
+                                     style="margin-bottom: 1rem; width: 100%; max-width: 300px; margin-right: 1rem;"
+                                     styleClass="ui-button-primary mb-2"/>
 
-            <!-- Botones -->
-            <div class="flex flex-col gap-2">
-                <p:commandButton value="Usuarios Registrados"
-                                 icon="pi pi-user"
-                                 action="/security/userList.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
-
-                <p:commandButton value="Pacientes Registrados"
-                                 icon="pi pi-users"
-                                 action="/security/patientList.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
-
-                <p:commandButton value="Configuracion"
-                                 icon="pi pi-bell"
-                                 action="/security/vital-sign-config.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
-
-                <p:commandButton value="Cerrar Sesión"
-                                 icon="pi pi-sign-out"
-                                 action="/index.xhtml"
-                                 styleClass="ui-button-secondary mt-2" style="width: 100%; max-width: 300px;"/>
-            </div>
-        </p:panel>
-
+                    <p:commandButton value="Cerrar Sesión"
+                                     icon="pi pi-sign-out"
+                                     action="#{authenticationBean.logout}"
+                                     style="margin-bottom: 4rem; width: 100%; max-width: 300px;"
+                                     styleClass="ui-button-secondary mt-2" />
+                </div>
+            </p:card>
+        </div>
     </h:form>
 
 </h:body>

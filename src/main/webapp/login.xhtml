@@ -8,13 +8,14 @@
 <h:head>
     <h:outputStylesheet library="css" name="styles.css" />
     <title>VitalNet - Login</title>
-</h:head><h:body class="login-page background-image">
-    <div class="login-panel">
+</h:head>
+
+<h:body class="login-page background-image">
+    <div class="login-panel fade-in" >
         <h:form>
             <div class="cardLogin fade-in">
-                <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
-                    <p:autoUpdate/>
-                </p:messages>
+                <p:growl id="growl" showDetail="true" sticky="false" life="5000"
+                         position="top-right" styleClass="ui-message-error" />
 
                 <p:panel header="Inicio de Sesión">
                     <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">
@@ -35,7 +36,8 @@
                         <p:commandButton value="Ingresar" action="#{authenticationBean.login}"
                                          icon="pi pi-user" validateClient="true"
                                          update="@form" title="Acción de ingreso a la app" />
-                        <p:commandButton value="Cancelar" action="start.xhtml?faces-redirect=true"
+
+                        <p:commandButton value="Cancelar" action="index.xhtml?faces-redirect=true"
                                          immediate="true" icon="pi pi-times"
                                          styleClass="ui-button-secondary"
                                          style="background-color: red;" />

@@ -4,6 +4,27 @@ body {
 }
 
 /* Contenedor principal */
+.cardInicio {
+    border: 10px solid #2541B2;
+    max-width: 60rem;
+    width: 900px;
+    margin: auto;
+    height: 670px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+}
+.logoImgInicio {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 1px auto 5rem auto ;
+}
+
 .card {
     border: 10px solid #2541B2;
     max-width: 60rem;
@@ -40,16 +61,37 @@ body {
 }
 
 .cardLogin {
-    border: 10px solid #2541B2;
-    max-width: 60rem;
-    width: 15cm;
+    max-width: 800rem;
+    width: 15.2cm;
     margin: auto;
-    height: 650px;
+    height: 350px;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
     text-align: center;
     background-color: rgba(255, 255, 255, 0.95);
+}
+
+.menu {
+    max-width: 60rem;
+    width: 21cm;
+    margin: auto;
+    height: 730px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.panel-menu {
+    background-color: #1768AC;
+    border-radius: 10px;
+    padding: 20px;
+    height: 690px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+    margin-bottom: 20px;
+    width: 20cm;
 }
 
 .fade-in {
@@ -68,8 +110,8 @@ body {
     max-width: 500px;
     height: auto;
     display: block;
-    margin: 0 auto 50px;
     object-fit: contain;
+    margin: 7rem auto 5rem auto;
 }
 
 /* Título */
@@ -129,13 +171,25 @@ ul.bullets li p {
 .login-page {
     background: url('../../images/fondohospital.jpg') no-repeat center center fixed;
     background-size: cover;
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;      /* Centra verticalmente */
+    min-height: 100vh;        /* Ocupa toda la altura de la pantalla */
     user-select: none !important;
     cursor: default !important;
     -webkit-user-select: none !important;
     -moz-user-select: none !important;
     -ms-user-select: none !important;
 }
-
+.login-panel{
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+}
 .default-page {
     background: #f8f9fa;
 }

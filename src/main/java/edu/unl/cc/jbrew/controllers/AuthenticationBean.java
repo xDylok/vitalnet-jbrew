@@ -4,6 +4,7 @@ import edu.unl.cc.jbrew.bussiness.SecurityFacade;
 import edu.unl.cc.jbrew.controllers.security.UserPrincipal;
 import edu.unl.cc.jbrew.controllers.security.UserSession;
 import edu.unl.cc.jbrew.domain.security.User;
+import edu.unl.cc.jbrew.exception.CredentialInvalidException;
 import edu.unl.cc.jbrew.faces.FacesUtil;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -40,30 +41,30 @@ public class AuthenticationBean implements java.io.Serializable{
     //@Inject
     //private FacesContext facesContext;
 
-    public String login(){
+    public String login() {
         logger.info("Logging in with username: " + username);
-        logger.info("Logging in with password: " + password);
         try {
             User user = securityFacade.authenticate(username, password);
             setHttpSession(user);
 
-            FacesUtil.addMessageAndKeep(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido " + user.getName() + " a la web VitalNet.");
-            //FacesMessage fc = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "Bienvenido " + user.getName() + " a la aplicación Jbrew.");
-            //facesContext.getExternalContext().getFlash().setKeepMessages(true);
+            FacesUtil.addMessageAndKeep(FacesMessage.SEVERITY_INFO, "Aviso", "\nBienvenido " + user.getName() + " a la web VitalNet.");
 
-            System.out.println("--------------> userSession Longin: " + userSession.getUser());
             userSession.postLogin(user);
             return "indexLogin.xhtml?faces-redirect=true";
+        } catch (CredentialInvalidException e) {
+            FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación", e.getMessage());
+            return null; // queda en la misma página y muestra mensaje
         } catch (Exception e) {
-            FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR,  e.getMessage(), null);
+            FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error inesperado", e.getMessage());
             return null;
         }
     }
 
+
     public String logout() throws ServletException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().invalidateSession();
-        FacesUtil.addSuccessMessageAndKeep("Logged out successfully");
+        FacesUtil.addSuccessMessageAndKeep("Aviso", "Sesión cerrada correctamente");
         //FacesMessage fc = new FacesMessage("Logged out successfully");
         //facesContext.addMessage(null, fc);
         //facesContext.getExternalContext().getFlash().setKeepMessages(true);

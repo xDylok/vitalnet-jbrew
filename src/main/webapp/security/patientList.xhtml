@@ -19,18 +19,22 @@
 
         <h2 class="page-title">Administración de Pacientes</h2>
 
-        <p:toolbar styleClass="mb-3 shadow-2 border-round">
-            <p:toolbarGroup>
+        <p:toolbar styleClass="mb-4 shadow-3 border-round">
+            <p:toolbarGroup style="gap: 1.5rem; display: flex; align-items: center;">
                 <p:commandButton value="Agregar Paciente"
                                  icon="pi pi-user-plus"
                                  action="patientEdit.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-success"/>
+                                 styleClass="ui-button-success"
+                                 style="padding: 0.6rem 1.5rem; font-size: 1rem;" />
+
                 <p:commandButton value="Regresar"
-                                 icon="pi pi-user"
+                                 icon="pi pi-arrow-left"
                                  action="/indexLogin.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
+                                 styleClass="ui-button-primary"
+                                 style="padding: 0.6rem 1.5rem; font-size: 1rem;" />
             </p:toolbarGroup>
         </p:toolbar>
+
 
         <p:dataTable id="patientTable"
                      value="#{patientBean.filteredPatients}"

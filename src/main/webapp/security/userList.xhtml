@@ -21,18 +21,22 @@
         <!-- Título -->
         <h2 class="page-title">Administración de Usuarios</h2>
 
-        <!-- Toolbar superior -->
-        <p:toolbar styleClass="mb-3 shadow-2 border-round">
+        <p:toolbar styleClass="mb-4 shadow-2 border-round" style="justify-content: space-between;">
             <p:toolbarGroup>
                 <p:commandButton id="Agregar"
                                  value="Agregar Usuario"
                                  icon="pi pi-user-plus"
-                                 styleClass="ui-button-success"
-                                 action="/security/userEdit.xhtml?faces-redirect=true"/>
+                                 action="/security/userEdit.xhtml?faces-redirect=true"
+                                 styleClass="ui-button-success mr-2"
+                                 style="min-width: 180px;"/>
+            </p:toolbarGroup>
+
+            <p:toolbarGroup align="right">
                 <p:commandButton value="Regresar"
-                                 icon="pi pi-user"
+                                 icon="pi pi-arrow-left"
                                  action="/indexLogin.xhtml?faces-redirect=true"
-                                 styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
+                                 styleClass="ui-button-primary"
+                                 style="min-width: 180px;"/>
             </p:toolbarGroup>
         </p:toolbar>
 
