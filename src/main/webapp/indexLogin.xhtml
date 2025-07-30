@@ -23,8 +23,8 @@
 
                 <p:graphicImage title="Logo"
                                 url="images/Vitalnet.png"
-                                styleClass="logo-img mb-4"
-                                style="width: 350px; margin-top: 2rem;" />
+                                styleClass="logoImgMenu mb-4"
+                                style="width: 300px; margin-top: 2rem;" />
 
                 <h2 class="text-2xl text-primary mb-3">
                     Bienvenido a <strong style="color: #1768AC;">VitalNet</strong>
@@ -57,6 +57,12 @@
                                      icon="pi pi-bell"
                                      action="/security/vital-sign-config.xhtml?faces-redirect=true"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px; margin-right: 1rem;"
+                                     styleClass="ui-button-primary mb-2"/>
+
+                    <p:commandButton value="Historial Signos Vitales"
+                                     icon="pi pi-heart"
+                                     action="/security/vital-sign-list.xhtml?faces-redirect=true"
+                                     style="margin-bottom: 1rem; width: 100%; max-width: 300px;"
                                      styleClass="ui-button-primary mb-2"/>
 
                     <p:commandButton value="Cerrar Sesión"

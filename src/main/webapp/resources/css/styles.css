@@ -76,7 +76,7 @@ body {
     max-width: 60rem;
     width: 21cm;
     margin: auto;
-    height: 730px;
+    height: 780px;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
@@ -88,10 +88,18 @@ body {
     background-color: #1768AC;
     border-radius: 10px;
     padding: 20px;
-    height: 690px;
+    height: 740px;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
     margin-bottom: 20px;
     width: 20cm;
+}
+.logoImgMenu {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 1px auto 5rem auto ;
 }
 
 .fade-in {
@@ -181,6 +189,11 @@ ul.bullets li p {
     -moz-user-select: none !important;
     -ms-user-select: none !important;
 }
+
+.outOfRange {
+    background-color: #fff9c4 !important; /* amarillo claro */
+}
+
 .login-panel{
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 15px;

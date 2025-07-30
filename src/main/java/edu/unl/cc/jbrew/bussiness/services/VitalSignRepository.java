@@ -1,5 +1,6 @@
 package edu.unl.cc.jbrew.bussiness.services;
 
+import edu.unl.cc.jbrew.controllers.VitalSignRange;
 import edu.unl.cc.jbrew.controllers.security.VitalSign;
 import edu.unl.cc.jbrew.domain.security.Patient;
 import jakarta.ejb.Stateless;
@@ -15,6 +16,11 @@ public class VitalSignRepository implements Serializable {
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 
+    public VitalSignRange getConfig() {
+        return entityManager.createQuery("SELECT r FROM VitalSignRange r", VitalSignRange.class)
+                .setMaxResults(1)
+                .getSingleResult();
+    }
     public VitalSign find(Long id) {
         return entityManager.find(VitalSign.class, id);
     }

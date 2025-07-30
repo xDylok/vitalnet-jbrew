@@ -58,23 +58,46 @@ public class PatientBean implements Serializable {
     }
 
     @Transactional
-    public void create() {
-        entityManager.persist(patient);
-        list();
-    }
-
-    @Transactional
-    public void update() {
-        entityManager.merge(patient);
-        list();
-    }
-
-    @Transactional
-    public void delete(Long patientId) {
-        Patient p = entityManager.find(Patient.class, patientId);
-        if (p != null) {
-            entityManager.remove(p);
+    public String create() {
+        try {
+            entityManager.persist(patient);
             list();
+            FacesUtil.addSuccessMessageAndKeep("Aviso","Paciente creado correctamente");
+            return "patientList?faces-redirect=true";
+        } catch (Exception e) {
+            FacesUtil.addErrorMessage("Inconveniente al crear paciente: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Transactional
+    public String update() {
+        try {
+            entityManager.merge(patient);
+            list();
+            FacesUtil.addSuccessMessageAndKeep("Aviso","Paciente actualizado correctamente");
+            return "patientList?faces-redirect=true";
+        } catch (Exception e) {
+            FacesUtil.addErrorMessage("Inconveniente al actualizar paciente: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Transactional
+    public String delete(Long patientId) {
+        try {
+            Patient p = entityManager.find(Patient.class, patientId);
+            if (p != null) {
+                entityManager.remove(p);
+                list();
+                FacesUtil.addSuccessMessageAndKeep("Paciente eliminado correctamente");
+            } else {
+                FacesUtil.addErrorMessage("Error","Paciente no encontrado");
+            }
+            return "patientList?faces-redirect=true";
+        } catch (Exception e) {
+            FacesUtil.addErrorMessage("Error al eliminar paciente: " + e.getMessage());
+            return null;
         }
     }
 

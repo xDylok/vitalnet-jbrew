@@ -15,6 +15,7 @@ public class VitalSign implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private Float temperatura;
     private Integer frecuenciaCardiaca;
     private String presionArterial;
@@ -37,6 +38,7 @@ public class VitalSign implements Serializable {
     }
 
     // Getters y setters
+
     public Long getId() {
         return id;
     }

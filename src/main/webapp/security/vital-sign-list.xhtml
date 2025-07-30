@@ -27,9 +27,11 @@
                 <p:autoUpdate/>
             </p:messages>
 
-            <p:dataTable value="#{vitalSignRangeBean.signs}" var="sign" stripedRows="true" responsiveLayout="scroll">
+            <p:dataTable value="#{vitalSignRangeBean.signs}" var="sign" stripedRows="true" responsiveLayout="scroll"
+                         rowStyleClass="#{vitalSignRangeBean.isOutOfRange(sign) ? 'outOfRange' : null}">
 
-                <p:column headerText="Fecha">
+
+            <p:column headerText="Fecha">
                     <h:outputText value="#{sign.fechaRegistro}">
                         <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                     </h:outputText>

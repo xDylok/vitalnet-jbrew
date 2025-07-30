@@ -2,6 +2,7 @@ package edu.unl.cc.jbrew.controllers;
 
 import edu.unl.cc.jbrew.bussiness.services.VitalSignRangeRepository;
 import edu.unl.cc.jbrew.controllers.security.VitalSign;
+import edu.unl.cc.jbrew.faces.FacesUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -39,8 +40,30 @@ public class VitalSignRangeBean implements Serializable {
         }
     }
 
-    public void save() {
-        repository.save(range);
+    public String save() {
+        try {
+            repository.save(range);
+            FacesUtil.addSuccessMessageAndKeep("Aviso","Rango guardado correctamente");
+            return "indexLogin.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            FacesUtil.addErrorMessage("Error","Error al guardar el rango: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public boolean isOutOfRange(VitalSign sign) {
+        if (range == null || sign == null) {
+            return false; // Si no hay rango o signo, no marcar
+        }
+
+        boolean tempOut = sign.getTemperatura() < range.getTempMin() || sign.getTemperatura() > range.getTempMax();
+        boolean freqOut = sign.getFrecuenciaCardiaca() < range.getFrecuenciaMin() || sign.getFrecuenciaCardiaca() > range.getFrecuenciaMax();
+        boolean pesoOut = sign.getPeso() < range.getPesoMin() || sign.getPeso() > range.getPesoMax();
+
+        // Si tienes lógica para presión arterial, puedes agregar aquí:
+        // boolean presionOut = ...;
+
+        return tempOut || freqOut || pesoOut; // || presionOut
     }
 
     public VitalSignRange getRange() {

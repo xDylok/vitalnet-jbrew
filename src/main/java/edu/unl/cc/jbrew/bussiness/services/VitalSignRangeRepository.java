@@ -17,10 +17,13 @@ public class VitalSignRangeRepository implements Serializable {
     @PersistenceContext(unitName = "mydb")
     private EntityManager entityManager;
 
+
     public VitalSignRange getConfig() {
-        List<VitalSignRange> list = entityManager.createQuery("SELECT v FROM VitalSignRange v", VitalSignRange.class).getResultList();
+        List<VitalSignRange> list = entityManager.createQuery("SELECT v FROM VitalSignRange v", VitalSignRange.class)
+                .getResultList();
         return list.isEmpty() ? null : list.get(0); // Solo uno global
     }
+
 
     public VitalSignRange save(VitalSignRange range) {
         if (range.getId() == null) {
@@ -30,7 +33,6 @@ public class VitalSignRangeRepository implements Serializable {
             return entityManager.merge(range);
         }
     }
-
     public List<VitalSign> findVitalSignsByPatientId(Long patientId) {
         if (patientId == null) {
             return Collections.emptyList();
