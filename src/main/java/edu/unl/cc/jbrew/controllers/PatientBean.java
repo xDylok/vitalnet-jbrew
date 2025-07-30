@@ -5,6 +5,7 @@ import edu.unl.cc.jbrew.controllers.security.UserSession;
 import edu.unl.cc.jbrew.domain.security.Patient;
 import edu.unl.cc.jbrew.faces.FacesUtil;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -90,13 +91,13 @@ public class PatientBean implements Serializable {
             if (p != null) {
                 entityManager.remove(p);
                 list();
-                FacesUtil.addSuccessMessageAndKeep("Paciente eliminado correctamente");
+                FacesUtil.addSuccessMessageAndKeep("Notificacion","Paciente eliminado correctamente");
             } else {
                 FacesUtil.addErrorMessage("Error","Paciente no encontrado");
             }
             return "patientList?faces-redirect=true";
         } catch (Exception e) {
-            FacesUtil.addErrorMessage("Error al eliminar paciente: " + e.getMessage());
+            FacesUtil.addErrorMessage("Error","Error al eliminar paciente: " + e.getMessage());
             return null;
         }
     }

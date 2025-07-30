@@ -16,6 +16,8 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 //Bean para vista principal de usuario.
 @Named
 @ViewScoped
@@ -44,7 +46,9 @@ public class UserHome implements java.io.Serializable{
     private List<Role> availableRoles;
 
     public List<Role> getAvailableRoles() {
-        return availableRoles;
+        return availableRoles.stream()
+                .filter(r -> !r.getName().equalsIgnoreCase("paciente"))
+                .collect(Collectors.toList());
     }
 
     public void setAvailableRoles(List<Role> availableRoles) {
@@ -99,10 +103,10 @@ public class UserHome implements java.io.Serializable{
             }
 
             user = securityFacade.create(user);
-            FacesUtil.addSuccessMessageAndKeep("Usuario creado correctamente");
+            FacesUtil.addSuccessMessageAndKeep("Notificacion","Usuario creado correctamente");
             return "userList?faces-redirect=true";
         } catch (Exception e) {
-            FacesUtil.addErrorMessage("Inconveniente al crear usuario: " + e.getMessage());
+            FacesUtil.addErrorMessage("Notificacion","Inconveniente al crear usuario: " + e.getMessage());
             return null;
         }
     }
@@ -115,10 +119,10 @@ public class UserHome implements java.io.Serializable{
             }
 
             securityFacade.update(user);
-            FacesUtil.addSuccessMessageAndKeep("Usuario actualizado correctamente");
+            FacesUtil.addSuccessMessageAndKeep("Notificacion","Usuario actualizado correctamente");
             return "userList?faces-redirect=true";
         } catch (Exception e) {
-            FacesUtil.addErrorMessage("Inconveniente al actualizar usuario: " + e.getMessage());
+            FacesUtil.addErrorMessage("Notificacion","Inconveniente al actualizar usuario: " + e.getMessage());
             return null;
         }
     }

@@ -14,13 +14,16 @@
 
 <h:body class="background-image">
     <h:form id="rangeForm" styleClass="container fade-in">
-
+        <p:growl id="growl"
+                 showDetail="true"
+                 sticky="false"
+                 life="5000"
+                 position="top-right"
+                 styleClass="ui-message-info"
+                 autoUpdate="true" />
         <div class="card">
             <h5>Configuración de Rangos de Signos Vitales</h5>
 
-            <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
-                <p:autoUpdate/>
-            </p:messages>
 
             <p:panel header="Valores Permitidos" styleClass="panel">
                 <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">

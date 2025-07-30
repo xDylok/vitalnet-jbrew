@@ -6,6 +6,7 @@ import edu.unl.cc.jbrew.domain.security.User;
 import edu.unl.cc.jbrew.exception.EntityNotFoundException;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -45,7 +46,19 @@ public class UserList implements java.io.Serializable{
             users.clear();
         }
     }
-
+    public void delete(User user) {
+        try {
+            securityFacade.deleteUser(user);
+            users.remove(user); // actualizar lista en memoria
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario eliminado", "El usuario ha sido eliminado correctamente."));
+            logger.info("Usuario eliminado: " + user.getName());
+        } catch (Exception e) {
+            logger.severe("Error al eliminar usuario: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el usuario: " + e.getMessage()));
+        }
+    }
 
     public void search()  {
         try {
@@ -60,6 +73,8 @@ public class UserList implements java.io.Serializable{
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selected", _selected);
         return "userEdit?faces-redirect=true&id=" + _selected.getId();
     }
+
+
 
     public void reset() {
         criteria = null;

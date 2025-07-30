@@ -44,26 +44,39 @@ public class VitalSignRangeBean implements Serializable {
         try {
             repository.save(range);
             FacesUtil.addSuccessMessageAndKeep("Aviso","Rango guardado correctamente");
-            return "indexLogin.xhtml?faces-redirect=true";
+            return "/indexLogin.xhtml?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Error","Error al guardar el rango: " + e.getMessage());
             return null;
         }
     }
 
-    public boolean isOutOfRange(VitalSign sign) {
-        if (range == null || sign == null) {
-            return false; // Si no hay rango o signo, no marcar
+    public boolean isPresionOutOfRange(String presionSign, String presionNormal) {
+        try {
+            String[] normalParts = presionNormal.split("/");
+            String[] signParts = presionSign.split("/");
+
+            if (normalParts.length != 2 || signParts.length != 2) {
+                return false; // formato inválido, no marcar
+            }
+
+            int normalSistolica = Integer.parseInt(normalParts[0].trim());
+            int normalDiastolica = Integer.parseInt(normalParts[1].trim());
+
+            int signSistolica = Integer.parseInt(signParts[0].trim());
+            int signDiastolica = Integer.parseInt(signParts[1].trim());
+
+            int tolerancia = 10; // margen +/- 10
+
+            boolean sistolicaFuera = signSistolica < (normalSistolica - tolerancia) || signSistolica > (normalSistolica + tolerancia);
+            boolean diastolicaFuera = signDiastolica < (normalDiastolica - tolerancia) || signDiastolica > (normalDiastolica + tolerancia);
+
+            return sistolicaFuera || diastolicaFuera;
+
+        } catch (NumberFormatException e) {
+            // Si no puede parsear, no marcar como fuera de rango para no falsear el resultado
+            return false;
         }
-
-        boolean tempOut = sign.getTemperatura() < range.getTempMin() || sign.getTemperatura() > range.getTempMax();
-        boolean freqOut = sign.getFrecuenciaCardiaca() < range.getFrecuenciaMin() || sign.getFrecuenciaCardiaca() > range.getFrecuenciaMax();
-        boolean pesoOut = sign.getPeso() < range.getPesoMin() || sign.getPeso() > range.getPesoMax();
-
-        // Si tienes lógica para presión arterial, puedes agregar aquí:
-        // boolean presionOut = ...;
-
-        return tempOut || freqOut || pesoOut; // || presionOut
     }
 
     public VitalSignRange getRange() {

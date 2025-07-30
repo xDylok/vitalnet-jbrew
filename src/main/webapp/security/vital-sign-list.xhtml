@@ -28,7 +28,7 @@
             </p:messages>
 
             <p:dataTable value="#{vitalSignRangeBean.signs}" var="sign" stripedRows="true" responsiveLayout="scroll"
-                         rowStyleClass="#{vitalSignRangeBean.isOutOfRange(sign) ? 'outOfRange' : null}">
+                         rowStyleClass="#{vitalSignRangeBean.isPresionOutOfRange(sign.presionArterial, vitalSignRangeBean.range.presionArterial) ? 'outOfRange' : null}">
 
 
             <p:column headerText="Fecha">
@@ -63,7 +63,7 @@
             </p:dataTable>
 
             <p:commandButton value="Volver"
-                             action="indexLogin.xhtml?faces-redirect=true"
+                             action="/indexLogin.xhtml?faces-redirect=true"
                              icon="pi pi-arrow-left"
                              styleClass="mt-3 ui-button-secondary"/>
         </div>

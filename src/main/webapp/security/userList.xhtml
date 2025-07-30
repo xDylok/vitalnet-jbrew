@@ -49,7 +49,6 @@
                      styleClass="patients-table"
                      style="margin-top: 1rem;">
 
-            <!-- Cabecera -->
             <f:facet name="header">
                 <div class="table-header flex align-items-center justify-content-between">
                     <span class="font-bold">Usuarios (#{userList.users.size()} encontrados)</span>
@@ -91,10 +90,17 @@
                 <p:commandButton icon="pi pi-pencil"
                                  styleClass="rounded-button ui-button-success"
                                  ajax="false"
-                                 title="Editar paciente"
+                                 title="Editar"
                                  action="#{userList.edit(_user)}">
                     <f:viewParam name="id" value="#{_user.id}"/>
                 </p:commandButton>
+                <p:commandButton icon="pi pi-trash"
+                                 styleClass="rounded-button ui-button-danger ml-2"
+                                 ajax="false"
+                                 title="Eliminar"
+                                 action="#{userList.delete(_user)}"
+                                 oncomplete="PF('deleteDialog').show()"/>
+                    <f:viewParam name="id" value="#{_user.id}"/>
             </p:column>
 
         </p:dataTable>

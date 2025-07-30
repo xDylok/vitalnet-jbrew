@@ -25,7 +25,7 @@ public class VitalSignBean implements Serializable {
     private String nombreResponsable;
     @Inject
     private VitalSignRepository vitalSignRepository;
-
+    private VitalSignRangeBean vitalSignRangeBean;
 
     @Inject
     private UserRepository userRepository; // Asegúrate de tener este repositorio para listar responsables
@@ -54,7 +54,7 @@ public class VitalSignBean implements Serializable {
                     String presionIngresada = vitalSign.getPresionArterial();
                     String presionNormal = config.getPresionNormal();
 
-                    if (isPresionOutOfRange(presionIngresada, presionNormal)) {
+                    if (vitalSignRangeBean.isPresionOutOfRange(presionIngresada, presionNormal)) {
                         FacesContext.getCurrentInstance().addMessage(null,
                                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Presión fuera del rango normal."));
                     }
@@ -71,34 +71,6 @@ public class VitalSignBean implements Serializable {
     }
 
 
-
-    private boolean isPresionOutOfRange(String presionSign, String presionNormal) {
-        try {
-            String[] normalParts = presionNormal.split("/");
-            String[] signParts = presionSign.split("/");
-
-            if (normalParts.length != 2 || signParts.length != 2) {
-                return false; // formato inválido, no marcar
-            }
-
-            int normalSistolica = Integer.parseInt(normalParts[0].trim());
-            int normalDiastolica = Integer.parseInt(normalParts[1].trim());
-
-            int signSistolica = Integer.parseInt(signParts[0].trim());
-            int signDiastolica = Integer.parseInt(signParts[1].trim());
-
-            int tolerancia = 10; // margen +/- 10
-
-            boolean sistolicaFuera = signSistolica < (normalSistolica - tolerancia) || signSistolica > (normalSistolica + tolerancia);
-            boolean diastolicaFuera = signDiastolica < (normalDiastolica - tolerancia) || signDiastolica > (normalDiastolica + tolerancia);
-
-            return sistolicaFuera || diastolicaFuera;
-
-        } catch (NumberFormatException e) {
-            // Si no puede parsear, no marcar como fuera de rango para no falsear el resultado
-            return false;
-        }
-    }
 
     // Getters y Setters
 

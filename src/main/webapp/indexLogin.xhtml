@@ -17,9 +17,13 @@
     <h:form>
         <div class="menu fade-in">
             <p:card styleClass="panel-menu">
-                <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
-                    <p:autoUpdate/>
-                </p:messages>
+                <p:growl id="growl"
+                         showDetail="true"
+                         sticky="false"
+                         life="5000"
+                         position="top-right"
+                         styleClass="ui-message-info"
+                         autoUpdate="true" />
 
                 <p:graphicImage title="Logo"
                                 url="images/Vitalnet.png"

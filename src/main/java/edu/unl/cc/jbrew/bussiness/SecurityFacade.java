@@ -32,6 +32,16 @@ public class SecurityFacade implements java.io.Serializable{
         return userRepository.findUserWithRoleAndPermissions(userId);
     }
 
+    public void deleteUser(User user) throws Exception {
+        try {
+            userRepository.delete(user);
+            logger.info("Usuario eliminado: " + user.getName());
+        } catch (Exception e) {
+            logger.severe("Error eliminando usuario: " + e.getMessage());
+            throw new Exception("No se pudo eliminar el usuario");
+        }
+    }
+
     public User create(User user) throws Exception {
         String pwdEncrypted = EncryptorManager.encrypt(user.getPassword());
         user.setPassword(pwdEncrypted);

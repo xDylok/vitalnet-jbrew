@@ -33,6 +33,9 @@ public class UserRepository {
         }
     }
 
+    public void delete(User user) {
+        entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
+    }
 
     public User find(Long id) throws EntityNotFoundException {
         User user = entityManager.find(User.class, id);

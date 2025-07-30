@@ -7,8 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-   <f:viewParam name="id" value="#{patientBean.selectedPatientId}"/>
-   <f:event listener="#{patientBean.loadPatient()}" type="preRenderView"/>
+   <f:viewParam name="id" value="#{patientBean.selectedPatientId}" />
+   <f:event type="preRenderView" listener="#{patientBean.loadPatient}" />
 </f:metadata>
 
 <h:head>
@@ -61,12 +61,6 @@
                   </p:selectOneMenu>
                </h:panelGrid>
 
-               <p:commandButton value="Crear" rendered="#{!patientBean.managed}"
-                                action="#{patientBean.create()}" icon="pi pi-user-plus"
-                                styleClass="mt-3 ui-button-primary" update="@form"/>
-               <p:commandButton value="Guardar" rendered="#{patientBean.managed}"
-                                action="#{patientBean.update()}" icon="pi pi-save"
-                                styleClass="mt-3 ui-button-primary" update="@form"/>
             </p:panel>
 
             <!-- Columna Derecha: Signos Vitales -->
@@ -99,17 +93,14 @@
 
          </h:panelGrid>
 
-         <!-- Botón Regresar -->
-         <p:commandButton value="Cancelar"
-                          action="patientList.xhtml?faces-redirect=true"
-                          immediate="true"
-                          icon="pi pi-times"
-                          styleClass="mt-3 ui-button-secondary"/>
-         <p:commandButton value="Regresar"
-                          icon="pi pi-user"
-                          action="/patientList.xhtml?faces-redirect=true"
-                          styleClass="ui-button-primary mb-2"
-                          style="width: 100%; max-width: 300px;"/>
+
+         <p:commandButton value="Crear" rendered="#{!patientBean.managed}"
+                          action="#{patientBean.create()}" icon="pi pi-user-plus"
+                          styleClass="mt-3 ui-button-primary" update="@form"/>
+         <p:commandButton value="Guardar" rendered="#{patientBean.managed}"
+                          action="#{patientBean.update()}" icon="pi pi-save"
+                          styleClass="mt-3 ui-button-primary" update="@form"/>
+
 
       </div>
    </h:form>

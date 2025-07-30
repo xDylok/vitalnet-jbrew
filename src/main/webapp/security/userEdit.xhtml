@@ -55,10 +55,10 @@
                     <p:outputLabel for="email" value="Correo electrónico:" />
                     <p:inputText id="email" value="#{userHome.user.person.email}" required="true"/>
 
-                    <p:outputLabel for="cedula" value="Cédula:" />
+                    <p:outputLabel for="cedula" value="Cedula:" />
                     <p:inputText id="cedula" value="#{userHome.user.person.cedula}" required="true"/>
 
-                    <p:outputLabel for="phone" value="Teléfono:" />
+                    <p:outputLabel for="phone" value="Telefono:" />
                     <p:inputText id="phone" value="#{userHome.user.person.phone}" required="true"/>
 
                     <p:outputLabel for="role" value="Rol:" />
@@ -93,21 +93,22 @@
 
             <p:commandButton value="Crear" rendered="#{!userHome.managed}"
                              action="#{userHome.create()}"
-                             icon="pi pi-user" validateClient="true" styleClass="mt-3 ui-button-primary"
-                             update="@form" title="Guardar un usuario nuevo"/>
+                             icon="pi pi-user" validateClient="true"
+                             styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;"
+                             update="@form"
+                             title="Guardar un usuario nuevo"/>
+
             <p:commandButton value="Guardar" rendered="#{userHome.managed}"
                              action="#{userHome.update()}"
-                             icon="pi pi-user" validateClient="true" styleClass="mt-3 ui-button-primary"
-                             update="@form" title="Guardar cambios"/>
+                             icon="pi pi-user" validateClient="true"
+                             styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;" update="@form"
+                             title="Guardar cambios"/>
 
             <p:commandButton value="Cancelar" action="userList.xhtml?faces-redirect=true"
                              immediate="true"
-                             icon="pi pi-times" styleClass="mt-3 ui-button-secondary"/>
+                             icon="pi pi-times"
+                             styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;" update="@form"/>
 
-            <p:commandButton value="Regresar"
-                             icon="pi pi-user"
-                             action="/userList.xhtml?faces-redirect=true"
-                             styleClass="ui-button-primary mb-2" style="width: 100%; max-width: 300px;"/>
 
         </div>
 

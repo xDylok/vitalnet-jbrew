@@ -47,15 +47,19 @@ public class AuthenticationBean implements java.io.Serializable{
             User user = securityFacade.authenticate(username, password);
             setHttpSession(user);
 
-            FacesUtil.addMessageAndKeep(FacesMessage.SEVERITY_INFO, "Aviso", "\nBienvenido " + user.getName() + " a la web VitalNet.");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Bienvenido " + user.getName() + " a la web VitalNet."));
 
             userSession.postLogin(user);
             return "indexLogin.xhtml?faces-redirect=true";
         } catch (CredentialInvalidException e) {
-            FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación", e.getMessage());
-            return null; // queda en la misma página y muestra mensaje
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de autenticación", e.getMessage()));
+            return null;
         } catch (Exception e) {
-            FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error inesperado", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error inesperado", e.getMessage()));
             return null;
         }
     }
