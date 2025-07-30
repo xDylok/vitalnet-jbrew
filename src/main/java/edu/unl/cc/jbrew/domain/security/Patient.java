@@ -22,37 +22,36 @@ public class Patient implements Serializable {
     private Long id;
 
     @NotNull @NotEmpty
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "nombres", nullable = false)
     private String firstName;
 
     @NotNull @NotEmpty
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "apellidos", nullable = false)
     private String lastName;
 
-    @Column(name = "birth_date")
+    @Column(name = "fecha_nacimiento")
     private LocalDate birthDate;
 
-    @Column(name = "email")
+    @Column(name = "correo")
     private String email;
 
     @Enumerated(EnumType.STRING)
     private GenderType gender;
 
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "cedula")
     private String cedula;
 
     private String genero;
-    private String tipoSangre;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VitalSign> vitalSigns = new ArrayList<>();
 
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_usuario")
     private User userAccount; // Login del paciente
 
     public Patient() {
@@ -103,11 +102,11 @@ public class Patient implements Serializable {
     }
 
     public String getPhone() {
-        return phone;
+        return telefono;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.telefono = phone;
     }
 
     public Long getId() {
@@ -132,14 +131,6 @@ public class Patient implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getTipoSangre() {
-        return tipoSangre;
-    }
-
-    public void setTipoSangre(String tipoSangre) {
-        this.tipoSangre = tipoSangre;
     }
 
     public List<VitalSign> getVitalSigns() {

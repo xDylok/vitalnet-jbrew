@@ -45,12 +45,12 @@ public class PatientBean implements Serializable {
     public String createWithVitalSigns() {
         try {
             entityManager.persist(patient);
-            entityManager.flush(); // ✅ Asegura que el ID del paciente se genere
+            entityManager.flush();
 
-            vitalSignBean.save(patient); // ahora el paciente ya tiene ID
+            vitalSignBean.save(patient);
             list();
 
-            FacesUtil.addSuccessMessageAndKeep("Aviso", "Paciente y signos vitales guardados correctamente");
+            FacesUtil.addSuccessMessageAndKeep("Aviso", "Paciente y signos vitales guardados");
             return "patientList?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Error al crear paciente con signos vitales: " + e.getMessage());
@@ -74,23 +74,6 @@ public class PatientBean implements Serializable {
         }
     }
 
-    public int getFilteredPatientsSize() {
-        return filteredPatients != null ? filteredPatients.size() : 0;
-    }
-
-    @Transactional
-    public String create() {
-        try {
-            entityManager.persist(patient);
-            list();
-            FacesUtil.addSuccessMessageAndKeep("Aviso","Paciente creado correctamente");
-            return "patientList?faces-redirect=true";
-        } catch (Exception e) {
-            FacesUtil.addErrorMessage("Inconveniente al crear paciente: " + e.getMessage());
-            return null;
-        }
-    }
-
     @Transactional
     public String update() {
         try {
@@ -111,7 +94,7 @@ public class PatientBean implements Serializable {
             if (p != null) {
                 entityManager.remove(p);
                 list();
-                FacesUtil.addSuccessMessageAndKeep("Notificacion","Paciente eliminado correctamente");
+                FacesUtil.addSuccessMessageAndKeep("Notificacion","Paciente eliminado");
             } else {
                 FacesUtil.addErrorMessage("Error","Paciente no encontrado");
             }
@@ -137,14 +120,6 @@ public class PatientBean implements Serializable {
     }
 
     // Getters y Setters
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
 
     public List<Patient> getFilteredPatients() {
         return filteredPatients;

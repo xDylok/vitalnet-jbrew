@@ -33,21 +33,6 @@ public class VitalSignRangeBean implements Serializable {
         }
     }
 
-    public void loadVitalSigns() {
-        if (patientId != null) {
-            signs = repository.findVitalSignsByPatientId(patientId);
-        } else {
-            signs = new ArrayList<>();
-        }
-    }
-
-    public String getRowStyleClass(VitalSign sign) {
-        if (range != null && SignosVitalesUtil.isPresionOutOfRange(sign.getPresionArterial(), range.getPresionNormal())) {
-            return "warningRow";  // nombre de clase CSS para amarillo
-        }
-        return null;
-    }
-
     public String save() {
         try {
             repository.save(range);
@@ -59,13 +44,6 @@ public class VitalSignRangeBean implements Serializable {
         }
     }
 
-    public boolean isPresionOutOfRange(String presionSign, String presionNormal) {
-        return SignosVitalesUtil.isPresionOutOfRange(presionSign, presionNormal);
-    }
-
-
-
-
     public VitalSignRange getRange() {
         return range;
     }
@@ -73,22 +51,5 @@ public class VitalSignRangeBean implements Serializable {
     public void setRange(VitalSignRange range) {
         this.range = range;
     }
-
-    public List<VitalSign> getSigns() {
-        return signs;
-    }
-
-    public void setSigns(List<VitalSign> signs) {
-        this.signs = signs;
-    }
-
-    public Long getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
-    }
-
 
 }

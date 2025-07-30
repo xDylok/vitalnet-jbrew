@@ -59,13 +59,6 @@ public class UserSession implements java.io.Serializable{
                 .anyMatch(permission -> permission.matchWith(resource, action));
     }
 
-    public boolean hasRole(@NotNull String roleName) {
-        if (user == null || user.getRole() == null || user.getRole().getName() == null) {
-            return false;
-        }
-        return roleName.equals(user.getRole().getName());
-    }
-
     public User getUser() {
         return user;
     }

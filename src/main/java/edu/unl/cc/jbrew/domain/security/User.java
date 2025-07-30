@@ -31,19 +31,19 @@ public class User implements Serializable {
 
     // Relación con persona
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "id_persona")
     private Person person;
 
     // Relación con un único rol
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "id_role")
     private Role role;
     @OneToMany(fetch = FetchType.LAZY)
     @OrderBy("resource ASC")
     @JoinTable(
-            name = "role_permission",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
+            name = "permiso_role",
+            joinColumns = @JoinColumn(name = "id_role"),
+            inverseJoinColumns = @JoinColumn(name = "id_permisos")
     )
     private Set<Permission> permissions = new HashSet<>();
 

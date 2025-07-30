@@ -18,21 +18,6 @@ public class PatientRepository implements Serializable {
         return entityManager.find(Patient.class, id);
     }
 
-
-    public List<Patient> search(String criteria) {
-        if (criteria == null || criteria.trim().isEmpty()) {
-            return entityManager.createQuery("SELECT p FROM Patient p", Patient.class).getResultList();
-        }
-
-        return entityManager.createQuery(
-                        "SELECT p FROM Patient p WHERE LOWER(p.firstName) LIKE :criteria OR LOWER(p.cedula) LIKE :criteria",
-                        Patient.class
-                )
-                .setParameter("criteria", criteria.toLowerCase().trim())
-                .getResultList();
-    }
-
-
     public Patient save(Patient patient) {
         if (patient.getId() == null) {
             entityManager.persist(patient);

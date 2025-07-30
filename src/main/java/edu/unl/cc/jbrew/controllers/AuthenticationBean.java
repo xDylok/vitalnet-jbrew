@@ -23,9 +23,6 @@ public class AuthenticationBean implements java.io.Serializable{
 // Bean para inicio de sesión.
     private static Logger logger = Logger.getLogger(AuthenticationBean.class.getName());
 
-    //@Inject
-    //private Logger logger;
-
     @NotNull
     private String username;
     @NotNull
@@ -37,9 +34,6 @@ public class AuthenticationBean implements java.io.Serializable{
 
     @Inject
     private UserSession userSession;
-
-    //@Inject
-    //private FacesContext facesContext;
 
     public String login() {
         logger.info("Logging in with username: " + username);
@@ -69,18 +63,8 @@ public class AuthenticationBean implements java.io.Serializable{
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().invalidateSession();
         FacesUtil.addSuccessMessageAndKeep("Aviso", "Sesión cerrada correctamente");
-        //FacesMessage fc = new FacesMessage("Logged out successfully");
-        //facesContext.addMessage(null, fc);
-        //facesContext.getExternalContext().getFlash().setKeepMessages(true);
-
         ((jakarta.servlet.http.HttpServletRequest) facesContext.getExternalContext().getRequest()).logout();
-        //userSession.logout();
         return "/login.xhtml?faces-redirect=true";
-    }
-
-    public boolean verifyUserSession(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        return context.getExternalContext().getSessionMap().containsKey("user");
     }
 
     /**

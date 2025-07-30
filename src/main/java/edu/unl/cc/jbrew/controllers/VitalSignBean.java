@@ -37,7 +37,7 @@ public class VitalSignBean implements Serializable {
     @PostConstruct
     public void init() {
         this.vitalSign = new VitalSign();
-        this.users = userRepository.findAll(); // O el método que uses para obtener usuarios con rol médico/enfermero
+        this.users = userRepository.findAll();
     }
 
     public void save(Patient patient) {
@@ -58,20 +58,16 @@ public class VitalSignBean implements Serializable {
                 }
 
                 vitalSignRepository.save(vitalSign);
-                vitalSign = new VitalSign();  // resetear para nuevo registro
+                vitalSign = new VitalSign();
                 nombreResponsable = "";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Responsable no encontrado."));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se encontro el responsable"));
             }
         }
     }
 
-
-
-
-
-    // Getters y Setters
+    //getters y setters
 
     public VitalSign getVitalSign() {
         return vitalSign;
@@ -79,14 +75,6 @@ public class VitalSignBean implements Serializable {
 
     public void setVitalSign(VitalSign vitalSign) {
         this.vitalSign = vitalSign;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public String getNombreResponsable() {

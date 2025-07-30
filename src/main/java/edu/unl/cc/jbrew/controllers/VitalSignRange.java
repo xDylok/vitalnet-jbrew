@@ -23,6 +23,7 @@ public class VitalSignRange implements Serializable {
     public VitalSignRange() {
 
     }
+
     // Getters y Setters
 
     public Long getId() {

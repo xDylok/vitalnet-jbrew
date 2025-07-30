@@ -15,19 +15,6 @@ public class UserPrincipal implements Principal, Serializable {
         this.user = user;
     }
 
-    public boolean hasPermissionForPage(String pagePath) {
-        return this.hasPermission(pagePath, ActionType.READ);
-    }
-
-    public boolean hasPermission(String resource, ActionType action) {
-        if (user.getRole() == null || user.getRole().getPermissions() == null) {
-            return false;
-        }
-
-        return user.getRole().getPermissions().stream()
-                .anyMatch(permission -> permission.matchWith(resource, action));
-    }
-
     @Override
     public String getName() {
         return user.getName();

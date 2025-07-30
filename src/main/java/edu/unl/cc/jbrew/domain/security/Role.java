@@ -28,9 +28,9 @@ public class Role implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     @OrderBy("resource ASC") // si quieres ordenarlos por atributo
     @JoinTable(
-            name = "role_permission",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
+            name = "permisos_roles",
+            joinColumns = @JoinColumn(name = "id_role"),
+            inverseJoinColumns = @JoinColumn(name = "id_permisos")
     )
     private Set<Permission> permissions = new HashSet<>();
 

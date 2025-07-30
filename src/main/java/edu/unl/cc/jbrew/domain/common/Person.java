@@ -51,23 +51,6 @@ public class Person implements Serializable {
         birthDate = LocalDate.now();
     }
 
-    public Person(Long id, String firstName, String lastName, String email, GenderType gender)
-            throws IllegalArgumentException{
-        this();
-        //validateObligatoryField(firstName);
-        //validateObligatoryField(lastName);
-        this.id = id;
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.email = email;
-        this.gender = gender;
-    }
-
-    private void validateObligatoryField(String text) throws IllegalArgumentException{
-        if (text == null || text.isEmpty()){
-            throw new IllegalArgumentException("Campo obligatorio vacio");
-        }
-    }
 
     public String getFullName(){
         return lastName + " " + firstName;

@@ -55,12 +55,6 @@ public class UserRepository {
         }
     }
 
-    public List<User> findByRole(String roleName) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.role.name = :roleName", User.class)
-                .setParameter("roleName", roleName)
-                .getResultList();
-    }
-
 
     public List<User> findWithLike(String criteria) throws EntityNotFoundException {
         List<User> results = entityManager.createQuery(

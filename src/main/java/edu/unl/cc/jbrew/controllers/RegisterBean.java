@@ -68,13 +68,7 @@ public class RegisterBean implements Serializable {
     }
 
     //Getters y Setters
-    public List<Role> getAvailableRoles() {
-        return availableRoles;
-    }
 
-    public void setAvailableRoles(List<Role> availableRoles) {
-        this.availableRoles = availableRoles;
-    }
     public String getUsuario() {
         return usuario;
     }
@@ -105,13 +99,6 @@ public class RegisterBean implements Serializable {
 
     public void setConfirmpassword(String confirmpassword) {
         this.confirmpassword = confirmpassword;
-    }
-    public Long getSelectedRoleId() {
-        return selectedRoleId;
-    }
-
-    public void setSelectedRoleId(Long selectedRoleId) {
-        this.selectedRoleId = selectedRoleId;
     }
 
 }

@@ -34,15 +34,6 @@ public class RoleRepository {
         return entityManager.find(Role.class, id);
     }
 
-    @Transactional
-    public void assignPermissionToRole(Long roleId, String permissionId) {
-        Role role = entityManager.find(Role.class, roleId);
-        Permission permission = entityManager.find(Permission.class, permissionId);
-        if (role != null && permission != null && !role.getPermissions().contains(permission)) {
-            role.getPermissions().add(permission);
-            entityManager.merge(role);
-        }
-    }
 
     public Role findByName(String name) {
         try {
@@ -54,15 +45,6 @@ public class RoleRepository {
         }
     }
 
-    @Transactional
-    public void removePermissionFromRole(Long roleId, String permissionId) {
-        Role role = entityManager.find(Role.class, roleId);
-        Permission permission = entityManager.find(Permission.class, permissionId);
-        if (role != null && permission != null && role.getPermissions().contains(permission)) {
-            role.getPermissions().remove(permission);
-            entityManager.merge(role);
-        }
-    }
 
     public List<Role> findAll() {
         return entityManager.createQuery("SELECT r FROM Role r", Role.class)
