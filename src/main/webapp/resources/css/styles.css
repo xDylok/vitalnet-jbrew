@@ -9,7 +9,7 @@ body {
     max-width: 60rem;
     width: 900px;
     margin: auto;
-    height: 650px;
+    height: 690px;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
@@ -27,7 +27,17 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
     text-align: center;
-    background-color: rgba(255, 255, 255, 1);}
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.card-user-edit, .card-pacientes {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
 
 .cardLogin {
     border: 10px solid #2541B2;
