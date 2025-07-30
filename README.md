@@ -22,8 +22,8 @@ Acceder a la base de datos PostgreSQL con Adminer
 ```
 Usuario: admin
 Contraseña: admin1234
-Server: db
-Database: mydb
+Server: vitalnet
+Database: vitaldb
 ```
 Entrar a Adminer postgreSQL URL:
 ```

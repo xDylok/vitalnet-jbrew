@@ -31,7 +31,7 @@ public class VitalSignBean implements Serializable {
     @Inject
     private UserRepository userRepository; // Asegúrate de tener este repositorio para listar responsables
 
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
     @PostConstruct

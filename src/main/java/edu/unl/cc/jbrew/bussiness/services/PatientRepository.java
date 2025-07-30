@@ -11,7 +11,7 @@ import java.util.List;
 @Stateless
 public class PatientRepository implements Serializable {
 //Acceso a datos para pacientes.
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
     public Patient find(Long id) {

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "rangosSignosVitales")
+@Table(name = "rangos_signos_vitales")
 public class VitalSignRange implements Serializable {
 //Gestión de rangos de signos vitales.
     @Id

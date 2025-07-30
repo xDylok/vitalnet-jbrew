@@ -13,7 +13,7 @@ import java.util.List;
 @Stateless
 public class VitalSignRepository implements Serializable {
 //Lecturas o registros de signos vitales.
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
     public List<VitalSign> findAll() {

@@ -16,7 +16,7 @@ import java.util.*;
 public class UserRepository {
 //Acceso a datos de usuarios.
     //Define la conexion de la aplicacion a la base da datos
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
 

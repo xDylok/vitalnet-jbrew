@@ -21,7 +21,7 @@ import java.util.List;
 @ViewScoped
 public class PatientBean implements Serializable {
 //Lógica de interfaz para manejar pacientes.
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
     @Inject
     private VitalSignBean vitalSignBean;

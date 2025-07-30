@@ -14,7 +14,7 @@ import java.util.List;
 public class VitalSignRangeRepository implements Serializable {
 //Rango permitido de signos vitales.
 
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
 

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class RoleRepository {
 //Acceso a datos de roles.
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
     public Role find(String name) {

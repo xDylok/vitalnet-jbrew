@@ -10,7 +10,7 @@ import java.util.List;
 @ApplicationScoped
 public class PermissionRepository {
 //Gestión de permisos.
-    @PersistenceContext(unitName = "mydb")
+    @PersistenceContext(unitName = "vitaldb")
     private EntityManager entityManager;
 
     public List<Permission> findAll() {

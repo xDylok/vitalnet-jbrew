@@ -26,9 +26,9 @@
     <dataSource id="PostgresDS" jndiName="jdbc/postgres" type="javax.sql.DataSource">
         <jdbcDriver libraryRef="PostgresLib"/>
         <properties.postgresql
-                serverName="db"
+                serverName="vitalnet"
                 portNumber="5432"
-                databaseName="mydb"
+                databaseName="vitaldb"
                 user="admin"
                 password="admin1234" />
     </dataSource>
