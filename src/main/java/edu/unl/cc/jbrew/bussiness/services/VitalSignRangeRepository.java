@@ -33,14 +33,5 @@ public class VitalSignRangeRepository implements Serializable {
             return entityManager.merge(range);
         }
     }
-    public List<VitalSign> findVitalSignsByPatientId(Long patientId) {
-        if (patientId == null) {
-            return Collections.emptyList();
-        }
-        return entityManager.createQuery(
-                        "SELECT v FROM VitalSign v WHERE v.patient.id = :patientId ORDER BY v.fechaRegistro DESC",
-                        VitalSign.class)
-                .setParameter("patientId", patientId)
-                .getResultList();
-    }
+
 }

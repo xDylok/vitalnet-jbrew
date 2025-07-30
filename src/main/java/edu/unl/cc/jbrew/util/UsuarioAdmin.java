@@ -5,9 +5,6 @@ import edu.unl.cc.jbrew.bussiness.services.UserRepository;
 import edu.unl.cc.jbrew.domain.common.Person;
 import edu.unl.cc.jbrew.domain.security.Role;
 import edu.unl.cc.jbrew.domain.security.User;
-import jakarta.annotation.PostConstruct;
-import jakarta.ejb.Singleton;
-import jakarta.ejb.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -27,7 +24,7 @@ public class UsuarioAdmin {
     @Inject
     private RoleRepository roleRepository;
 
-    private boolean adminCreated = false; // para evitar crear varias veces
+    private boolean adminCreated = false;
 
     public String createAdminIfNotExistsAndRedirect() {
         createAdminIfNotExists();
@@ -62,11 +59,11 @@ public class UsuarioAdmin {
 
                 // Crear y asignar Person con campos obligatorios
                 Person adminPerson = new Person();
-                adminPerson.setFirstName("ADMIN");
-                adminPerson.setLastName("ISTRADOR");
+                adminPerson.setNombres("ADMIN");
+                adminPerson.setApellidos("ISTRADOR");
                 adminPerson.setEmail("admin@vitalnet.com"); // opcional
 
-                admin.setPerson(adminPerson);
+                admin.setPersona(adminPerson);
 
                 userRepository.save(admin);
                 LOGGER.info("Administrador creado");

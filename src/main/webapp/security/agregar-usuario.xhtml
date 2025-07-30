@@ -48,19 +48,19 @@
                 <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
 
                     <p:outputLabel for="nombres" value="Nombres:" />
-                    <p:inputText id="nombres" value="#{userHome.user.person.nombres}" required="true" label="Nombres" />
+                    <p:inputText id="nombres" value="#{userHome.user.persona.nombres}" required="true" label="Nombres" />
 
                     <p:outputLabel for="apellidos" value="Apellidos:" />
-                    <p:inputText id="apellidos" value="#{userHome.user.person.apellidos}" required="true" label="Apellidos" />
+                    <p:inputText id="apellidos" value="#{userHome.user.persona.apellidos}" required="true" label="Apellidos" />
 
                     <p:outputLabel for="email" value="Correo electrónico:" />
-                    <p:inputText id="email" value="#{userHome.user.person.email}" required="true" label="Correo electrónico" />
+                    <p:inputText id="email" value="#{userHome.user.persona.email}" required="true" label="Correo electrónico" />
 
                     <p:outputLabel for="cedula" value="Cédula:" />
-                    <p:inputText id="cedula" value="#{userHome.user.person.cedula}" required="true" label="Cédula" />
+                    <p:inputText id="cedula" value="#{userHome.user.persona.cedula}" required="true" label="Cédula" />
 
                     <p:outputLabel for="telefono" value="Teléfono:" />
-                    <p:inputText id="telefono" value="#{userHome.user.person.telefono}" required="true" label="Teléfono" />
+                    <p:inputText id="telefono" value="#{userHome.user.persona.telefono}" required="true" label="Teléfono" />
 
                     <p:outputLabel for="role" value="Rol:" />
                     <p:selectOneMenu id="role" value="#{userHome.selectedRoleId}" required="true" label="Rol">
@@ -69,15 +69,15 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="gender" value="Género:" />
-                    <p:selectOneMenu id="gender" value="#{userHome.user.person.gender}" required="true" label="Género">
+                    <p:selectOneMenu id="gender" value="#{userHome.user.persona.gender}" required="true" label="Género">
                         <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}" noSelectionOption="true" />
-                        <f:selectItem itemLabel="Masculino" itemValue="MASCULINO" />
-                        <f:selectItem itemLabel="Femenino" itemValue="FEMENINO" />
-                        <f:selectItem itemLabel="Otro" itemValue="OTRO" />
+                        <f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />
+                        <f:selectItem itemLabel="FEMENINO" itemValue="FEMENINO" />
+                        <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
-                    <p:datePicker id="fechaNacimiento" value="#{userHome.user.person.fechaNacimiento}"
+                    <p:datePicker id="fechaNacimiento" value="#{userHome.user.persona.fechaNacimiento}"
                                   pattern="yyyy-MM-dd"
                                   showIcon="true" showOnFocus="false"
                                   yearNavigator="true" monthNavigator="true"
@@ -105,7 +105,7 @@
                              styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;" update="@form"
                              title="Guardar cambios"/>
 
-            <p:commandButton value="Cancelar" action="userList.xhtml?faces-redirect=true"
+            <p:commandButton value="Cancelar" action="listado-usuarios.xhtml?faces-redirect=true"
                              immediate="true"
                              icon="pi pi-times"
                              styleClass="mt-3 ui-button-primary margin-bottom: 1rem; width: 100%; max-width: 300px;" update="@form"/>

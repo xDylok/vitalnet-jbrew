@@ -60,15 +60,15 @@ public class UserHome implements java.io.Serializable{
         if (selectedUserId != null) {
             try {
                 user = securityFacade.find(selectedUserId);
-                if (user.getPerson() == null) {
-                    user.setPerson(new Person());
+                if (user.getPersona() == null) {
+                    user.setPersona(new Person());
                 }
             } catch (EntityNotFoundException e) {
                 FacesUtil.addErrorMessage("No se pudo encontrar el usuario con id: " + selectedUserId);
             }
         } else {
             user = new User();
-            user.setPerson(new Person()); // Asegura que nunca sea null
+            user.setPersona(new Person()); // Asegura que nunca sea null
         }
 
         if (user.getRole() != null) {
@@ -104,7 +104,7 @@ public class UserHome implements java.io.Serializable{
 
             user = securityFacade.create(user);
             FacesUtil.addSuccessMessageAndKeep("Notificacion","Usuario creado correctamente");
-            return "userList?faces-redirect=true";
+            return "listado-usuarios?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Notificacion","Inconveniente al crear usuario: " + e.getMessage());
             return null;
@@ -114,13 +114,13 @@ public class UserHome implements java.io.Serializable{
     public String update() {
         try {
             if (selectedRoleId != null) {
-                Role selectedRole = securityFacade.getRoleById(selectedRoleId);
-                user.setRole(selectedRole);
+                Role rolSeleccionado = securityFacade.getRoleById(selectedRoleId);
+                user.setRole(rolSeleccionado);
             }
 
             securityFacade.update(user);
-            FacesUtil.addSuccessMessageAndKeep("Notificacion","Usuario actualizado correctamente");
-            return "userList?faces-redirect=true";
+            FacesUtil.addSuccessMessageAndKeep("Notificacion","Usuario actualizado");
+            return "listado-usuarios?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Notificacion","Inconveniente al actualizar usuario: " + e.getMessage());
             return null;

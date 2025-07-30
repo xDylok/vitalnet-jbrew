@@ -48,24 +48,24 @@
                     <p:commandButton value="Usuarios Registrados"
                                      icon="pi pi-user"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px; margin-right: 1rem;"
-                                     action="/security/userList.xhtml?faces-redirect=true"
+                                     action="/security/listado-usuarios.xhtml?faces-redirect=true"
                                      styleClass="ui-button-primary mb-2"/>
 
                     <p:commandButton value="Pacientes Registrados"
                                      icon="pi pi-users"
-                                     action="/security/patientList.xhtml?faces-redirect=true"
+                                     action="/security/listado-pacientes.xhtml?faces-redirect=true"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px;"
                                      styleClass="ui-button-primary mb-2"/>
 
                     <p:commandButton value="Configuracion"
                                      icon="pi pi-bell"
-                                     action="/security/vital-sign-config.xhtml?faces-redirect=true"
+                                     action="/security/configurar-signos-vitales.xhtml?faces-redirect=true"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px; margin-right: 1rem;"
                                      styleClass="ui-button-primary mb-2"/>
 
                     <p:commandButton value="Historial Signos Vitales"
                                      icon="pi pi-heart"
-                                     action="/security/vital-sign-list.xhtml?faces-redirect=true"
+                                     action="/security/listado-signos-vitales.xhtml?faces-redirect=true"
                                      style="margin-bottom: 1rem; width: 100%; max-width: 300px;"
                                      styleClass="ui-button-primary mb-2">
                         <f:param name="patientId" value="#{patient.id}" />

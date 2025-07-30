@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+   <f:viewParam name="id" value="#{patientBean.selectedPatientId}" />
+   <f:event type="preRenderView" listener="#{patientBean.loadPatient}" />
+</f:metadata>
+
+<h:head>
+   <title>VitalNet - #{patientBean.managed ? 'Editar' : 'Crear'} Paciente</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body class="background-image">
+   <h:form id="patientForm" styleClass="containerAggPAcientes fade-in">
+      <div class="card-pacientes">
+         <h5>#{patientBean.managed ? 'Editar' : 'Crear'} Paciente</h5>
+
+         <p:messages skipDetailIfEqualsSummary="true" showDetail="true">
+            <p:autoUpdate/>
+         </p:messages>
+         <h:panelGrid columns="2" columnClasses="col-6,col-6" style="width:100%;">
+            <p:panel header="Datos del Paciente" styleClass="panelDPacientes" style="margin-right: 1rem;">
+               <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
+                  <p:outputLabel for="firstName" value="Nombres:"/>
+                  <p:inputText id="firstName" value="#{patientBean.patient.nombres}" required="true"/>
+
+                  <p:outputLabel for="lastName" value="Apellidos:"/>
+                  <p:inputText id="lastName" value="#{patientBean.patient.apellidos}" required="true"/>
+
+                  <p:outputLabel for="cedula" value="Cédula:"/>
+                  <p:inputText id="cedula" value="#{patientBean.patient.cedula}" required="true"/>
+
+                  <p:outputLabel for="email" value="Correo Electrónico:"/>
+                  <p:inputText id="email" value="#{patientBean.patient.email}"/>
+
+                  <p:outputLabel for="phone" value="Teléfono:"/>
+                  <p:inputText id="phone" value="#{patientBean.patient.telefono}"/>
+
+                  <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"/>
+                  <p:datePicker id="fechaNacimiento" value="#{patientBean.patient.fechaNacimiento}"
+                                pattern="yyyy-MM-dd" showIcon="true" showOnFocus="false"
+                                yearNavigator="true" monthNavigator="true" required="true"/>
+
+                  <p:outputLabel for="gender" value="Género:"/>
+                  <p:selectOneMenu id="gender" value="#{patientBean.patient.gender}" required="true">
+                     <f:selectItem itemLabel="Seleccionar..." itemValue="#{null}"/>
+                     <f:selectItem itemLabel="Masculino" itemValue="MASCULINO"/>
+                     <f:selectItem itemLabel="Femenino" itemValue="FEMENINO"/>
+                     <f:selectItem itemLabel="Otro" itemValue="OTRO"/>
+                  </p:selectOneMenu>
+               </h:panelGrid>
+
+            </p:panel>
+
+            <p:panel header="Registrar Signos Vitales" styleClass="panelRSignosVitales" style="margin-left: 1rem;">
+               <h:panelGrid columns="2" cellpadding="7" styleClass="form-grid">
+
+                  <p:outputLabel for="responsableName" value="Responsable (nombre de usuario):"/>
+                  <p:inputText id="responsableName"
+                               value="#{vitalSignBean.nombreResponsable}"
+                               required="true"/>
+
+                  <p:outputLabel for="temperatura" value="Temperatura (°C):"/>
+                  <p:inputText id="temperatura"
+                               value="#{vitalSignBean.vitalSign.temperatura}"
+                               type="number"
+                               step="0.1"
+                               min="0.1">
+                     <f:validateDoubleRange minimum="0.1"/>
+                  </p:inputText>
+
+                  <p:outputLabel for="frecuencia" value="Frecuencia Cardiaca (bpm):"/>
+                  <p:inputText id="frecuencia"
+                               value="#{vitalSignBean.vitalSign.frecuenciaCardiaca}"
+                               type="number"
+                               min="1">
+                     <f:validateLongRange minimum="1"/>
+                  </p:inputText>
+
+                  <p:outputLabel for="presion" value="Presión Arterial:"/>
+                  <p:inputText id="presion"
+                               value="#{vitalSignBean.vitalSign.presionArterial}"/>
+
+                  <p:outputLabel for="peso" value="Peso (kg):"/>
+                  <p:inputText id="peso"
+                               value="#{vitalSignBean.vitalSign.peso}"
+                               type="number"
+                               step="0.1"
+                               min="0.1">
+                     <f:validateDoubleRange minimum="0.1"/>
+                  </p:inputText>
+
+                  <p:outputLabel for="altura" value="Altura (m):"/>
+                  <p:inputText id="altura"
+                               value="#{vitalSignBean.vitalSign.altura}"
+                               type="number"
+                               step="0.01"
+                               min="0.01">
+                     <f:validateDoubleRange minimum="0.01"/>
+                  </p:inputText>
+
+               </h:panelGrid>
+            </p:panel>
+
+         </h:panelGrid>
+
+         <p:commandButton value="Crear" rendered="#{!patientBean.managed}"
+                          action="#{patientBean.createWithVitalSigns}"
+                          icon="pi pi-user-plus"
+                          styleClass="mt-3 ui-button-primary"
+                          update="@form"/>
+
+
+         <p:commandButton value="Guardar" rendered="#{patientBean.managed}"
+                          action="#{patientBean.update()}" icon="pi pi-save"
+                          styleClass="mt-3 ui-button-primary" update="@form"/>
+
+
+      </div>
+   </h:form>
+
+</h:body>
+</html>

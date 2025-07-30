@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -23,14 +22,14 @@ public class Patient implements Serializable {
 
     @NotNull @NotEmpty
     @Column(name = "nombres", nullable = false)
-    private String firstName;
+    private String nombres;
 
     @NotNull @NotEmpty
     @Column(name = "apellidos", nullable = false)
-    private String lastName;
+    private String apellidos;
 
     @Column(name = "fecha_nacimiento")
-    private LocalDate birthDate;
+    private LocalDate fechaNacimiento;
 
     @Column(name = "correo")
     private String email;
@@ -55,34 +54,42 @@ public class Patient implements Serializable {
     private User userAccount; // Login del paciente
 
     public Patient() {
-        birthDate = LocalDate.now();
+        fechaNacimiento = LocalDate.now();
     }
 
 // Getters Seetters
 
 
-    public String getFirstName() {
-        return firstName;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getEmail() {

@@ -59,7 +59,7 @@ public class RegisterBean implements Serializable {
         user.setName(usuario);
         Person person = new Person();
         person.setEmail(email);
-        user.setPerson(person);
+        user.setPersona(person);
         user.setPassword(password); // ¡Recuerda cifrarla!
         user.setRole(selectedRole);
 

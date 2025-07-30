@@ -2,7 +2,6 @@ package edu.unl.cc.jbrew.domain.security;
 
 import edu.unl.cc.jbrew.domain.common.Person;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -32,7 +31,7 @@ public class User implements Serializable {
     // Relación con persona
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_persona")
-    private Person person;
+    private Person persona;
 
     // Relación con un único rol
     @ManyToOne
@@ -49,7 +48,7 @@ public class User implements Serializable {
 
     // Constructor por defecto
     public User() {
-        this.person = new Person();
+        this.persona = new Person();
     }
 
     // Constructor con validación
@@ -61,9 +60,9 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(Long id, String name, String password, Person person) {
+    public User(Long id, String name, String password, Person persona) {
         this(id, name, password);
-        this.person = person;
+        this.persona = persona;
     }
 
     // Validación de nombre
@@ -104,12 +103,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Person getPerson() {
-        return person;
+    public Person getPersona() {
+        return persona;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersona(Person persona) {
+        this.persona = persona;
     }
 
     public Role getRole() {

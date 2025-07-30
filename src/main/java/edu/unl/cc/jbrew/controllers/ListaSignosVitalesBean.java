@@ -50,7 +50,7 @@ public class ListaSignosVitalesBean implements Serializable {
         signs = vitalSignRepository.findAll();
     }
 
-    public String getRowStyleClass(VitalSign sign) {
+    public String filaEstilo(VitalSign sign) {
         boolean fueraDeRango = false;
 
         if (presionFueraRango(sign.getPresionArterial(), range.getPresionNormal())) {

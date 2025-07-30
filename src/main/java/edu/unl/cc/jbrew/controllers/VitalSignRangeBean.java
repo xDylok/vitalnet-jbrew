@@ -20,7 +20,7 @@ public class VitalSignRangeBean implements Serializable {
     private VitalSignRange range;
     private List<VitalSign> signs = new ArrayList<>();
 
-    private Long patientId;
+    private Long idPaciente;
 
     @Inject
     private VitalSignRangeRepository repository;
@@ -37,7 +37,7 @@ public class VitalSignRangeBean implements Serializable {
         try {
             repository.save(range);
             FacesUtil.addSuccessMessageAndKeep("Aviso","Rango guardado correctamente");
-            return "/indexLogin.xhtml?faces-redirect=true";
+            return "/menu.xhtml?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Error","Error al guardar el rango: " + e.getMessage());
             return null;

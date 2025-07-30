@@ -23,7 +23,7 @@
             <p:toolbarGroup align="right">
                 <p:commandButton value="Regresar"
                                  icon="pi pi-arrow-left"
-                                 action="/indexLogin.xhtml?faces-redirect=true"
+                                 action="/menu.xhtml?faces-redirect=true"
                                  styleClass="ui-button-primary"
                                  style="min-width: 180px;"/>
             </p:toolbarGroup>
@@ -37,7 +37,7 @@
                      paginator="true" rows="10"
                      paginatorPosition="bottom"
                      styleClass="patients-table"
-                     rowStyleClass="#{listaSignosVitalesBean.getRowStyleClass(sign)}"
+                     rowStyleClass="#{listaSignosVitalesBean.filaEstilo(sign)}"
                      style="margin-top: 1rem;">
 
             <f:facet name="header">

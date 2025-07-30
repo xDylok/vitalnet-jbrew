@@ -33,109 +33,43 @@ http://localhost:9081/
 Agregar usuario y roles en postgreSQL adminer seccion "comando SQL" (copiar y pegar todo):
 
 ```
-INSERT INTO Role (id, name) VALUES (1, 'ADMIN');
-INSERT INTO Role (id, name) VALUES (2, 'DOCTOR');
-INSERT INTO Role (id, name) VALUES (3, 'ENFERMERO');
-INSERT INTO Role (id, name) VALUES (4, 'PACIENTE');
-INSERT INTO Role (id, name) VALUES (5, 'USUARIO');
-
-INSERT INTO Users (id, name, password, role_id)
-VALUES (1, 'admin', 'qwMrWvaYim58QzJxxLJvbg==', 1);
-SELECT setval('public.users_id_seq', (SELECT MAX(id) FROM users));
-
-INSERT INTO vital_sign_range (
-    frecuenciamax,
-    frecuenciamin,
-    pesomax,
-    pesomin,
-    presionnormal,
-    tempmax,
-    tempmin
+INSERT INTO paciente (
+  apellidos, cedula, correo, fecha_nacimiento, gender, genero, nombres, telefono, id_usuario
 ) VALUES (
-    100,              -- frecuencia cardíaca máxima
-    60,               -- frecuencia cardíaca mínima
-    90.0,             -- peso máximo en kg
-    45.0,             -- peso mínimo en kg
-    '120/80',         -- presión arterial normal
-    37.5,             -- temperatura máxima en °C
-    36.0              -- temperatura mínima en °C
+  'Vasquez', '1102345679', 'jostin.vasquez@example.com', '1995-07-30',
+  'Masculino', 'M', 'Jostin', '0991234567', 2
+);
+INSERT INTO permisos (
+  id_role, id_permisos, action, resource
+) VALUES (
+  2, 2, 'WRITE', 'vital_sign'
+);
+INSERT INTO persona (
+  id_role, id_permisos, apelidos, cedula, email, fecha_nacimiento, gender, nombres, telefono
+) VALUES (
+  2, 2, 'Vasquez', '1102345679', 'jostin.vasquez@example.com', '1995-07-30',
+  'Masculino', 'Jostin', '0991234567'
+);
+INSERT INTO rangos_signos_vitales (
+  frecuenciamax, frecuenciamin, pesomax, pesomin, presionnormal, tempmax, tempmin
+) VALUES (
+  100, 60, 90.0, 45.0, '120/80', 37.5, 36.0
+);
+INSERT INTO roles (
+  name
+) VALUES (
+  'DOCTOR'
+);
+INSERT INTO signos_vitales (
+  altura, fecharegistro, frecuenciacardiaca, peso, presionarterial, temperatura, patient_id, responsable_id
+) VALUES (
+  1.74, CURRENT_TIMESTAMP, 70, 70.5, '122/82', 36.7, 2, 2
 );
 
-INSERT INTO vital_sign (
-    altura,
-    fecharegistro,
-    frecuenciacardiaca,
-    peso,
-    presionarterial,
-    temperatura,
-    patient_id,
-    responsable_id
+INSERT INTO usuarios (
+  name, password, id_role, id_persona
 ) VALUES (
-    1.75,                          -- altura en metros
-    CURRENT_TIMESTAMP,            -- fecha de registro actual
-    72,                           -- frecuencia cardíaca
-    68.5,                         -- peso en kilogramos
-    '120/80',                     -- presión arterial
-    36.6,                         -- temperatura en grados Celsius
-    1,                          -- ID del paciente
-    1                             -- ID del responsable
-);
-
-INSERT INTO patient (
-    birth_date,
-    cedula,
-    email,
-    first_name,
-    gender,
-    genero,
-    last_name,
-    phone,
-    tiposangre,
-    user_id
-) VALUES (
-    '1990-05-15',           -- Fecha de nacimiento
-    '1102345678',           -- Cédula
-    'juan.perez@example.com', -- Email
-    'Juan',                 -- Nombre
-    'Masculino',            -- Género (opcional)
-    'M',                    -- Género alternativo (opcional)
-    'Pérez',                -- Apellido
-    '0998765432',           -- Teléfono
-    'O+',                   -- Tipo de sangre
-    1                       -- ID de usuario (clave foránea a users.id)
-);
-INSERT INTO permission (
-    action,
-    resource
-) VALUES (
-    'READ',             -- Acción permitida (ej. READ, WRITE, DELETE)
-    'vital_sign'        -- Recurso sobre el que se aplica la acción
-);
-
-INSERT INTO person (
-    birth_date,
-    cedula,
-    email,
-    first_name,
-    gender,
-    last_name,
-    phone
-) VALUES (
-    '1985-08-22',           -- Fecha de nacimiento
-    '1101122334',           -- Cédula
-    'maria.lopez@example.com', -- Email
-    'María',                -- Nombre
-    'Femenino',             -- Género
-    'López',                -- Apellido
-    '0987654321'            -- Teléfono
-);
-
-INSERT INTO role_permission (
-    role_id,
-    permission_id
-) VALUES (
-    2,     -- ID del rol (por ejemplo, Médico)
-    5      -- ID del permiso (por ejemplo, WRITE sobre vital_sign)
+  'jostin', 'securePassword123', 2, 2
 );
 
 

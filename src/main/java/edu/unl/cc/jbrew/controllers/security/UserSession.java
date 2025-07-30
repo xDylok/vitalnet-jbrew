@@ -46,19 +46,6 @@ public class UserSession implements java.io.Serializable{
         logger.info("Permisos cargados para el usuario: " + permisos.size());
     }
 
-    public boolean hasPermissionForPage(String pagePath) {
-        return hasPermission(pagePath, ActionType.READ);
-    }
-
-    public boolean hasPermission(String resource, ActionType action) {
-        if (user == null || user.getRole() == null || user.getRole().getPermissions() == null) {
-            return false;
-        }
-
-        return user.getRole().getPermissions().stream()
-                .anyMatch(permission -> permission.matchWith(resource, action));
-    }
-
     public User getUser() {
         return user;
     }

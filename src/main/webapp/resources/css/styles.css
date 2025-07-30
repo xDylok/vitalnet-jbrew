@@ -51,7 +51,7 @@ body {
     background-color: rgba(255, 255, 255, 1);
 }
 
-.card-user-edit, .card-pacientes {
+.card-user-edit{
     max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem;
@@ -60,6 +60,37 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
+.containerAggPAcientes {
+
+}
+.card-pacientes{
+    max-width: 100cm;
+    width: 39cm;
+    height: 17cm;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.panelDPacientes {
+    background-color: #1768AC;
+    border-radius: 10px;
+    padding: 20px;
+    height: 380px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+    margin-bottom: 20px;
+    width: 15cm;
+}
+.panelRSignosVitales{
+    background-color: #1768AC;
+    border-radius: 10px;
+    padding: 20px;
+    height: 350px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+    margin-bottom: 20px;
+    width: 20cm;
+}
 .cardLogin {
     max-width: 800rem;
     width: 15.2cm;
@@ -236,7 +267,7 @@ ul.bullets li p {
     -moz-user-select: none !important;
     -ms-user-select: none !important;
 }
-.indexLogin-page .centered-card {
+.menu-page .centered-card {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;

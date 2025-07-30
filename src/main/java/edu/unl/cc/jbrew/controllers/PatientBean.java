@@ -1,11 +1,8 @@
 package edu.unl.cc.jbrew.controllers;
 
-import edu.unl.cc.jbrew.bussiness.services.PatientRepository;
-import edu.unl.cc.jbrew.controllers.security.UserSession;
 import edu.unl.cc.jbrew.domain.security.Patient;
 import edu.unl.cc.jbrew.faces.FacesUtil;
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -51,7 +48,7 @@ public class PatientBean implements Serializable {
             list();
 
             FacesUtil.addSuccessMessageAndKeep("Aviso", "Paciente y signos vitales guardados");
-            return "patientList?faces-redirect=true";
+            return "listado-pacientes?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Error al crear paciente con signos vitales: " + e.getMessage());
             return null;
@@ -80,7 +77,7 @@ public class PatientBean implements Serializable {
             entityManager.merge(patient);
             list();
             FacesUtil.addSuccessMessageAndKeep("Aviso","Paciente actualizado correctamente");
-            return "patientList?faces-redirect=true";
+            return "listado-pacientes?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Inconveniente al actualizar paciente: " + e.getMessage());
             return null;
@@ -98,7 +95,7 @@ public class PatientBean implements Serializable {
             } else {
                 FacesUtil.addErrorMessage("Error","Paciente no encontrado");
             }
-            return "patientList?faces-redirect=true";
+            return "listado-pacientes?faces-redirect=true";
         } catch (Exception e) {
             FacesUtil.addErrorMessage("Error","Error al eliminar paciente: " + e.getMessage());
             return null;
@@ -111,10 +108,10 @@ public class PatientBean implements Serializable {
         } else {
             String lower = searchCriteria.toLowerCase();
             filteredPatients = patients.stream().filter(p ->
-                    (p.getFirstName() != null && p.getFirstName().toLowerCase().contains(lower)) ||
-                            (p.getLastName() != null && p.getLastName().toLowerCase().contains(lower)) ||
+                    (p.getNombres() != null && p.getNombres().toLowerCase().contains(lower)) ||
+                            (p.getApellidos() != null && p.getApellidos().toLowerCase().contains(lower)) ||
                             (p.getCedula() != null && p.getCedula().toLowerCase().contains(lower)) ||
-                            (p.getBirthDate() != null && p.getBirthDate().toString().contains(lower))
+                            (p.getFechaNacimiento() != null && p.getFechaNacimiento().toString().contains(lower))
             ).toList();
         }
     }

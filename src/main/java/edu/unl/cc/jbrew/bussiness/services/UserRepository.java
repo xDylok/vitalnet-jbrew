@@ -21,7 +21,7 @@ public class UserRepository {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "id_role")
     private Role role;
     @Transactional
     public User save(User user){
@@ -40,7 +40,7 @@ public class UserRepository {
     public User find(Long id) throws EntityNotFoundException {
         User user = entityManager.find(User.class, id);
         if (user == null){
-            throw new EntityNotFoundException("User no encontrado con [" + id + "]");
+            throw new EntityNotFoundException("User no encontrado con id:" + id);
         }
         return user;
     }

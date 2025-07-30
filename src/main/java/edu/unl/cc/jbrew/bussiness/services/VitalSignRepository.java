@@ -39,20 +39,6 @@ public class VitalSignRepository implements Serializable {
                 .setMaxResults(1)
                 .getSingleResult();
     }
-    public VitalSign find(Long id) {
-        return entityManager.find(VitalSign.class, id);
-    }
-
-    public List<VitalSign> findByPatient(Patient patient) {
-        return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.patient = :patient ORDER BY v.fechaRegistro DESC", VitalSign.class)
-                .setParameter("patient", patient)
-                .getResultList();
-    }
-    public List<VitalSign> findVitalSignsByPatientId(Long patientId) {
-        return entityManager.createQuery("SELECT v FROM VitalSign v WHERE v.patient.id = :id ORDER BY v.fechaRegistro DESC", VitalSign.class)
-                .setParameter("id", patientId)
-                .getResultList();
-    }
 
     public VitalSign save(VitalSign sign) {
         if (sign.getId() == null) {
